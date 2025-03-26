@@ -1,0 +1,12 @@
+﻿{
+  "codeSamples": true,
+  "language_tabs": [
+    { "shell": "Shell" },
+    { "javascript": "JavaScript" },
+    { "python": "Python" },
+    { "ruby": "Ruby" },
+    { "go": "Go" }
+  ],
+  "sample": true,
+  "omitHeader": true
+}

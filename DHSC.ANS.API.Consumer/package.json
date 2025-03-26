@@ -1,0 +1,20 @@
+{
+  "name": "dhsc.ans.api.consumer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "openapi-to-md": "^1.0.25",
+    "swagger-markdown": "^2.3.2",
+    "swagger-to-markdown": "^0.3.1"
+  },
+  "dependencies": {
+    "widdershins": "^4.0.1"
+  }
+}

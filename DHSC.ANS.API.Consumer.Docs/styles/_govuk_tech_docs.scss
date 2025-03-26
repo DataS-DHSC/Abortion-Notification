@@ -1,0 +1,35 @@
+// Constructed from the GOVUK Tech Docs GEM available at https://github.com/alphagov/tech-docs-gem
+
+// IE8 support is removed in govuk-frontend v5
+// but as we still use IE8 mixin and generate a
+// separate stylesheet, we'll supress the warning for now
+// https://frontend.design-system.service.gov.uk/sass-api-reference/#govuk-suppressed-warnings
+$govuk-suppressed-warnings: (
+  ie8
+);
+
+$govuk-assets-path: "/assets/" !default;
+
+// Include only the bits of GOV.UK Frontend we need
+$govuk-new-link-styles: true;
+
+@import "../node_modules/govuk-frontend/dist/govuk/base";
+
+@import "../node_modules/govuk-frontend/dist/govuk/core/index";
+@import "../node_modules/govuk-frontend/dist/govuk/objects/index";
+
+@import "../node_modules/govuk-frontend/dist/govuk/components/footer/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/header/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/inset-text/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/input/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/tag/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/skip-link/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/warning-text/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/tabs/index";
+@import "../node_modules/govuk-frontend/dist/govuk/components/table/index";
+
+@import "../node_modules/govuk-frontend/dist/govuk/utilities/index";
+@import "../node_modules/govuk-frontend/dist/govuk/overrides/index";
+
+@import "core";
+@import "vendor/fixedsticky";

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\DHSC.ANS.API.Internal.props" />
+</Project>

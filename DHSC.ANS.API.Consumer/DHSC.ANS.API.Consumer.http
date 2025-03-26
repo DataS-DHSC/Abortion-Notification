@@ -1,0 +1,6 @@
+@DHSC.ANS.API.Consumer_HostAddress = http://localhost:5002
+
+GET {{DHSC.ANS.API.Consumer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
