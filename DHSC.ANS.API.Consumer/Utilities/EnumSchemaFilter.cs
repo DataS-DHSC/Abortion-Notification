@@ -2,6 +2,8 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
+namespace DHSC.ANS.API.Consumer.Utilities;
+
 public class EnumSchemaFilter : ISchemaFilter
 {
 	public void Apply(OpenApiSchema schema, SchemaFilterContext context)

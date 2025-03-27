@@ -2,7 +2,7 @@
   "openapi": "3.0.4",
   "info": {
     "title": "DHSC.ANS.API.Consumer",
-    "description": "Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, **within 14 days** of the termination.\r\n\r\n## Contact Details\r\n\r\nFor England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.\r\n\r\nFor Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.\r\n\r\nIf you require further information on completing HSA4 forms, telephone **020 7972 5541** or email [abortion.statistics@dhsc.gov.uk](mailto:abortion.statistics@dhsc.gov.uk).\r\n\r\n",
+    "description": "Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, **within 14 days** of the termination.",
     "contact": {
       "name": "DHSC",
       "url": "https://www.gov.uk"
@@ -326,14 +326,17 @@
           "gmcNumber": {
             "minLength": 1,
             "pattern": "^\\d{7}$",
-            "type": "string"
+            "type": "string",
+            "x-restrictions": "Valid 7 digit GMC Reference"
           },
           "dateOfSignature": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "x-restrictions": "YYYY-MM-DDTHH:MM:SSZ  (UTC time)"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Practitioner Information - Section 1\r\nRequired information:\r\n- Full name of the practitioner.\r\n- Address of the practitioner.\r\n- GMC number (7 digits).\r\n- Date of signature.\r\nFor further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)\n<p>\r\n<strong>Section 1: Practitioner Terminating the Pregnancy</strong>\r\n</p>\r\n<p>\r\nYou must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.\r\n</p>\r\n<p>\r\nThe address stated does not have to be the one shown on the GMC’s annual registration certificate. \r\nHowever, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.\r\n</p>\r\n<p>\r\nIn cases of medical termination, details of the terminating practitioner must be provided, \r\neven if the practitioner has been unable to confirm that the pregnancy has been terminated. \r\nFor more information, refer to \r\n<a href=\"https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details\" target=\"_blank\">Section 4: Treatment Details</a> in the guidance document.\r\n</p>\r\n<p>\r\nProviding practitioner details constitutes a signed declaration of the following statement \r\n(as found on the paper form):  \r\n</p>\r\n<blockquote>\r\nHereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, \r\nthe particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) \r\nin giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.\r\n</blockquote>\r\n<p>\r\nForms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number \r\ncannot be found on the GMC register.\r\n</p>\r\n<p>\r\nFor <a href=\"https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales\" target=\"_blank\">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> \r\nis the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href=\"https://bnf.nice.org.uk/drugs/mifepristone/\" target=\"_blank\">Mifepristone</a> or <a href=\"https://bnf.nice.org.uk/drugs/misoprostol/\" target=\"_blank\">Misoprostol</a>.\r\n</p>"
       },
       "PregnancyDetailsDto": {
         "required": [

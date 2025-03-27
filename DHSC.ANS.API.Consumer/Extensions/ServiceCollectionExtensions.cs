@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using Microsoft.Extensions.Options;
+using DHSC.ANS.API.Consumer.Utilities;
 
 namespace DHSC.ANS.API.Consumer.DependencyInjection;
 
@@ -32,7 +33,7 @@ public static class ServiceCollectionExtensions
 		var assembly = Assembly.GetExecutingAssembly();
 		const string resourceName = "DHSC.ANS.API.Consumer.Assets.Banner.md";
 
-		string bannerText = "API for submitting HSA4 Abortion Notification Forms."; // Fallback if resource not found
+		string bannerText = "API for submitting HSA4 Abortion Notification Forms."; 
 		var resourceStream = assembly.GetManifestResourceStream(resourceName);
 		if (resourceStream != null)
 		{
@@ -62,7 +63,9 @@ public static class ServiceCollectionExtensions
 				c.SchemaFilter<RemarksSchemaFilter>(xmlPath);
 			}
 
-			c.EnableAnnotations();
+            c.SchemaFilter<RestrictionsAttributeSchemaFilter>();
+
+            c.EnableAnnotations();
 		});
 
 		return services;

@@ -167,13 +167,9 @@
 <p class='govuk-body-m'>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
 <p class='govuk-body-m'>Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, <strong>within 14 days</strong> of the termination.</p>
-<h2 id="contact-details">Contact Details</h2>
-<p class='govuk-body-m'>For England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.</p>
-<p class='govuk-body-m'>For Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.</p>
-<p class='govuk-body-m'>If you require further information on completing HSA4 forms, telephone <strong>020 7972 5541</strong> or email <a href="mailto:abortion.statistics@dhsc.gov.uk">abortion.statistics@dhsc.gov.uk</a>.</p>
 <p class='govuk-body-m'>Web: <a href="https://www.gov.uk">DHSC</a></p>
 <h1 id="dhsc-ans-api-consumer-hsa4form">HSA4Form</h1>
-<h2 id="submit-a-new-hsa4-abortion-notification-form">Submit a new HSA4 abortion notification form.</h2>
+<h2 id="post_api_hsa4form">post__api_HSA4Form</h2>
 <blockquote class="blockquote">
 <p class='govuk-body-m'>Code samples</p>
 </blockquote>
@@ -317,6 +313,7 @@ func main() {
 
 
 <p class='govuk-body-m'><code>POST /api/HSA4Form</code></p>
+<p class='govuk-body-m'><em>Submit a new HSA4 abortion notification form.</em></p>
 <p class='govuk-body-m'>This endpoint accepts a JSON payload representing the HSA4 form. All required fields as per the Abortion Act 1967 notification requirements must be provided.</p>
 <p class='govuk-body-m'>Refer to the guidance document: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms">Guidance note for completing HSA4 paper forms</a> for detailed information on how to complete the form correctly.</p>
 <blockquote class="blockquote">
@@ -393,7 +390,7 @@ func main() {
   }
 }
 </code></pre>
-<h3 id="submit-a-new-hsa4-abortion-notification-form.-parameters">Parameters</h3>
+<h3 id="post__api_hsa4form-parameters">Parameters</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -414,7 +411,7 @@ func main() {
 </tr>
 </tbody>
 </table>
-<h3 id="submit-a-new-hsa4-abortion-notification-form.-responses">Responses</h3>
+<h3 id="post__api_hsa4form-responses">Responses</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1020,7 +1017,7 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'><a href="#schemapractitionerinfodto">PractitionerInfoDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a><br><p class='govuk-body-m'><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p class='govuk-body-m'><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p class='govuk-body-m'><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p class='govuk-body-m'><br>In cases of medical termination, details of the terminating practitioner must be provided, <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated. <br>For more information, refer to <br><a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.<br></p><br><p class='govuk-body-m'><br>Providing practitioner details constitutes a signed declaration of the following statement <br>(as found on the paper form):  <br></p><br><blockquote><br>Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, <br>the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) <br>in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.<br></blockquote><br><p class='govuk-body-m'><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p class='govuk-body-m'><br>For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.<br></p></td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>certification</td>
@@ -1345,6 +1342,48 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 }
 
 </code></pre>
+<p class='govuk-body-m'>Practitioner Information - Section 1
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Full name of the practitioner.</li>
+<li>Address of the practitioner.</li>
+<li>GMC number (7 digits).</li>
+<li>Date of signature.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a></li>
+</ul>
+<p class='govuk-body-m'>
+<strong>Section 1: Practitioner Terminating the Pregnancy</strong>
+</p>
+<p class='govuk-body-m'>
+You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.
+</p>
+<p class='govuk-body-m'>
+The address stated does not have to be the one shown on the GMC’s annual registration certificate. 
+However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.
+</p>
+<p class='govuk-body-m'>
+In cases of medical termination, details of the terminating practitioner must be provided, 
+even if the practitioner has been unable to confirm that the pregnancy has been terminated. 
+For more information, refer to 
+<a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.
+</p>
+<p class='govuk-body-m'>
+Providing practitioner details constitutes a signed declaration of the following statement 
+(as found on the paper form):  
+</p>
+<blockquote>
+Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, 
+the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) 
+in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.
+</blockquote>
+<p class='govuk-body-m'>
+Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number 
+cannot be found on the GMC register.
+</p>
+<p class='govuk-body-m'>
+For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> 
+is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.
+</p>
 <h3 id="properties-12">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
@@ -1375,14 +1414,14 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>gmcNumber</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Valid 7 digit GMC Reference</td>
 <td class='govuk-table__cell'>none</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>dateOfSignature</td>
 <td class='govuk-table__cell'>string(date-time)</td>
 <td class='govuk-table__cell'>true</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ  (UTC time)</td>
 <td class='govuk-table__cell'>none</td>
 </tr>
 </tbody>
@@ -1628,6 +1667,7 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 </tr>
 </tbody>
 </table>
+<p class='govuk-body-m'>undefined</p>
 </body></html>
                     </main>
 

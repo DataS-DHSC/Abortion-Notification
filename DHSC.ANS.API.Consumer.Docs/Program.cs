@@ -60,12 +60,13 @@ namespace DHSC.ANS.API.Consumer.Docs
 		{
 			Console.WriteLine("Running Widdershins to generate documentation...");
 
-			var widdershinsPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "node_modules/widdershins/widdershins.js"));
-			var swaggerJsonPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../DHSC.ANS.API.Consumer/bin/Debug/net9.0/swagger.json"));
+            //var widdershinsPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "node_modules/widdershins/widdershins.js"));
+            var widdershinsPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "widdershins/widdershins.js"));
+            var swaggerJsonPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "../DHSC.ANS.API.Consumer/swagger.json"));
 			var markdownOutputPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "input/reference.md"));
 			var widdershinsConfigPath = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "widdershins/widdershins-config.json"));
 
-			var args = $"{widdershinsPath} --e \"{widdershinsConfigPath}\" --summary \"{swaggerJsonPath}\" -o \"{markdownOutputPath}\"";
+			var args = $"{widdershinsPath} \"{swaggerJsonPath}\" \"{markdownOutputPath}\"";
 
 			var processStartInfo = new ProcessStartInfo
 			{

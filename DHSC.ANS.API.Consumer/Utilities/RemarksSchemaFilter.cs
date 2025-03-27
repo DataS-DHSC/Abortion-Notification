@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml.XPath;
 
+namespace DHSC.ANS.API.Consumer.Utilities;
+
 public class RemarksSchemaFilter : ISchemaFilter
 {
 	private readonly XPathDocument _xmlDoc;
@@ -18,7 +20,7 @@ public class RemarksSchemaFilter : ISchemaFilter
 	{
 		// Attempt to find <remarks> for the class.
 		var type = context.Type;
-		var typeFullName = type.FullName; // e.g. "MyNamespace.PractitionerInfoDto"
+		var typeFullName = type.FullName; 
 
 		// Construct an XPath to get <remarks> node for the type.
 		string xpath = $"/doc/members/member[@name='T:{typeFullName}']/remarks";

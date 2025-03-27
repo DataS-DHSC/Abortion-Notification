@@ -6,19 +6,11 @@
 
 Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, **within 14 days** of the termination.
 
-## Contact Details
-
-For England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.
-
-For Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.
-
-If you require further information on completing HSA4 forms, telephone **020 7972 5541** or email [abortion.statistics@dhsc.gov.uk](mailto:abortion.statistics@dhsc.gov.uk).
-
 Web: <a href="https://www.gov.uk">DHSC</a> 
 
 <h1 id="dhsc-ans-api-consumer-hsa4form">HSA4Form</h1>
 
-## Submit a new HSA4 abortion notification form.
+## post__api_HSA4Form
 
 > Code samples
 
@@ -173,6 +165,8 @@ func main() {
 
 `POST /api/HSA4Form`
 
+*Submit a new HSA4 abortion notification form.*
+
 This endpoint accepts a JSON payload representing the HSA4 form. All required fields as per the Abortion Act 1967 notification requirements must be provided.
 
 Refer to the guidance document: [Guidance note for completing HSA4 paper forms](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms) for detailed information on how to complete the form correctly.
@@ -252,13 +246,13 @@ Refer to the guidance document: [Guidance note for completing HSA4 paper forms](
 }
 ```
 
-<h3 id="submit-a-new-hsa4-abortion-notification-form.-parameters">Parameters</h3>
+<h3 id="post__api_hsa4form-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |body|body|[HSA4FormDto](#schemahsa4formdto)|false|none|
 
-<h3 id="submit-a-new-hsa4-abortion-notification-form.-responses">Responses</h3>
+<h3 id="post__api_hsa4form-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
@@ -611,7 +605,7 @@ For further details, see: [HSA4 Form Guidance](https://www.gov.uk/government/pub
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|practitioner|[PractitionerInfoDto](#schemapractitionerinfodto)|true|none|none|
+|practitioner|[PractitionerInfoDto](#schemapractitionerinfodto)|true|none|Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)<br><p><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p><br>In cases of medical termination, details of the terminating practitioner must be provided, <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated. <br>For more information, refer to <br><a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.<br></p><br><p><br>Providing practitioner details constitutes a signed declaration of the following statement <br>(as found on the paper form):  <br></p><br><blockquote><br>Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, <br>the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) <br>in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.<br></blockquote><br><p><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p><br>For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.<br></p>|
 |certification|[CertificationInfoDto](#schemacertificationinfodto)|true|none|Certification Information - Section 2 (Non-Emergency Cases)<br>Required information:<br>- Names and addresses of two certifying doctors.<br>- Indicate if the performing doctor was a signatory.<br>For further details, see: [Certification Information - Section 2](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)|
 |patient|[PatientDetailsDto](#schemapatientdetailsdto)|true|none|Patient's Details - Section 3<br>Required information:<br>- Patient's hospital number and NHS number (if available).<br>- Full name, date of birth, address, and postcode.<br>- Country of residence, ethnic group, and marital status.<br>- Number of previous live births over 24 weeks, miscarriages, and terminations.<br>For further details, see: [Patient's Details - Section 3](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3)|
 |treatment|[TreatmentDetailsDto](#schematreatmentdetailsdto)|true|none|Treatment Details - Section 4<br>Required information:<br>- Treatment location, dates of termination, admission, and discharge.<br>- Type of procedure performed (medical or surgical).<br>- Funding type (NHS, Private).<br>For further details, see: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4)|
@@ -750,14 +744,55 @@ For further details, see: [Patient's Details - Section 3](https://www.gov.uk/gov
 
 ```
 
+Practitioner Information - Section 1
+Required information:
+- Full name of the practitioner.
+- Address of the practitioner.
+- GMC number (7 digits).
+- Date of signature.
+For further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)
+<p>
+<strong>Section 1: Practitioner Terminating the Pregnancy</strong>
+</p>
+<p>
+You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.
+</p>
+<p>
+The address stated does not have to be the one shown on the GMC’s annual registration certificate. 
+However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.
+</p>
+<p>
+In cases of medical termination, details of the terminating practitioner must be provided, 
+even if the practitioner has been unable to confirm that the pregnancy has been terminated. 
+For more information, refer to 
+<a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.
+</p>
+<p>
+Providing practitioner details constitutes a signed declaration of the following statement 
+(as found on the paper form):  
+</p>
+<blockquote>
+Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, 
+the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) 
+in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.
+</blockquote>
+<p>
+Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number 
+cannot be found on the GMC register.
+</p>
+<p>
+For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> 
+is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.
+</p>
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |fullName|string|true|none|none|
 |address|string|true|none|none|
-|gmcNumber|string|true|none|none|
-|dateOfSignature|string(date-time)|true|none|none|
+|gmcNumber|string|true|Valid 7 digit GMC Reference|none|
+|dateOfSignature|string(date-time)|true|YYYY-MM-DDTHH:MM:SSZ  (UTC time)|none|
 
 <h2 id="tocS_PregnancyDetailsDto">PregnancyDetailsDto</h2>
 <!-- backwards compatibility -->
@@ -865,4 +900,6 @@ For further details, see: [Treatment Details - Section 4](https://www.gov.uk/gov
 |surgicalMethod|string¦null|false|none|none|
 |administrationSetting|[AdministrationSetting](#schemaadministrationsetting)|false|none|Enumeration representing the administration setting of the treatment.<br>Refer to guidance: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details)|
 |serviceProviderOrganisation|string¦null|false|none|If partial or all medicines are administered off-site, specify the provider's organisation.|
+
+undefined
 

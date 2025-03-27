@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DHSC.ANS.API.Consumer.Enums;
+using DHSC.ANS.API.Consumer.Utilities;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace DHSC.ANS.API.Consumer.DTOs
@@ -87,7 +88,6 @@ namespace DHSC.ANS.API.Consumer.DTOs
     /// However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.
     /// </para>
     /// <para>
-    /// <para>
     /// In cases of medical termination, details of the terminating practitioner must be provided, 
     /// even if the practitioner has been unable to confirm that the pregnancy has been terminated. 
     /// For more information, refer to 
@@ -111,7 +111,6 @@ namespace DHSC.ANS.API.Consumer.DTOs
     /// is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the [Mifepristone](https://bnf.nice.org.uk/drugs/mifepristone/) or [Misoprostol](https://bnf.nice.org.uk/drugs/misoprostol/).
     /// </para>
     /// </remarks>
-
     public class PractitionerInfoDto
 	{
 		[Required]
@@ -121,10 +120,12 @@ namespace DHSC.ANS.API.Consumer.DTOs
 		public required string Address { get; set; }
 
 		[Required, RegularExpression(@"^\d{7}$")]
-		public required string GmcNumber { get; set; }
+        [RestrictionsAttribute("Valid 7 digit GMC Reference")]
+        public required string GmcNumber { get; set; }
 
 		[Required]
-		public required DateTime DateOfSignature { get; set; }
+        [RestrictionsAttribute("YYYY-MM-DDTHH:MM:SSZ  (UTC time)")]
+        public required DateTime DateOfSignature { get; set; }
 	}
 
 	// ------------------------------------------------------------------------
