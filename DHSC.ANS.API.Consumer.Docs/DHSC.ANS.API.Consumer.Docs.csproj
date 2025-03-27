@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="input\styles\**" />
+    <EmbeddedResource Remove="input\styles\**" />
+    <None Remove="input\styles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="input\layouts\_Layout.cshtml" />
   </ItemGroup>
 
@@ -20,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="input\styles\" />
     <Folder Include="output\" />
     <Folder Include="temp\" />
   </ItemGroup>

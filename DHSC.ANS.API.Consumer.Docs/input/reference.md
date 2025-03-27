@@ -611,7 +611,7 @@ For further details, see: [HSA4 Form Guidance](https://www.gov.uk/government/pub
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|practitioner|[PractitionerInfoDto](#schemapractitionerinfodto)|true|none|Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)<br><p><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p><br>You must also complete the declaration, as appropriate. In the case of medical terminations, the form must be signed <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated (see <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: treatment details</a> in the guidanace document).<br></p><br><p><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p><br>For medical abortions, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the mifepristone.<br></p>|
+|practitioner|[PractitionerInfoDto](#schemapractitionerinfodto)|true|none|none|
 |certification|[CertificationInfoDto](#schemacertificationinfodto)|true|none|Certification Information - Section 2 (Non-Emergency Cases)<br>Required information:<br>- Names and addresses of two certifying doctors.<br>- Indicate if the performing doctor was a signatory.<br>For further details, see: [Certification Information - Section 2](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)|
 |patient|[PatientDetailsDto](#schemapatientdetailsdto)|true|none|Patient's Details - Section 3<br>Required information:<br>- Patient's hospital number and NHS number (if available).<br>- Full name, date of birth, address, and postcode.<br>- Country of residence, ethnic group, and marital status.<br>- Number of previous live births over 24 weeks, miscarriages, and terminations.<br>For further details, see: [Patient's Details - Section 3](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3)|
 |treatment|[TreatmentDetailsDto](#schematreatmentdetailsdto)|true|none|Treatment Details - Section 4<br>Required information:<br>- Treatment location, dates of termination, admission, and discharge.<br>- Type of procedure performed (medical or surgical).<br>- Funding type (NHS, Private).<br>For further details, see: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4)|
@@ -749,36 +749,6 @@ For further details, see: [Patient's Details - Section 3](https://www.gov.uk/gov
 }
 
 ```
-
-Practitioner Information - Section 1
-Required information:
-- Full name of the practitioner.
-- Address of the practitioner.
-- GMC number (7 digits).
-- Date of signature.
-For further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)
-<p>
-<strong>Section 1: Practitioner Terminating the Pregnancy</strong>
-</p>
-<p>
-You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.
-</p>
-<p>
-The address stated does not have to be the one shown on the GMC’s annual registration certificate. 
-However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.
-</p>
-<p>
-You must also complete the declaration, as appropriate. In the case of medical terminations, the form must be signed 
-even if the practitioner has been unable to confirm that the pregnancy has been terminated (see <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: treatment details</a> in the guidanace document).
-</p>
-<p>
-Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number 
-cannot be found on the GMC register.
-</p>
-<p>
-For medical abortions, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> 
-is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the mifepristone.
-</p>
 
 ### Properties
 
