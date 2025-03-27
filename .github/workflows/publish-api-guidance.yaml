@@ -1,4 +1,4 @@
-name: publish-api-guidance
+name: Publish API Guidance
 
 on:
   push:
@@ -12,37 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout main branch
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          ref: main
 
-      - name: Configure Git
+      - name: Copy output folder to temporary location
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
-
-      - name: Switch to api-guidance branch
+          mkdir -p /tmp/api-guidance-output
+          cp -R DHSC.ANS.API.Consumer.Docs/output/* /tmp/api-guidance-output/
+      
+      - name: Checkout or create api-guidance branch
         run: |
-          if git show-ref --quiet refs/heads/api-guidance; then
+          if git rev-parse --verify api-guidance; then
             git checkout api-guidance
           else
             git checkout --orphan api-guidance
-            git rm -rf .
           fi
 
-      - name: Copy API Guidance Output
+      - name: Remove existing files in api-guidance branch
         run: |
-          # Remove all files from the branch
-          git rm -rf . || echo "No files to remove"
-          # Copy all files from the output folder to the root of the branch
-          cp -R DHSC.ANS.API.Consumer.Docs/output/* .
-          # Stage all files
-          git add .
-          # Commit changes if there are any
-          git commit -m "Update API Guidance" || echo "No changes to commit"
+          git rm -rf . || true
 
-      - name: Push Changes
+      - name: Copy files from temporary location to branch
+        run: |
+          cp -R /tmp/api-guidance-output/* .
+      
+      - name: Stage and commit changes
+        run: |
+          git add .
+          git commit -m "Update API Guidance" || echo "No changes to commit"
+      
+      - name: Push changes to api-guidance branch
         run: |
           git push --force --set-upstream origin api-guidance
         env:
