@@ -1,4 +1,4 @@
-name: Publish API Guidance
+name: transfer-latest-api-guidance
 
 on:
   push:
@@ -10,26 +10,28 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           ref: main
+          fetch-depth: 0
 
       - name: Copy output folder to temporary location
         run: |
           mkdir -p /tmp/api-guidance-output
           cp -R DHSC.ANS.API.Consumer.Docs/output/* /tmp/api-guidance-output/
-      
-      - name: Checkout or create api-guidance branch
+
+      - name: Checkout api-guidance branch
         run: |
-          if git rev-parse --verify api-guidance; then
+          if git show-ref --quiet refs/heads/api-guidance; then
             git checkout api-guidance
           else
-            git checkout --orphan api-guidance
+            echo "Branch api-guidance does not exist. Exiting."
+            exit 1
           fi
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
 
       - name: Remove existing files in api-guidance branch
         run: |
@@ -38,12 +40,12 @@ jobs:
       - name: Copy files from temporary location to branch
         run: |
           cp -R /tmp/api-guidance-output/* .
-      
+
       - name: Stage and commit changes
         run: |
           git add .
           git commit -m "Update API Guidance" || echo "No changes to commit"
-      
+
       - name: Push changes to api-guidance branch
         run: |
           git push --force --set-upstream origin api-guidance
