@@ -1,0 +1,71 @@
+@using System.Linq
+@using System.Collections.Generic
+@using Statiq.Common
+
+@{
+    var headings = Model.ContainsKey("Headings") ? Model["Headings"] as IEnumerable<dynamic> : null;
+}
+
+@functions {
+    string GetValue(dynamic heading, string key, string defaultValue)
+    {
+        if (heading is IReadOnlyDictionary<string, object> dict && dict.ContainsKey(key))
+        {
+            return dict[key]?.ToString() ?? defaultValue;
+        }
+        return defaultValue;
+    }
+
+    dynamic GetChildren(dynamic heading)
+    {
+        if (heading is IReadOnlyDictionary<string, object> dict && dict.ContainsKey("Children"))
+        {
+            return dict["Children"];
+        }
+        return null;
+    }
+
+    void RenderToc(dynamic headings)
+    {
+        if (headings == null || !((IEnumerable<dynamic>)headings).Any())
+        {
+            return;
+        }
+        <ul class="table-of-contents">
+            @foreach (var heading in headings)
+            {
+                var headingId = GetValue(heading, "HeadingId", "");
+                var headingKey = GetValue(heading, "HeadingKey", "");
+                if (!string.IsNullOrWhiteSpace(headingId) && !string.IsNullOrWhiteSpace(headingKey))
+                {
+                    <li class="toc-level-@(GetValue(heading, "Level", ""))">
+                        <a href="#@(headingId)"><span>@headingKey</span></a>
+                        @{
+                            var children = GetChildren(heading);
+                            if (children.Count > 1) {
+                                RenderToc(GetChildren(heading)); 
+                            }
+                        }
+                    </li>
+                }
+                else
+                {
+                    var children = GetChildren(heading);
+                    if (children.Count > 1)
+                    {
+                        RenderToc(GetChildren(heading));
+                    }
+                }
+            }
+        </ul>
+    }
+}
+
+<div class="app-pane__toc">
+    <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents">
+        <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
+        <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
+            @{ RenderToc(headings); }
+        </nav>
+    </div>
+</div>

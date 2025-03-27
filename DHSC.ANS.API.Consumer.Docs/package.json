@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "govuk-frontend": "^5.9.0",
+        "sass": "^1.86.0",
+        "widdershins": "^4.0.1"
+    }
+}

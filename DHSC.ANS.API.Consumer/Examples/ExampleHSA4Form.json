@@ -1,0 +1,72 @@
+{
+	"practitioner": {
+		"fullName": "Dr. Jane Smith",
+		"address": "123 Clinic Road, London SW1A 1AA",
+		"gmcNumber": "1234567",
+		"dateOfSignature": "2025-03-20"
+	},
+	"certification": {
+		"certifyingDoctor1Name": "Dr. John Doe",
+		"certifyingDoctor1Address": "456 Hospital St, London",
+		"certifyingDoctor2Name": "Dr. Jane Smith",
+		"certifyingDoctor2Address": "123 Clinic Road, London",
+		"performingDoctorWasSignatory": true
+	},
+	"patient": {
+		"hospitalNumber": "H123456",
+		"nhsNumber": "",
+		"fullName": "",
+		"dateOfBirth": "1990-05-15",
+		"postcode": "EC1A 1BB",
+		"address": "",
+		"countryOfResidence": "UK",
+		"ethnicGroup": "White_British",
+		"maritalStatus": "Married",
+		"previousLiveBirthsOver24Weeks": 1,
+		"previousMiscarriages": 0,
+		"previousTerminations": 0
+	},
+	"treatment": {
+		"placeOfTerminationName": "Central Hospital",
+		"placeOfTerminationAddress": "456 Hospital St, London",
+		"funding": "NHS",
+		"feticideDate": null,
+		"feticideMethod": null,
+		"terminationDate": "2025-03-10",
+		"admissionDate": "2025-03-10",
+		"dischargeDate": "2025-03-10",
+		"surgicalMethod": "Vacuum aspiration",
+		"antiprogesteroneDate": null,
+		"prostaglandinDate": null,
+		"terminationConfirmedDate": null,
+		"otherMedicationUsed": null,
+		"administrationSetting": "AllInClinic",
+		"anyConsultationFaceToFace": null,
+		"seenInPersonByOther": null,
+		"serviceProviderOrganisation": null
+	},
+	"pregnancy": {
+		"gestationWeeks": 12,
+		"gestationDays": null,
+		"grounds": [ "C" ],
+		"groundC_RiskToMentalHealth": true,
+		"groundC_PhysicalCondition": null,
+		"mainConditionForGroundsAorBorForG": "",
+		"groundE_FetalAbnormality": null,
+		"groundE_DiagnosisMethod": null,
+		"additionalInfo": ""
+	},
+	"selectiveTermination": null,
+	"chlamydiaScreening": {
+		"screeningOffered": true
+	},
+	"complications": {
+		"complications": [ "None" ],
+		"otherComplicationDetails": ""
+	},
+	"maternalDeath": {
+		"maternalDeathOccurred": false,
+		"dateOfDeath": null,
+		"causeOfDeath": null
+	}
+}

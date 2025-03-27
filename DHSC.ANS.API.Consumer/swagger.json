@@ -1,0 +1,449 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "DHSC.ANS.API.Consumer",
+    "description": "Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, **within 14 days** of the termination.\r\n\r\n## Contact Details\r\n\r\nFor England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.\r\n\r\nFor Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.\r\n\r\nIf you require further information on completing HSA4 forms, telephone **020 7972 5541** or email [abortion.statistics@dhsc.gov.uk](mailto:abortion.statistics@dhsc.gov.uk).\r\n\r\n",
+    "contact": {
+      "name": "DHSC",
+      "url": "https://www.gov.uk"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/api/HSA4Form": {
+      "post": {
+        "tags": [
+          "HSA4Form"
+        ],
+        "summary": "Submit a new HSA4 abortion notification form.",
+        "description": "\r\nThis endpoint accepts a JSON payload representing the HSA4 form. All required fields as per the Abortion Act 1967 notification requirements must be provided.\r\n\r\nRefer to the guidance document: [Guidance note for completing HSA4 paper forms](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms) for detailed information on how to complete the form correctly.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HSA4FormDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HSA4FormDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/HSA4FormDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Form successfully submitted."
+          },
+          "400": {
+            "description": "Validation failed."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbortionGround": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "description": "Enumeration representing the grounds for abortion, as specified by the HSA4 Guidance Notes.\r\nValid Grounds:\r\n- Risk to the life of the pregnant woman.\r\n- Preventing grave permanent injury to physical or mental health.\r\n- Preventing injury to health of the woman or existing children under 24 weeks.\r\n- Substantial risk of severe abnormality if the child were born.\r\n- Emergency to save life or prevent grave permanent injury.\r\nRefer to guidance: [Abortion Grounds - Section 5](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-5-gestation)",
+        "format": "int32"
+      },
+      "AdministrationSetting": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "description": "Enumeration representing the administration setting of the treatment.\r\nRefer to guidance: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details)",
+        "format": "int32"
+      },
+      "CertificationInfoDto": {
+        "required": [
+          "certifyingDoctor1Address",
+          "certifyingDoctor1Name",
+          "certifyingDoctor2Address",
+          "certifyingDoctor2Name"
+        ],
+        "type": "object",
+        "properties": {
+          "certifyingDoctor1Name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "certifyingDoctor1Address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "certifyingDoctor2Name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "certifyingDoctor2Address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "performingDoctorWasSignatory": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Certification Information - Section 2 (Non-Emergency Cases)\r\nRequired information:\r\n- Names and addresses of two certifying doctors.\r\n- Indicate if the performing doctor was a signatory.\r\nFor further details, see: [Certification Information - Section 2](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)"
+      },
+      "ChlamydiaInfoDto": {
+        "required": [
+          "screeningOffered"
+        ],
+        "type": "object",
+        "properties": {
+          "screeningOffered": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Chlamydia Screening - Section 8\r\nRequired Information:\r\n- Indication if screening for chlamydia was offered.\r\n- Response is mandatory for all cases.\r\nFor further details, see: [Chlamydia Screening - Section 8](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)"
+      },
+      "Complication": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "description": "Enumeration representing possible complications of the treatment.\r\nRefer to guidance: [Complications - Section 9](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9-complications)",
+        "format": "int32"
+      },
+      "ComplicationsInfoDto": {
+        "type": "object",
+        "properties": {
+          "complications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Complication"
+            },
+            "nullable": true
+          },
+          "otherComplicationDetails": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Complications - Section 9\r\nRequired Information:\r\n- List of complications experienced, if any.\r\n- Additional details if complications are not listed.\r\nFor further details, see: [Complications - Section 9](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9)"
+      },
+      "Ethnicity": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "description": "Enumeration representing the patient's ethnic group. Valid values are defined by the HSA4 Guidance Notes.\r\nRefer to guidance: [Patient's Details - Section 3](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details)",
+        "format": "int32"
+      },
+      "FundingType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "description": "Enumeration representing the funding type of the treatment.\r\nRefer to guidance: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details)",
+        "format": "int32"
+      },
+      "HSA4FormDto": {
+        "required": [
+          "certification",
+          "patient",
+          "practitioner",
+          "pregnancy",
+          "treatment"
+        ],
+        "type": "object",
+        "properties": {
+          "practitioner": {
+            "$ref": "#/components/schemas/PractitionerInfoDto"
+          },
+          "certification": {
+            "$ref": "#/components/schemas/CertificationInfoDto"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/PatientDetailsDto"
+          },
+          "treatment": {
+            "$ref": "#/components/schemas/TreatmentDetailsDto"
+          },
+          "pregnancy": {
+            "$ref": "#/components/schemas/PregnancyDetailsDto"
+          },
+          "selectiveTermination": {
+            "$ref": "#/components/schemas/SelectiveTerminationInfoDto"
+          },
+          "chlamydiaScreening": {
+            "$ref": "#/components/schemas/ChlamydiaInfoDto"
+          },
+          "complications": {
+            "$ref": "#/components/schemas/ComplicationsInfoDto"
+          },
+          "maternalDeath": {
+            "$ref": "#/components/schemas/MaternalDeathInfoDto"
+          }
+        },
+        "additionalProperties": false,
+        "description": "HSA4 Form DTO - Represents the entire form submission.\r\nThis object aggregates all the sections of the HSA4 form as specified by the official guidance.\r\nEach section is represented by a dedicated DTO.\r\nFor further details, see: [HSA4 Form Guidance](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)"
+      },
+      "MaritalStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "description": "Enumeration representing the patient's marital status.\r\nRefer to guidance: [Patient's Details - Section 3](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details)",
+        "format": "int32"
+      },
+      "MaternalDeathInfoDto": {
+        "type": "object",
+        "properties": {
+          "maternalDeathOccurred": {
+            "type": "boolean"
+          },
+          "dateOfDeath": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "causeOfDeath": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Death of Woman - Section 10\r\nRequired Information:\r\n- Indicate if a maternal death occurred.\r\n- Date and cause of death if applicable.\r\nFor further details, see: [Death of Woman - Section 10](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)"
+      },
+      "PatientDetailsDto": {
+        "required": [
+          "countryOfResidence",
+          "dateOfBirth",
+          "ethnicGroup",
+          "maritalStatus",
+          "previousLiveBirthsOver24Weeks",
+          "previousMiscarriages",
+          "previousTerminations"
+        ],
+        "type": "object",
+        "properties": {
+          "hospitalNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "nhsNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "postcode": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryOfResidence": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "ethnicGroup": {
+            "$ref": "#/components/schemas/Ethnicity"
+          },
+          "maritalStatus": {
+            "$ref": "#/components/schemas/MaritalStatus"
+          },
+          "previousLiveBirthsOver24Weeks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "previousMiscarriages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "previousTerminations": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Patient's Details - Section 3\r\nRequired information:\r\n- Patient's hospital number and NHS number (if available).\r\n- Full name, date of birth, address, and postcode.\r\n- Country of residence, ethnic group, and marital status.\r\n- Number of previous live births over 24 weeks, miscarriages, and terminations.\r\nFor further details, see: [Patient's Details - Section 3](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3)"
+      },
+      "PractitionerInfoDto": {
+        "required": [
+          "address",
+          "dateOfSignature",
+          "fullName",
+          "gmcNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "gmcNumber": {
+            "minLength": 1,
+            "pattern": "^\\d{7}$",
+            "type": "string"
+          },
+          "dateOfSignature": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Practitioner Information - Section 1\r\nRequired information:\r\n- Full name of the practitioner.\r\n- Address of the practitioner.\r\n- GMC number (7 digits).\r\n- Date of signature.\r\nFor further details, see: [Practitioner Information - Section 1](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)\n<p>\r\n<strong>Section 1: Practitioner Terminating the Pregnancy</strong>\r\n</p>\r\n<p>\r\nYou must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.\r\n</p>\r\n<p>\r\nThe address stated does not have to be the one shown on the GMC’s annual registration certificate. \r\nHowever, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.\r\n</p>\r\n<p>\r\nYou must also complete the declaration, as appropriate. In the case of medical terminations, the form must be signed \r\neven if the practitioner has been unable to confirm that the pregnancy has been terminated (see <a href=\"https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details\" target=\"_blank\">Section 4: treatment details</a> in the guidanace document).\r\n</p>\r\n<p>\r\nForms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number \r\ncannot be found on the GMC register.\r\n</p>\r\n<p>\r\nFor medical abortions, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> \r\nis the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the mifepristone.\r\n</p>"
+      },
+      "PregnancyDetailsDto": {
+        "required": [
+          "gestationWeeks",
+          "grounds"
+        ],
+        "type": "object",
+        "properties": {
+          "gestationWeeks": {
+            "maximum": 40,
+            "minimum": 4,
+            "type": "integer",
+            "format": "int32"
+          },
+          "gestationDays": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "grounds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbortionGround"
+            }
+          },
+          "mainConditionForGroundsAorBorForG": {
+            "type": "string",
+            "nullable": true
+          },
+          "groundC_RiskToMentalHealth": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "groundC_PhysicalCondition": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SelectiveTerminationInfoDto": {
+        "type": "object",
+        "properties": {
+          "originalFetusCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "remainingFetusCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Selective Termination - Section 7\r\nRequired Information:\r\n- Original number of fetuses before selective termination.\r\n- Number of fetuses remaining after the procedure.\r\nFor further details, see: [Selective Termination - Section 7](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)"
+      },
+      "TreatmentDetailsDto": {
+        "type": "object",
+        "properties": {
+          "placeOfTerminationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "placeOfTerminationAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "funding": {
+            "$ref": "#/components/schemas/FundingType"
+          },
+          "feticideDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "feticideMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "terminationDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "admissionDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "dischargeDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "surgicalMethod": {
+            "type": "string",
+            "nullable": true
+          },
+          "administrationSetting": {
+            "$ref": "#/components/schemas/AdministrationSetting"
+          },
+          "serviceProviderOrganisation": {
+            "type": "string",
+            "description": "If partial or all medicines are administered off-site, specify the provider's organisation.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Treatment Details - Section 4\r\nRequired information:\r\n- Treatment location, dates of termination, admission, and discharge.\r\n- Type of procedure performed (medical or surgical).\r\n- Funding type (NHS, Private).\r\nFor further details, see: [Treatment Details - Section 4](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4)"
+      }
+    }
+  }
+}

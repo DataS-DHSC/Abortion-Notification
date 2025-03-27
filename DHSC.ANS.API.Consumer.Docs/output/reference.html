@@ -1,0 +1,1727 @@
+<!doctype html>
+<html lang="en" class="govuk-template no-js">
+
+    <head>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>Abortion Notification Service - HSA4 Submission API</title>
+
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/atom-one-light.min.css" rel="stylesheet" />
+
+    <link rel="canonical" href='https://hsa4.api.ans.dhsc.gov.uk//'>
+    <link rel="icon" sizes="48x48" href="assets/images/favicon.ico">
+    <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="mask-icon" href="assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+    <link rel="apple-touch-icon" href="assets/images/govuk-icon-180.png">
+
+    <meta name="twitter:card" content='summary' />
+    <meta name="twitter:domain" content='hsa4.api.ans.dhsc.gov.uk/' />
+    <meta name="twitter:image" content='https://hsa4.api.ans.dhsc.gov.uk//assets/govuk/assets/images/govuk-opengraph-image.png' />
+    <meta name="twitter:title" content='About - Abortion Notification Service - HSA4 Submission API' />
+    <meta name="twitter:url" content='https://hsa4.api.ans.dhsc.gov.uk/' />
+
+    <meta property="og:image" content='https://hsa4.api.ans.dhsc.gov.uk//assets/govuk/assets/images/govuk-opengraph-image.png' />
+    <meta property="og:site_name" content='HSA4 Submission API' />
+    <meta property="og:title" content='About - Abortion Notification Service - HSA4 Submission API' />
+    <meta property="og:type" content='object' />
+    <meta property="og:url" content='https://hsa4.api.ans.dhsc.gov.uk/' />
+</head>
+
+    <body class="govuk-template__body">
+        <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+        <div class="app-pane">
+            <div class="app-pane__header toc-open-disabled">
+                <a href="#content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+                <header class="govuk-header app-header" role="banner" data-module="govuk-header">
+    <div class="govuk-header__container govuk-header__container--full-width">
+        <div class="govuk-header__logo">
+            <a href="./" class="govuk-header__link govuk-header__link--homepage">
+                <svg focusable="false"
+                        role="img"
+                        class="govuk-header__logotype"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 148 30"
+                        height="30"
+                        width="148"
+                        aria-label="GOV.UK">
+
+                    <title>GOV.UK</title>
+                    <path d="M22.6 10.4c-1 .4-2-.1-2.4-1-.4-.9.1-2 1-2.4.9-.4 2 .1 2.4 1s-.1 2-1 2.4m-5.9 6.7c-.9.4-2-.1-2.4-1-.4-.9.1-2 1-2.4.9-.4 2 .1 2.4 1s-.1 2-1 2.4m10.8-3.7c-1 .4-2-.1-2.4-1-.4-.9.1-2 1-2.4.9-.4 2 .1 2.4 1s0 2-1 2.4m3.3 4.8c-1 .4-2-.1-2.4-1-.4-.9.1-2 1-2.4.9-.4 2 .1 2.4 1s-.1 2-1 2.4M17 4.7l2.3 1.2V2.5l-2.3.7-.2-.2.9-3h-3.4l.9 3-.2.2c-.1.1-2.3-.7-2.3-.7v3.4L15 4.7c.1.1.1.2.2.2l-1.3 4c-.1.2-.1.4-.1.6 0 1.1.8 2 1.9 2.2h.7c1-.2 1.9-1.1 1.9-2.1 0-.2 0-.4-.1-.6l-1.3-4c-.1-.2 0-.2.1-.3m-7.6 5.7c.9.4 2-.1 2.4-1 .4-.9-.1-2-1-2.4-.9-.4-2 .1-2.4 1s0 2 1 2.4m-5 3c.9.4 2-.1 2.4-1 .4-.9-.1-2-1-2.4-.9-.4-2 .1-2.4 1s.1 2 1 2.4m-3.2 4.8c.9.4 2-.1 2.4-1 .4-.9-.1-2-1-2.4-.9-.4-2 .1-2.4 1s0 2 1 2.4m14.8 11c4.4 0 8.6.3 12.3.8 1.1-4.5 2.4-7 3.7-8.8l-2.5-.9c.2 1.3.3 1.9 0 2.7-.4-.4-.8-1.1-1.1-2.3l-1.2 4c.7-.5 1.3-.8 2-.9-1.1 2.5-2.6 3.1-3.5 3-1.1-.2-1.7-1.2-1.5-2.1.3-1.2 1.5-1.5 2.1-.1 1.1-2.3-.8-3-2-2.3 1.9-1.9 2.1-3.5.6-5.6-2.1 1.6-2.1 3.2-1.2 5.5-1.2-1.4-3.2-.6-2.5 1.6.9-1.4 2.1-.5 1.9.8-.2 1.1-1.7 2.1-3.5 1.9-2.7-.2-2.9-2.1-2.9-3.6.7-.1 1.9.5 2.9 1.9l.4-4.3c-1.1 1.1-2.1 1.4-3.2 1.4.4-1.2 2.1-3 2.1-3h-5.4s1.7 1.9 2.1 3c-1.1 0-2.1-.2-3.2-1.4l.4 4.3c1-1.4 2.2-2 2.9-1.9-.1 1.5-.2 3.4-2.9 3.6-1.9.2-3.4-.8-3.5-1.9-.2-1.3 1-2.2 1.9-.8.7-2.3-1.2-3-2.5-1.6.9-2.2.9-3.9-1.2-5.5-1.5 2-1.3 3.7.6 5.6-1.2-.7-3.1 0-2 2.3.6-1.4 1.8-1.1 2.1.1.2.9-.3 1.9-1.5 2.1-.9.2-2.4-.5-3.5-3 .6 0 1.2.3 2 .9l-1.2-4c-.3 1.1-.7 1.9-1.1 2.3-.3-.8-.2-1.4 0-2.7l-2.9.9C1.3 23 2.6 25.5 3.7 30c3.7-.5 7.9-.8 12.3-.8m28.3-11.6c0 .9.1 1.7.3 2.5.2.8.6 1.5 1 2.2.5.6 1 1.1 1.7 1.5.7.4 1.5.6 2.5.6.9 0 1.7-.1 2.3-.4s1.1-.7 1.5-1.1c.4-.4.6-.9.8-1.5.1-.5.2-1 .2-1.5v-.2h-5.3v-3.2h9.4V28H55v-2.5c-.3.4-.6.8-1 1.1-.4.3-.8.6-1.3.9-.5.2-1 .4-1.6.6s-1.2.2-1.8.2c-1.5 0-2.9-.3-4-.8-1.2-.6-2.2-1.3-3-2.3-.8-1-1.4-2.1-1.8-3.4-.3-1.4-.5-2.8-.5-4.3s.2-2.9.7-4.2c.5-1.3 1.1-2.4 2-3.4.9-1 1.9-1.7 3.1-2.3 1.2-.6 2.6-.8 4.1-.8 1 0 1.9.1 2.8.3.9.2 1.7.6 2.4 1s1.4.9 1.9 1.5c.6.6 1 1.3 1.4 2l-3.7 2.1c-.2-.4-.5-.9-.8-1.2-.3-.4-.6-.7-1-1-.4-.3-.8-.5-1.3-.7-.5-.2-1.1-.2-1.7-.2-1 0-1.8.2-2.5.6-.7.4-1.3.9-1.7 1.5-.5.6-.8 1.4-1 2.2-.3.8-.4 1.9-.4 2.7zM71.5 6.8c1.5 0 2.9.3 4.2.8 1.2.6 2.3 1.3 3.1 2.3.9 1 1.5 2.1 2 3.4s.7 2.7.7 4.2-.2 2.9-.7 4.2c-.4 1.3-1.1 2.4-2 3.4-.9 1-1.9 1.7-3.1 2.3-1.2.6-2.6.8-4.2.8s-2.9-.3-4.2-.8c-1.2-.6-2.3-1.3-3.1-2.3-.9-1-1.5-2.1-2-3.4-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2c.4-1.3 1.1-2.4 2-3.4.9-1 1.9-1.7 3.1-2.3 1.2-.5 2.6-.8 4.2-.8zm0 17.6c.9 0 1.7-.2 2.4-.5s1.3-.8 1.7-1.4c.5-.6.8-1.3 1.1-2.2.2-.8.4-1.7.4-2.7v-.1c0-1-.1-1.9-.4-2.7-.2-.8-.6-1.6-1.1-2.2-.5-.6-1.1-1.1-1.7-1.4-.7-.3-1.5-.5-2.4-.5s-1.7.2-2.4.5-1.3.8-1.7 1.4c-.5.6-.8 1.3-1.1 2.2-.2.8-.4 1.7-.4 2.7v.1c0 1 .1 1.9.4 2.7.2.8.6 1.6 1.1 2.2.5.6 1.1 1.1 1.7 1.4.6.3 1.4.5 2.4.5zM88.9 28 83 7h4.7l4 15.7h.1l4-15.7h4.7l-5.9 21h-5.7zm28.8-3.6c.6 0 1.2-.1 1.7-.3.5-.2 1-.4 1.4-.8.4-.4.7-.8.9-1.4.2-.6.3-1.2.3-2v-13h4.1v13.6c0 1.2-.2 2.2-.6 3.1s-1 1.7-1.8 2.4c-.7.7-1.6 1.2-2.7 1.5-1 .4-2.2.5-3.4.5-1.2 0-2.4-.2-3.4-.5-1-.4-1.9-.9-2.7-1.5-.8-.7-1.3-1.5-1.8-2.4-.4-.9-.6-2-.6-3.1V6.9h4.2v13c0 .8.1 1.4.3 2 .2.6.5 1 .9 1.4.4.4.8.6 1.4.8.6.2 1.1.3 1.8.3zm13-17.4h4.2v9.1l7.4-9.1h5.2l-7.2 8.4L148 28h-4.9l-5.5-9.4-2.7 3V28h-4.2V7zm-27.6 16.1c-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7-1.2-2.7-2.7-2.7z"></path>
+                </svg>
+        
+                <span class="govuk-header__product-name">ANS HSA4 Submission API</span>
+            </a>
+
+            <strong class="govuk-tag">Alpha</strong>
+        </div>
+
+        <div class="govuk-header__content">
+            <nav class="govuk-header__navigation govuk-header__navigation--end" aria-label="Menu">
+                <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" hidden>Menu</button>
+
+                <ul id="navigation" class="govuk-header__navigation-list">
+                    <li class="govuk-header__navigation-item">
+                        <a class="govuk-header__link" href="./getting-started.html">Getting Started</a>
+                    </li>
+                    <li class="govuk-header__navigation-item">
+                        <a class="govuk-header__link" href="./reference.html">Reference</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+            </div>
+
+            <div id="toc-heading" class="toc-show fixedsticky">
+                <button type="button" class="toc-show__label js-toc-show" aria-controls="toc">
+                    Table of contents <span class="toc-show__icon"></span>
+                </button>
+            </div>
+
+            <div class="app-pane__body" data-module="in-page-navigation">
+                
+
+
+<div class="app-pane__toc">
+    <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents">
+        <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
+        <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
+        <ul class="table-of-contents">
+                    <li class="toc-level-1">
+                        <a href="#dhsc-ans-api-consumer"><span>DHSC.ANS.API.Consumer v1</span></a>
+                    </li>
+                    <li class="toc-level-1">
+                        <a href="#dhsc-ans-api-consumer-hsa4form"><span>HSA4Form</span></a>
+                    </li>
+                    <li class="toc-level-1">
+                        <a href="#schemas"><span>Schemas</span></a>
+        <ul class="table-of-contents">
+                    <li class="toc-level-2">
+                        <a href="#tocS_AbortionGround"><span>AbortionGround</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_AdministrationSetting"><span>AdministrationSetting</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_CertificationInfoDto"><span>CertificationInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_ChlamydiaInfoDto"><span>ChlamydiaInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_Complication"><span>Complication</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_ComplicationsInfoDto"><span>ComplicationsInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_Ethnicity"><span>Ethnicity</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_FundingType"><span>FundingType</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_HSA4FormDto"><span>HSA4FormDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_MaritalStatus"><span>MaritalStatus</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_MaternalDeathInfoDto"><span>MaternalDeathInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_PatientDetailsDto"><span>PatientDetailsDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_PractitionerInfoDto"><span>PractitionerInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_PregnancyDetailsDto"><span>PregnancyDetailsDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_SelectiveTerminationInfoDto"><span>SelectiveTerminationInfoDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
+                        <a href="#tocS_TreatmentDetailsDto"><span>TreatmentDetailsDto</span></a>
+                    </li>
+        </ul>
+                    </li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+
+                <div class="app-pane__content toc-open-disabled" aria-label="Content" tabindex="0">
+                    <main id="content" class="technical-documentation" data-module="anchored-headings">
+                        <html><head></head><body><h1 id="dhsc-ans-api-consumer">DHSC.ANS.API.Consumer v1</h1>
+<blockquote class="blockquote">
+<p class='govuk-body-m'>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
+</blockquote>
+<p class='govuk-body-m'>Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, <strong>within 14 days</strong> of the termination.</p>
+<h2 id="contact-details">Contact Details</h2>
+<p class='govuk-body-m'>For England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.</p>
+<p class='govuk-body-m'>For Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.</p>
+<p class='govuk-body-m'>If you require further information on completing HSA4 forms, telephone <strong>020 7972 5541</strong> or email <a href="mailto:abortion.statistics@dhsc.gov.uk">abortion.statistics@dhsc.gov.uk</a>.</p>
+<p class='govuk-body-m'>Web: <a href="https://www.gov.uk">DHSC</a></p>
+<h1 id="dhsc-ans-api-consumer-hsa4form">HSA4Form</h1>
+<h2 id="submit-a-new-hsa4-abortion-notification-form">Submit a new HSA4 abortion notification form.</h2>
+<blockquote class="blockquote">
+<p class='govuk-body-m'>Code samples</p>
+</blockquote>
+<div class="govuk-tabs" data-module="govuk-tabs"><ul class="govuk-tabs__list"><li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#shell-0">shell</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#javascript-1">javascript</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#python-2">python</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#ruby-3">ruby</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#go-4">go</a></li></ul><div><section class="govuk-tabs__panel" id="shell-0"><pre><code class="language-shell"># You can also use wget
+curl -X POST /api/HSA4Form \
+  -H 'Content-Type: application/json'
+
+</code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="javascript-1"><pre><code class="language-javascript">const inputBody = '{
+  "practitioner": {
+    "fullName": "string",
+    "address": "string",
+    "gmcNumber": "string",
+    "dateOfSignature": "2019-08-24T14:15:22Z"
+  },
+  "certification": {
+    "certifyingDoctor1Name": "string",
+    "certifyingDoctor1Address": "string",
+    "certifyingDoctor2Name": "string",
+    "certifyingDoctor2Address": "string",
+    "performingDoctorWasSignatory": true
+  },
+  "patient": {
+    "hospitalNumber": "string",
+    "nhsNumber": "string",
+    "fullName": "string",
+    "dateOfBirth": "2019-08-24T14:15:22Z",
+    "postcode": "string",
+    "address": "string",
+    "countryOfResidence": "string",
+    "ethnicGroup": 0,
+    "maritalStatus": 0,
+    "previousLiveBirthsOver24Weeks": 0,
+    "previousMiscarriages": 0,
+    "previousTerminations": 0
+  },
+  "treatment": {
+    "placeOfTerminationName": "string",
+    "placeOfTerminationAddress": "string",
+    "funding": 0,
+    "feticideDate": "2019-08-24T14:15:22Z",
+    "feticideMethod": "string",
+    "terminationDate": "2019-08-24T14:15:22Z",
+    "admissionDate": "2019-08-24T14:15:22Z",
+    "dischargeDate": "2019-08-24T14:15:22Z",
+    "surgicalMethod": "string",
+    "administrationSetting": 0,
+    "serviceProviderOrganisation": "string"
+  },
+  "pregnancy": {
+    "gestationWeeks": 4,
+    "gestationDays": 0,
+    "grounds": [
+      0
+    ],
+    "mainConditionForGroundsAorBorForG": "string",
+    "groundC_RiskToMentalHealth": true,
+    "groundC_PhysicalCondition": "string"
+  },
+  "selectiveTermination": {
+    "originalFetusCount": 0,
+    "remainingFetusCount": 0
+  },
+  "chlamydiaScreening": {
+    "screeningOffered": true
+  },
+  "complications": {
+    "complications": [
+      0
+    ],
+    "otherComplicationDetails": "string"
+  },
+  "maternalDeath": {
+    "maternalDeathOccurred": true,
+    "dateOfDeath": "2019-08-24T14:15:22Z",
+    "causeOfDeath": "string"
+  }
+}';
+const headers = {
+  'Content-Type':'application/json'
+};
+
+fetch('/api/HSA4Form',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+</code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="python-2"><pre><code class="language-python">import requests
+headers = {
+  'Content-Type': 'application/json'
+}
+
+r = requests.post('/api/HSA4Form', headers = headers)
+
+print(r.json())
+
+</code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="ruby-3"><pre><code class="language-ruby">require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' =&gt; 'application/json'
+}
+
+result = RestClient.post '/api/HSA4Form',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+</code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="go-4"><pre><code class="language-go">package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/HSA4Form", data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+</code></pre></section></div></div>
+
+
+
+
+<p class='govuk-body-m'><code>POST /api/HSA4Form</code></p>
+<p class='govuk-body-m'>This endpoint accepts a JSON payload representing the HSA4 form. All required fields as per the Abortion Act 1967 notification requirements must be provided.</p>
+<p class='govuk-body-m'>Refer to the guidance document: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms">Guidance note for completing HSA4 paper forms</a> for detailed information on how to complete the form correctly.</p>
+<blockquote class="blockquote">
+<p class='govuk-body-m'>Body parameter</p>
+</blockquote>
+<pre><code class="language-json">{
+  "practitioner": {
+    "fullName": "string",
+    "address": "string",
+    "gmcNumber": "string",
+    "dateOfSignature": "2019-08-24T14:15:22Z"
+  },
+  "certification": {
+    "certifyingDoctor1Name": "string",
+    "certifyingDoctor1Address": "string",
+    "certifyingDoctor2Name": "string",
+    "certifyingDoctor2Address": "string",
+    "performingDoctorWasSignatory": true
+  },
+  "patient": {
+    "hospitalNumber": "string",
+    "nhsNumber": "string",
+    "fullName": "string",
+    "dateOfBirth": "2019-08-24T14:15:22Z",
+    "postcode": "string",
+    "address": "string",
+    "countryOfResidence": "string",
+    "ethnicGroup": 0,
+    "maritalStatus": 0,
+    "previousLiveBirthsOver24Weeks": 0,
+    "previousMiscarriages": 0,
+    "previousTerminations": 0
+  },
+  "treatment": {
+    "placeOfTerminationName": "string",
+    "placeOfTerminationAddress": "string",
+    "funding": 0,
+    "feticideDate": "2019-08-24T14:15:22Z",
+    "feticideMethod": "string",
+    "terminationDate": "2019-08-24T14:15:22Z",
+    "admissionDate": "2019-08-24T14:15:22Z",
+    "dischargeDate": "2019-08-24T14:15:22Z",
+    "surgicalMethod": "string",
+    "administrationSetting": 0,
+    "serviceProviderOrganisation": "string"
+  },
+  "pregnancy": {
+    "gestationWeeks": 4,
+    "gestationDays": 0,
+    "grounds": [
+      0
+    ],
+    "mainConditionForGroundsAorBorForG": "string",
+    "groundC_RiskToMentalHealth": true,
+    "groundC_PhysicalCondition": "string"
+  },
+  "selectiveTermination": {
+    "originalFetusCount": 0,
+    "remainingFetusCount": 0
+  },
+  "chlamydiaScreening": {
+    "screeningOffered": true
+  },
+  "complications": {
+    "complications": [
+      0
+    ],
+    "otherComplicationDetails": "string"
+  },
+  "maternalDeath": {
+    "maternalDeathOccurred": true,
+    "dateOfDeath": "2019-08-24T14:15:22Z",
+    "causeOfDeath": "string"
+  }
+}
+</code></pre>
+<h3 id="submit-a-new-hsa4-abortion-notification-form.-parameters">Parameters</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>In</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>body</td>
+<td class='govuk-table__cell'>body</td>
+<td class='govuk-table__cell'><a href="#schemahsa4formdto">HSA4FormDto</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h3 id="submit-a-new-hsa4-abortion-notification-form.-responses">Responses</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Status</th>
+<th class='govuk-table__header'>Meaning</th>
+<th class='govuk-table__header'>Description</th>
+<th class='govuk-table__header'>Schema</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>201</td>
+<td class='govuk-table__cell'><a href="https://tools.ietf.org/html/rfc7231#section-6.3.2">Created</a></td>
+<td class='govuk-table__cell'>Form successfully submitted.</td>
+<td class='govuk-table__cell'>None</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>400</td>
+<td class='govuk-table__cell'><a href="https://tools.ietf.org/html/rfc7231#section-6.5.1">Bad Request</a></td>
+<td class='govuk-table__cell'>Validation failed.</td>
+<td class='govuk-table__cell'>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="success">
+This operation does not require authentication
+</aside>
+<h1 id="schemas">Schemas</h1>
+<h2 id="tocS_AbortionGround">AbortionGround</h2>
+<!-- backwards compatibility -->
+<a id="schemaabortionground"></a>
+<a id="schema_AbortionGround"></a>
+<a id="tocSabortionground"></a>
+<a id="tocsabortionground"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing the grounds for abortion, as specified by the HSA4 Guidance Notes.
+Valid Grounds:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Risk to the life of the pregnant woman.</li>
+<li>Preventing grave permanent injury to physical or mental health.</li>
+<li>Preventing injury to health of the woman or existing children under 24 weeks.</li>
+<li>Substantial risk of severe abnormality if the child were born.</li>
+<li>Emergency to save life or prevent grave permanent injury.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-5-gestation">Abortion Grounds - Section 5</a></li>
+</ul>
+<h3 id="properties">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the grounds for abortion, as specified by the HSA4 Guidance Notes.<br>Valid Grounds:<br>- Risk to the life of the pregnant woman.<br>- Preventing grave permanent injury to physical or mental health.<br>- Preventing injury to health of the woman or existing children under 24 weeks.<br>- Substantial risk of severe abnormality if the child were born.<br>- Emergency to save life or prevent grave permanent injury.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-5-gestation">Abortion Grounds - Section 5</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>2</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>3</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>4</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>5</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_AdministrationSetting">AdministrationSetting</h2>
+<!-- backwards compatibility -->
+<a id="schemaadministrationsetting"></a>
+<a id="schema_AdministrationSetting"></a>
+<a id="tocSadministrationsetting"></a>
+<a id="tocsadministrationsetting"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing the administration setting of the treatment.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></p>
+<h3 id="properties-1">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the administration setting of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-1">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>2</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_CertificationInfoDto">CertificationInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemacertificationinfodto"></a>
+<a id="schema_CertificationInfoDto"></a>
+<a id="tocScertificationinfodto"></a>
+<a id="tocscertificationinfodto"></a>
+<pre><code class="language-json">{
+  "certifyingDoctor1Name": "string",
+  "certifyingDoctor1Address": "string",
+  "certifyingDoctor2Name": "string",
+  "certifyingDoctor2Address": "string",
+  "performingDoctorWasSignatory": true
+}
+
+</code></pre>
+<p class='govuk-body-m'>Certification Information - Section 2 (Non-Emergency Cases)
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Names and addresses of two certifying doctors.</li>
+<li>Indicate if the performing doctor was a signatory.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Certification Information - Section 2</a></li>
+</ul>
+<h3 id="properties-2">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>certifyingDoctor1Name</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>certifyingDoctor1Address</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>certifyingDoctor2Name</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>certifyingDoctor2Address</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>performingDoctorWasSignatory</td>
+<td class='govuk-table__cell'>boolean</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_ChlamydiaInfoDto">ChlamydiaInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemachlamydiainfodto"></a>
+<a id="schema_ChlamydiaInfoDto"></a>
+<a id="tocSchlamydiainfodto"></a>
+<a id="tocschlamydiainfodto"></a>
+<pre><code class="language-json">{
+  "screeningOffered": true
+}
+
+</code></pre>
+<p class='govuk-body-m'>Chlamydia Screening - Section 8
+Required Information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Indication if screening for chlamydia was offered.</li>
+<li>Response is mandatory for all cases.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a></li>
+</ul>
+<h3 id="properties-3">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>screeningOffered</td>
+<td class='govuk-table__cell'>boolean</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Complication">Complication</h2>
+<!-- backwards compatibility -->
+<a id="schemacomplication"></a>
+<a id="schema_Complication"></a>
+<a id="tocScomplication"></a>
+<a id="tocscomplication"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing possible complications of the treatment.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9-complications">Complications - Section 9</a></p>
+<h3 id="properties-4">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing possible complications of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9-complications">Complications - Section 9</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-2">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>2</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>3</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>4</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>5</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_ComplicationsInfoDto">ComplicationsInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemacomplicationsinfodto"></a>
+<a id="schema_ComplicationsInfoDto"></a>
+<a id="tocScomplicationsinfodto"></a>
+<a id="tocscomplicationsinfodto"></a>
+<pre><code class="language-json">{
+  "complications": [
+    0
+  ],
+  "otherComplicationDetails": "string"
+}
+
+</code></pre>
+<p class='govuk-body-m'>Complications - Section 9
+Required Information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>List of complications experienced, if any.</li>
+<li>Additional details if complications are not listed.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a></li>
+</ul>
+<h3 id="properties-5">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>complications</td>
+<td class='govuk-table__cell'>[<a href="#schemacomplication">Complication</a>]¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>[Enumeration representing possible complications of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9-complications">Complications - Section 9</a>]</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>otherComplicationDetails</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_Ethnicity">Ethnicity</h2>
+<!-- backwards compatibility -->
+<a id="schemaethnicity"></a>
+<a id="schema_Ethnicity"></a>
+<a id="tocSethnicity"></a>
+<a id="tocsethnicity"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing the patient's ethnic group. Valid values are defined by the HSA4 Guidance Notes.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></p>
+<h3 id="properties-6">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the patient's ethnic group. Valid values are defined by the HSA4 Guidance Notes.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-3">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>2</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>3</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_FundingType">FundingType</h2>
+<!-- backwards compatibility -->
+<a id="schemafundingtype"></a>
+<a id="schema_FundingType"></a>
+<a id="tocSfundingtype"></a>
+<a id="tocsfundingtype"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing the funding type of the treatment.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></p>
+<h3 id="properties-7">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the funding type of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-4">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_HSA4FormDto">HSA4FormDto</h2>
+<!-- backwards compatibility -->
+<a id="schemahsa4formdto"></a>
+<a id="schema_HSA4FormDto"></a>
+<a id="tocShsa4formdto"></a>
+<a id="tocshsa4formdto"></a>
+<pre><code class="language-json">{
+  "practitioner": {
+    "fullName": "string",
+    "address": "string",
+    "gmcNumber": "string",
+    "dateOfSignature": "2019-08-24T14:15:22Z"
+  },
+  "certification": {
+    "certifyingDoctor1Name": "string",
+    "certifyingDoctor1Address": "string",
+    "certifyingDoctor2Name": "string",
+    "certifyingDoctor2Address": "string",
+    "performingDoctorWasSignatory": true
+  },
+  "patient": {
+    "hospitalNumber": "string",
+    "nhsNumber": "string",
+    "fullName": "string",
+    "dateOfBirth": "2019-08-24T14:15:22Z",
+    "postcode": "string",
+    "address": "string",
+    "countryOfResidence": "string",
+    "ethnicGroup": 0,
+    "maritalStatus": 0,
+    "previousLiveBirthsOver24Weeks": 0,
+    "previousMiscarriages": 0,
+    "previousTerminations": 0
+  },
+  "treatment": {
+    "placeOfTerminationName": "string",
+    "placeOfTerminationAddress": "string",
+    "funding": 0,
+    "feticideDate": "2019-08-24T14:15:22Z",
+    "feticideMethod": "string",
+    "terminationDate": "2019-08-24T14:15:22Z",
+    "admissionDate": "2019-08-24T14:15:22Z",
+    "dischargeDate": "2019-08-24T14:15:22Z",
+    "surgicalMethod": "string",
+    "administrationSetting": 0,
+    "serviceProviderOrganisation": "string"
+  },
+  "pregnancy": {
+    "gestationWeeks": 4,
+    "gestationDays": 0,
+    "grounds": [
+      0
+    ],
+    "mainConditionForGroundsAorBorForG": "string",
+    "groundC_RiskToMentalHealth": true,
+    "groundC_PhysicalCondition": "string"
+  },
+  "selectiveTermination": {
+    "originalFetusCount": 0,
+    "remainingFetusCount": 0
+  },
+  "chlamydiaScreening": {
+    "screeningOffered": true
+  },
+  "complications": {
+    "complications": [
+      0
+    ],
+    "otherComplicationDetails": "string"
+  },
+  "maternalDeath": {
+    "maternalDeathOccurred": true,
+    "dateOfDeath": "2019-08-24T14:15:22Z",
+    "causeOfDeath": "string"
+  }
+}
+
+</code></pre>
+<p class='govuk-body-m'>HSA4 Form DTO - Represents the entire form submission.
+This object aggregates all the sections of the HSA4 form as specified by the official guidance.
+Each section is represented by a dedicated DTO.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">HSA4 Form Guidance</a></p>
+<h3 id="properties-8">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>practitioner</td>
+<td class='govuk-table__cell'><a href="#schemapractitionerinfodto">PractitionerInfoDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a><br><p class='govuk-body-m'><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p class='govuk-body-m'><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p class='govuk-body-m'><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p class='govuk-body-m'><br>You must also complete the declaration, as appropriate. In the case of medical terminations, the form must be signed <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated (see <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: treatment details</a> in the guidanace document).<br></p><br><p class='govuk-body-m'><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p class='govuk-body-m'><br>For medical abortions, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the mifepristone.<br></p></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>certification</td>
+<td class='govuk-table__cell'><a href="#schemacertificationinfodto">CertificationInfoDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Certification Information - Section 2 (Non-Emergency Cases)<br>Required information:<br>- Names and addresses of two certifying doctors.<br>- Indicate if the performing doctor was a signatory.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Certification Information - Section 2</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>patient</td>
+<td class='govuk-table__cell'><a href="#schemapatientdetailsdto">PatientDetailsDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Patient's Details - Section 3<br>Required information:<br>- Patient's hospital number and NHS number (if available).<br>- Full name, date of birth, address, and postcode.<br>- Country of residence, ethnic group, and marital status.<br>- Number of previous live births over 24 weeks, miscarriages, and terminations.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3">Patient's Details - Section 3</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>treatment</td>
+<td class='govuk-table__cell'><a href="#schematreatmentdetailsdto">TreatmentDetailsDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Treatment Details - Section 4<br>Required information:<br>- Treatment location, dates of termination, admission, and discharge.<br>- Type of procedure performed (medical or surgical).<br>- Funding type (NHS, Private).<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4">Treatment Details - Section 4</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>pregnancy</td>
+<td class='govuk-table__cell'><a href="#schemapregnancydetailsdto">PregnancyDetailsDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>selectiveTermination</td>
+<td class='govuk-table__cell'><a href="#schemaselectiveterminationinfodto">SelectiveTerminationInfoDto</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Selective Termination - Section 7<br>Required Information:<br>- Original number of fetuses before selective termination.<br>- Number of fetuses remaining after the procedure.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>chlamydiaScreening</td>
+<td class='govuk-table__cell'><a href="#schemachlamydiainfodto">ChlamydiaInfoDto</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Chlamydia Screening - Section 8<br>Required Information:<br>- Indication if screening for chlamydia was offered.<br>- Response is mandatory for all cases.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>complications</td>
+<td class='govuk-table__cell'><a href="#schemacomplicationsinfodto">ComplicationsInfoDto</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Complications - Section 9<br>Required Information:<br>- List of complications experienced, if any.<br>- Additional details if complications are not listed.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>maternalDeath</td>
+<td class='govuk-table__cell'><a href="#schemamaternaldeathinfodto">MaternalDeathInfoDto</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Death of Woman - Section 10<br>Required Information:<br>- Indicate if a maternal death occurred.<br>- Date and cause of death if applicable.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_MaritalStatus">MaritalStatus</h2>
+<!-- backwards compatibility -->
+<a id="schemamaritalstatus"></a>
+<a id="schema_MaritalStatus"></a>
+<a id="tocSmaritalstatus"></a>
+<a id="tocsmaritalstatus"></a>
+<pre><code class="language-json">0
+
+</code></pre>
+<p class='govuk-body-m'>Enumeration representing the patient's marital status.
+Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></p>
+<h3 id="properties-9">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the patient's marital status.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values-5">Enumerated Values</h4>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Property</th>
+<th class='govuk-table__header'>Value</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>0</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>1</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>2</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>3</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>4</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'><em>anonymous</em></td>
+<td class='govuk-table__cell'>5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_MaternalDeathInfoDto">MaternalDeathInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemamaternaldeathinfodto"></a>
+<a id="schema_MaternalDeathInfoDto"></a>
+<a id="tocSmaternaldeathinfodto"></a>
+<a id="tocsmaternaldeathinfodto"></a>
+<pre><code class="language-json">{
+  "maternalDeathOccurred": true,
+  "dateOfDeath": "2019-08-24T14:15:22Z",
+  "causeOfDeath": "string"
+}
+
+</code></pre>
+<p class='govuk-body-m'>Death of Woman - Section 10
+Required Information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Indicate if a maternal death occurred.</li>
+<li>Date and cause of death if applicable.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a></li>
+</ul>
+<h3 id="properties-10">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>maternalDeathOccurred</td>
+<td class='govuk-table__cell'>boolean</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>dateOfDeath</td>
+<td class='govuk-table__cell'>string(date-time)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>causeOfDeath</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_PatientDetailsDto">PatientDetailsDto</h2>
+<!-- backwards compatibility -->
+<a id="schemapatientdetailsdto"></a>
+<a id="schema_PatientDetailsDto"></a>
+<a id="tocSpatientdetailsdto"></a>
+<a id="tocspatientdetailsdto"></a>
+<pre><code class="language-json">{
+  "hospitalNumber": "string",
+  "nhsNumber": "string",
+  "fullName": "string",
+  "dateOfBirth": "2019-08-24T14:15:22Z",
+  "postcode": "string",
+  "address": "string",
+  "countryOfResidence": "string",
+  "ethnicGroup": 0,
+  "maritalStatus": 0,
+  "previousLiveBirthsOver24Weeks": 0,
+  "previousMiscarriages": 0,
+  "previousTerminations": 0
+}
+
+</code></pre>
+<p class='govuk-body-m'>Patient's Details - Section 3
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Patient's hospital number and NHS number (if available).</li>
+<li>Full name, date of birth, address, and postcode.</li>
+<li>Country of residence, ethnic group, and marital status.</li>
+<li>Number of previous live births over 24 weeks, miscarriages, and terminations.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3">Patient's Details - Section 3</a></li>
+</ul>
+<h3 id="properties-11">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>hospitalNumber</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>nhsNumber</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>fullName</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>dateOfBirth</td>
+<td class='govuk-table__cell'>string(date-time)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>postcode</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>address</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>countryOfResidence</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>ethnicGroup</td>
+<td class='govuk-table__cell'><a href="#schemaethnicity">Ethnicity</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the patient's ethnic group. Valid values are defined by the HSA4 Guidance Notes.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>maritalStatus</td>
+<td class='govuk-table__cell'><a href="#schemamaritalstatus">MaritalStatus</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the patient's marital status.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>previousLiveBirthsOver24Weeks</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>previousMiscarriages</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>previousTerminations</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_PractitionerInfoDto">PractitionerInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemapractitionerinfodto"></a>
+<a id="schema_PractitionerInfoDto"></a>
+<a id="tocSpractitionerinfodto"></a>
+<a id="tocspractitionerinfodto"></a>
+<pre><code class="language-json">{
+  "fullName": "string",
+  "address": "string",
+  "gmcNumber": "string",
+  "dateOfSignature": "2019-08-24T14:15:22Z"
+}
+
+</code></pre>
+<p class='govuk-body-m'>Practitioner Information - Section 1
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Full name of the practitioner.</li>
+<li>Address of the practitioner.</li>
+<li>GMC number (7 digits).</li>
+<li>Date of signature.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a></li>
+</ul>
+<p class='govuk-body-m'>
+<strong>Section 1: Practitioner Terminating the Pregnancy</strong>
+</p>
+<p class='govuk-body-m'>
+You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.
+</p>
+<p class='govuk-body-m'>
+The address stated does not have to be the one shown on the GMC’s annual registration certificate. 
+However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.
+</p>
+<p class='govuk-body-m'>
+You must also complete the declaration, as appropriate. In the case of medical terminations, the form must be signed 
+even if the practitioner has been unable to confirm that the pregnancy has been terminated (see <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: treatment details</a> in the guidanace document).
+</p>
+<p class='govuk-body-m'>
+Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number 
+cannot be found on the GMC register.
+</p>
+<p class='govuk-body-m'>
+For medical abortions, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> 
+is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the mifepristone.
+</p>
+<h3 id="properties-12">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>fullName</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>address</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>gmcNumber</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>dateOfSignature</td>
+<td class='govuk-table__cell'>string(date-time)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_PregnancyDetailsDto">PregnancyDetailsDto</h2>
+<!-- backwards compatibility -->
+<a id="schemapregnancydetailsdto"></a>
+<a id="schema_PregnancyDetailsDto"></a>
+<a id="tocSpregnancydetailsdto"></a>
+<a id="tocspregnancydetailsdto"></a>
+<pre><code class="language-json">{
+  "gestationWeeks": 4,
+  "gestationDays": 0,
+  "grounds": [
+    0
+  ],
+  "mainConditionForGroundsAorBorForG": "string",
+  "groundC_RiskToMentalHealth": true,
+  "groundC_PhysicalCondition": "string"
+}
+
+</code></pre>
+<h3 id="properties-13">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>gestationWeeks</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>gestationDays</td>
+<td class='govuk-table__cell'>integer(int32)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>grounds</td>
+<td class='govuk-table__cell'>[<a href="#schemaabortionground">AbortionGround</a>]</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>[Enumeration representing the grounds for abortion, as specified by the HSA4 Guidance Notes.<br>Valid Grounds:<br>- Risk to the life of the pregnant woman.<br>- Preventing grave permanent injury to physical or mental health.<br>- Preventing injury to health of the woman or existing children under 24 weeks.<br>- Substantial risk of severe abnormality if the child were born.<br>- Emergency to save life or prevent grave permanent injury.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-5-gestation">Abortion Grounds - Section 5</a>]</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>mainConditionForGroundsAorBorForG</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>groundC_RiskToMentalHealth</td>
+<td class='govuk-table__cell'>boolean¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>groundC_PhysicalCondition</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_SelectiveTerminationInfoDto">SelectiveTerminationInfoDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaselectiveterminationinfodto"></a>
+<a id="schema_SelectiveTerminationInfoDto"></a>
+<a id="tocSselectiveterminationinfodto"></a>
+<a id="tocsselectiveterminationinfodto"></a>
+<pre><code class="language-json">{
+  "originalFetusCount": 0,
+  "remainingFetusCount": 0
+}
+
+</code></pre>
+<p class='govuk-body-m'>Selective Termination - Section 7
+Required Information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Original number of fetuses before selective termination.</li>
+<li>Number of fetuses remaining after the procedure.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a></li>
+</ul>
+<h3 id="properties-14">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>originalFetusCount</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>remainingFetusCount</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_TreatmentDetailsDto">TreatmentDetailsDto</h2>
+<!-- backwards compatibility -->
+<a id="schematreatmentdetailsdto"></a>
+<a id="schema_TreatmentDetailsDto"></a>
+<a id="tocStreatmentdetailsdto"></a>
+<a id="tocstreatmentdetailsdto"></a>
+<pre><code class="language-json">{
+  "placeOfTerminationName": "string",
+  "placeOfTerminationAddress": "string",
+  "funding": 0,
+  "feticideDate": "2019-08-24T14:15:22Z",
+  "feticideMethod": "string",
+  "terminationDate": "2019-08-24T14:15:22Z",
+  "admissionDate": "2019-08-24T14:15:22Z",
+  "dischargeDate": "2019-08-24T14:15:22Z",
+  "surgicalMethod": "string",
+  "administrationSetting": 0,
+  "serviceProviderOrganisation": "string"
+}
+
+</code></pre>
+<p class='govuk-body-m'>Treatment Details - Section 4
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Treatment location, dates of termination, admission, and discharge.</li>
+<li>Type of procedure performed (medical or surgical).</li>
+<li>Funding type (NHS, Private).
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4">Treatment Details - Section 4</a></li>
+</ul>
+<h3 id="properties-15">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>placeOfTerminationName</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>placeOfTerminationAddress</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>funding</td>
+<td class='govuk-table__cell'><a href="#schemafundingtype">FundingType</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the funding type of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>feticideDate</td>
+<td class='govuk-table__cell'>string(date-time)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>feticideMethod</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>terminationDate</td>
+<td class='govuk-table__cell'>string(date-time)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>admissionDate</td>
+<td class='govuk-table__cell'>string(date-time)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>dischargeDate</td>
+<td class='govuk-table__cell'>string(date-time)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>surgicalMethod</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>administrationSetting</td>
+<td class='govuk-table__cell'><a href="#schemaadministrationsetting">AdministrationSetting</a></td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Enumeration representing the administration setting of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>serviceProviderOrganisation</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>If partial or all medicines are administered off-site, specify the provider's organisation.</td>
+</tr>
+</tbody>
+</table>
+</body></html>
+                    </main>
+
+                    <aside>
+                    </aside>
+
+                    <footer class="govuk-footer app-footer" role="contentinfo">
+    <div class="govuk-footer__meta">
+        <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+
+            <ul class="govuk-footer__inline-list">
+                <li class="govuk-footer__inline-list-item">
+                    <a class="govuk-footer__link" href="./accessibility.html">Accessibility</a>
+                </li>
+            </ul>
+
+            <svg
+                aria-hidden="true"
+                focusable="false"
+                class="govuk-footer__licence-logo"
+                xmlns="http://www.w3.org/2000/svg"
+                viewbox="0 0 483.2 195.7"
+                height="17"
+                width="41">
+
+                <path
+                    fill="currentColor"
+                    d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"
+                />
+            </svg>
+
+            <span class="govuk-footer__licence-description">
+                All content is available under the
+                <a
+                    class="govuk-footer__link"
+                    href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+                    rel="license"
+                >Open Government Licence v3.0</a>, except where otherwise stated
+            </span>
+        </div>
+
+        <div class="govuk-footer__meta-item">
+            <a
+            class="govuk-footer__link govuk-footer__copyright-logo"
+            href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">� Crown copyright</a>
+        </div>
+    </div>
+</footer>
+
+                </div>
+            </div>
+        </div>
+    
+        <script src="/assets/js/govuk_frontend.js" type="module"></script>
+        <script src="/assets/js/highlight.min.js"></script>
+        <script src="/assets/js/application.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+
+    </body>
+
+</html>
