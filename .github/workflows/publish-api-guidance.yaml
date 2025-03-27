@@ -1,4 +1,4 @@
-name: Publish API Guidance
+name: public-api-guidance
 
 on:
   push:
