@@ -8,8 +8,8 @@
 
     <title>Abortion Notification Service - HSA4 Submission API</title>
 
-    <!--<link href="assets/css/manifest.css" rel="stylesheet" />-->
     <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/atom-one-light.min.css" rel="stylesheet" />
 
     <link rel="canonical" href='https://hsa4.api.ans.dhsc.gov.uk//'>
     <link rel="icon" sizes="48x48" href="assets/images/favicon.ico">
@@ -160,7 +160,16 @@
         </div>
     
         <script src="/assets/js/govuk_frontend.js" type="module"></script>
+        <script src="/assets/js/highlight.min.js"></script>
         <script src="/assets/js/application.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
 
     </body>
 

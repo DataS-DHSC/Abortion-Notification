@@ -40,12 +40,21 @@
                 {
                     <li class="toc-level-@(GetValue(heading, "Level", ""))">
                         <a href="#@(headingId)"><span>@headingKey</span></a>
-                        @{ RenderToc(GetChildren(heading)); }
+                        @{
+                            var children = GetChildren(heading);
+                            if (children.Count > 1) {
+                                RenderToc(GetChildren(heading)); 
+                            }
+                        }
                     </li>
                 }
                 else
                 {
-                    RenderToc(GetChildren(heading));
+                    var children = GetChildren(heading);
+                    if (children.Count > 1)
+                    {
+                        RenderToc(GetChildren(heading));
+                    }
                 }
             }
         </ul>

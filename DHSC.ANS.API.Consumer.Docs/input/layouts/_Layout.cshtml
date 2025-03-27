@@ -37,7 +37,16 @@
         </div>
     
         <script src="/assets/js/govuk_frontend.js" type="module"></script>
+        <script src="/assets/js/highlight.min.js"></script>
         <script src="/assets/js/application.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
 
     </body>
 

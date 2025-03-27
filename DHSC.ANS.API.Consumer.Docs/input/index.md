@@ -204,12 +204,16 @@ We believe this limit should be sufficient for all users of the DHSC HSA4 Form S
 
 The DHSC HSA4 Form Submission API is currently in an **Alpha phase** and may be subject to changes and improvements as we gather feedback.
 
-If you experience any issues or have questions regarding the DHSC HSA4 Form Submission API, please contact the Abortion Notification Service (ANS) support team:
+If you experience any issues or have questions regarding the DHSC HSA4 Form Submission API, please contact the Abortion Notification Service (ANS) support team
 
-- **If you are part of a government department:** Contact the ANS team via **Email:** [HSA4@dhsc.gov.uk](mailto:HSA4@dhsc.gov.uk) or **Telephone:** 020 7972 5541.
-- **Otherwise:** Contact the ANS team via **Email:** [HSA4@@dhsc.gov.uk](mailto:HSA4@dhsc.gov.uk).
+For England, you must send completed paper forms to The Chief Medical Officer, 39 Victoria Street, London, SW1H 0EU.
 
-Our support team is available to assist you with any technical or procedural queries related to the API.
+For Wales, you must send completed paper forms to The Chief Medical Officer, National Assembly for Wales, Cathays Park, Cardiff, CF10 3NQ.
+
+If you require further information on completing HSA4 forms, telephone 020 7972 5541 or email [abortion.statistics@dhsc.gov.uk](mailto:abortion.statistics@dhsc.gov.uk).
+
+More information about the Department of Health and Docial Care can be found at [https://www.gov.uk/government/organisations/department-of-health-and-social-care](https://www.gov.uk/government/organisations/department-of-health-and-social-care)
+
 
 ### Additional Resources
 

@@ -8,8 +8,8 @@
 
     <title>Abortion Notification Service - HSA4 Submission API</title>
 
-    <!--<link href="assets/css/manifest.css" rel="stylesheet" />-->
     <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/atom-one-light.min.css" rel="stylesheet" />
 
     <link rel="canonical" href='https://hsa4.api.ans.dhsc.gov.uk//'>
     <link rel="icon" sizes="48x48" href="assets/images/favicon.ico">
@@ -158,11 +158,6 @@
                     </li>
                     <li class="toc-level-2">
                         <a href="#support"><span>Support</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#additional-resources"><span>Additional Resources</span></a>
-                    </li>
-        </ul>
                     </li>
         </ul>
                     </li>
@@ -402,7 +397,16 @@ Users cannot submit data that is not directly supported by the HSA4 schema. All 
         </div>
     
         <script src="/assets/js/govuk_frontend.js" type="module"></script>
+        <script src="/assets/js/highlight.min.js"></script>
         <script src="/assets/js/application.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
 
     </body>
 

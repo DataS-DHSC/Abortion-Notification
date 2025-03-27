@@ -8,8 +8,8 @@
 
     <title>Abortion Notification Service - HSA4 Submission API</title>
 
-    <!--<link href="assets/css/manifest.css" rel="stylesheet" />-->
     <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/atom-one-light.min.css" rel="stylesheet" />
 
     <link rel="canonical" href='https://hsa4.api.ans.dhsc.gov.uk//'>
     <link rel="icon" sizes="48x48" href="assets/images/favicon.ico">
@@ -95,158 +95,60 @@
         <ul class="table-of-contents">
                     <li class="toc-level-1">
                         <a href="#dhsc-ans-api-consumer"><span>DHSC.ANS.API.Consumer v1</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-2">
-                        <a href="#contact-details"><span>Contact Details</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-1">
                         <a href="#dhsc-ans-api-consumer-hsa4form"><span>HSA4Form</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-2">
-                        <a href="#submit-a-new-hsa4-abortion-notification-form"><span>Submit a new HSA4 abortion notification form.</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#submit-a-new-hsa4-abortion-notification-form.-parameters"><span>Parameters</span></a>
-                    </li>
-                    <li class="toc-level-3">
-                        <a href="#submit-a-new-hsa4-abortion-notification-form.-responses"><span>Responses</span></a>
-                    </li>
-        </ul>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-1">
                         <a href="#schemas"><span>Schemas</span></a>
         <ul class="table-of-contents">
                     <li class="toc-level-2">
                         <a href="#tocS_AbortionGround"><span>AbortionGround</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_AdministrationSetting"><span>AdministrationSetting</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-1"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_CertificationInfoDto"><span>CertificationInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-2"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_ChlamydiaInfoDto"><span>ChlamydiaInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-3"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_Complication"><span>Complication</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-4"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_ComplicationsInfoDto"><span>ComplicationsInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-5"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_Ethnicity"><span>Ethnicity</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-6"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_FundingType"><span>FundingType</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-7"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_HSA4FormDto"><span>HSA4FormDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-8"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_MaritalStatus"><span>MaritalStatus</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-9"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_MaternalDeathInfoDto"><span>MaternalDeathInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-10"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_PatientDetailsDto"><span>PatientDetailsDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-11"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_PractitionerInfoDto"><span>PractitionerInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-12"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_PregnancyDetailsDto"><span>PregnancyDetailsDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-13"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_SelectiveTerminationInfoDto"><span>SelectiveTerminationInfoDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-14"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_TreatmentDetailsDto"><span>TreatmentDetailsDto</span></a>
-        <ul class="table-of-contents">
-                    <li class="toc-level-3">
-                        <a href="#properties-15"><span>Properties</span></a>
-                    </li>
-        </ul>
                     </li>
         </ul>
                     </li>
@@ -1809,7 +1711,16 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
         </div>
     
         <script src="/assets/js/govuk_frontend.js" type="module"></script>
+        <script src="/assets/js/highlight.min.js"></script>
         <script src="/assets/js/application.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
 
     </body>
 
