@@ -1,0 +1,47 @@
+name: Publish API Guidance
+
+on:
+  push:
+    paths:
+      - "DHSC.ANS.API.Consumer.Docs/output/**"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+
+      - name: Switch to api-guidance branch
+        run: |
+          if git show-ref --quiet refs/heads/api-guidance; then
+            git checkout api-guidance
+          else
+            git checkout --orphan api-guidance
+            git rm -rf .
+          fi
+
+      - name: Copy API Guidance Output
+        run: |
+          # Remove all files from the branch
+          git rm -rf .
+          # Copy all files from the output folder to the root of the branch
+          cp -R DHSC.ANS.API.Consumer.Docs/output/* .
+          # Stage all files
+          git add .
+          # Commit changes if there are any
+          git commit -m "Update API Guidance" || echo "No changes to commit"
+
+      - name: Push Changes
+        run: |
+          git push --force --set-upstream origin api-guidance
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
