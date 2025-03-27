@@ -10,6 +10,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v3
@@ -22,14 +23,10 @@ jobs:
           mkdir -p /tmp/api-guidance-output
           cp -R DHSC.ANS.API.Consumer.Docs/output/* /tmp/api-guidance-output/
 
-      - name: Checkout api-guidance branch
+      - name: Fetch and checkout api-guidance branch
         run: |
-          if git show-ref --quiet refs/heads/api-guidance; then
-            git checkout api-guidance
-          else
-            echo "Branch api-guidance does not exist. Exiting."
-            exit 1
-          fi
+          git fetch origin api-guidance:api-guidance || { echo "Failed to fetch branch api-guidance"; exit 1; }
+          git checkout api-guidance
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
 
