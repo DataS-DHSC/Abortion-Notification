@@ -8,7 +8,7 @@ $govuk-suppressed-warnings: (
   ie8
 );
 
-$govuk-assets-path: "assets/" !default;
+$govuk-assets-path: "../../assets/" !default;
 
 // Include only the bits of GOV.UK Frontend we need
 $govuk-new-link-styles: true;
