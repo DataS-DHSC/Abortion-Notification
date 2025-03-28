@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\_src\\DHSC\\Abortion-Notification\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\widdershins\\widdershins.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\widdershins\\widdershins.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\dhsc.ans.api.consumer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dhsc.ans.api.consumer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\dtos\\practitionerinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dtos\\practitionerinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\validators\\hsa4formvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\validators\\hsa4formvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -43,10 +63,6 @@
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dtos\\selectiveterminationinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\dtos\\practitionerinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dtos\\practitionerinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\dtos\\certificationinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dtos\\certificationinfodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -55,24 +71,8 @@
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\controllers\\hsa4formcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\widdershins\\widdershins.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\widdershins\\widdershins.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\input\\reference.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
-      "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\input\\reference.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\widdershins\\templates\\main.dot||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\widdershins\\templates\\main.dot||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|solutionrelative:dhsc.ans.api.consumer.docs\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}|DHSC.ANS.API.Consumer.Docs\\DHSC.ANS.API.Consumer.Docs.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer.docs\\widdershins\\widdershins-config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -91,14 +91,6 @@
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\utilities\\enumschemafilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\dhsc.ans.api.consumer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\dhsc.ans.api.consumer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\bin\\debug\\net9.0\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\bin\\debug\\net9.0\\swagger.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|c:\\_src\\dhsc\\abortion-notification\\dhsc.ans.api.consumer\\utilities\\restrictionsattributeschemafilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{30F79844-5A04-46CB-ABC4-86E0548D520B}|DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj|solutionrelative:dhsc.ans.api.consumer\\utilities\\restrictionsattributeschemafilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -110,50 +102,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 189,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HSA4FormValidator.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:53:50.387Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TerminationGroundsValidator.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:51:38.761Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MaternalDeathInfoDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:51:24.037Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "ChlamydiaInfoDto.cs",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\ChlamydiaInfoDto.cs",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\ChlamydiaInfoDto.cs",
@@ -166,20 +119,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TerminationGroundsDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:39:29.576Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "PatientDetailsDto.cs",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\PatientDetailsDto.cs",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\PatientDetailsDto.cs",
@@ -192,85 +132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "GestationDetailsDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:39:02.729Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TreatmentDetailsDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:36:04.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "HSA4FormDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEsAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T19:39:57.916Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "SelectiveTerminationInfoDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:39:21.701Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CertificationInfoDto.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:38:45.67Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "HSA4FormController.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T09:22:46.646Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "PractitionerInfoDto.cs",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\PractitionerInfoDto.cs",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\PractitionerInfoDto.cs",
@@ -283,33 +145,189 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "reference.md",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\input\\reference.md",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer.Docs\\input\\reference.md",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\input\\reference.md",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer.Docs\\input\\reference.md",
-              "ViewState": "AgIAAAgDAAAAAAAAAAAkwCcDAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2025-03-27T20:23:59.248Z",
+              "DocumentIndex": 13,
+              "Title": "TerminationGroundsDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\TerminationGroundsDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:39:29.576Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 11,
+              "Title": "GestationDetailsDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\GestationDetailsDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:39:02.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "TreatmentDetailsDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\TreatmentDetailsDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:36:04.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HSA4FormDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\HSA4FormDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T19:39:57.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SelectiveTerminationInfoDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\SelectiveTerminationInfoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:39:21.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DHSC.ANS.API.Consumer",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
+              "ViewState": "AgIAACsAAAAAAAAAAAAEwDwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-27T19:33:25.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\Program.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer.Docs\\Program.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\Program.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer.Docs\\Program.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAtwDgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T19:46:09.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TerminationGroundsValidator.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Validators\\TerminationGroundsValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:51:38.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HSA4FormValidator.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Validators\\HSA4FormValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:53:50.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "widdershins.js",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\widdershins\\widdershins.js",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer.Docs\\widdershins\\widdershins.js",
               "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\widdershins\\widdershins.js",
               "RelativeToolTip": "DHSC.ANS.API.Consumer.Docs\\widdershins\\widdershins.js",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABoAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACcAAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-03-27T20:05:07.247Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MaternalDeathInfoDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\MaternalDeathInfoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:51:24.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "swagger.json",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\swagger.json",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\swagger.json",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\swagger.json",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\swagger.json",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAgwHkAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-03-28T13:09:11.804Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 15,
+              "Title": "CertificationInfoDto.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DTOs\\CertificationInfoDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T12:38:45.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "HSA4FormController.cs",
+              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
+              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
+              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
+              "RelativeToolTip": "DHSC.ANS.API.Consumer\\Controllers\\HSA4FormController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-28T09:22:46.646Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "main.dot",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\widdershins\\templates\\main.dot",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer.Docs\\widdershins\\templates\\main.dot",
@@ -348,32 +366,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\Program.cs",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer.Docs\\Program.cs",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\Program.cs",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer.Docs\\Program.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAgwFUAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T19:46:09.357Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "swagger.json",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\swagger.json",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\swagger.json",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\swagger.json",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\swagger.json",
-              "ViewState": "AgIAADEBAAAAAAAAAAAmwEkBAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-27T19:39:33.074Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 18,
               "Title": "widdershins-config.json",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer.Docs\\widdershins\\widdershins-config.json",
@@ -387,20 +379,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "swagger.json",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\bin\\Debug\\net9.0\\swagger.json",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\bin\\Debug\\net9.0\\swagger.json",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\bin\\Debug\\net9.0\\swagger.json",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\bin\\Debug\\net9.0\\swagger.json",
-              "ViewState": "AgIAADcBAAAAAAAAAAAWwDQBAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-27T19:38:38.187Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 22,
               "Title": "RestrictionsAttributeSchemaFilter.cs",
               "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\Utilities\\RestrictionsAttributeSchemaFilter.cs",
               "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\Utilities\\RestrictionsAttributeSchemaFilter.cs",
@@ -422,19 +401,6 @@
               "ViewState": "AgIAABIAAAAAAAAAAAA5wBYAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-27T19:35:48.45Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DHSC.ANS.API.Consumer",
-              "DocumentMoniker": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
-              "RelativeDocumentMoniker": "DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
-              "ToolTip": "C:\\_src\\DHSC\\Abortion-Notification\\DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
-              "RelativeToolTip": "DHSC.ANS.API.Consumer\\DHSC.ANS.API.Consumer.csproj",
-              "ViewState": "AgIAACsAAAAAAAAAAAAEwDsAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-03-27T19:33:25.512Z",
               "EditorCaption": ""
             }
           ]

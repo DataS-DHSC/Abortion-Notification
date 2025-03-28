@@ -13,7 +13,7 @@ const inputPath = process.argv[2];
 const outputPath = process.argv[3];
 
 let options = {
-    user_templates: ".//templates",
+    user_templates: "widdershins/templates",
     templateCallback: templateCallBack,
     language_tabs: [{ 'javascript': 'JavaScript' }, { 'python': 'Python' }],
     language_tabs: [

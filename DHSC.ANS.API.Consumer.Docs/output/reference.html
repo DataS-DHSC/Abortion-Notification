@@ -129,6 +129,9 @@
                         <a href="#tocS_FundingType"><span>FundingType</span></a>
                     </li>
                     <li class="toc-level-2">
+                        <a href="#tocS_GestationDetailsDto"><span>GestationDetailsDto</span></a>
+                    </li>
+                    <li class="toc-level-2">
                         <a href="#tocS_HSA4FormDto"><span>HSA4FormDto</span></a>
                     </li>
                     <li class="toc-level-2">
@@ -144,10 +147,10 @@
                         <a href="#tocS_PractitionerInfoDto"><span>PractitionerInfoDto</span></a>
                     </li>
                     <li class="toc-level-2">
-                        <a href="#tocS_PregnancyDetailsDto"><span>PregnancyDetailsDto</span></a>
+                        <a href="#tocS_SelectiveTerminationInfoDto"><span>SelectiveTerminationInfoDto</span></a>
                     </li>
                     <li class="toc-level-2">
-                        <a href="#tocS_SelectiveTerminationInfoDto"><span>SelectiveTerminationInfoDto</span></a>
+                        <a href="#tocS_TerminationGroundsDto"><span>TerminationGroundsDto</span></a>
                     </li>
                     <li class="toc-level-2">
                         <a href="#tocS_TreatmentDetailsDto"><span>TreatmentDetailsDto</span></a>
@@ -218,15 +221,17 @@ curl -X POST /api/HSA4Form \
     "administrationSetting": 0,
     "serviceProviderOrganisation": "string"
   },
-  "pregnancy": {
+  "gestation": {
     "gestationWeeks": 4,
-    "gestationDays": 0,
+    "gestationDays": 6
+  },
+  "terminationGroundsDto": {
     "grounds": [
       0
     ],
-    "mainConditionForGroundsAorBorForG": "string",
-    "groundC_RiskToMentalHealth": true,
-    "groundC_PhysicalCondition": "string"
+    "mainCondition": "string",
+    "riskToMentalHealth": true,
+    "physicalCondition": "string"
   },
   "selectiveTermination": {
     "originalFetusCount": 0,
@@ -360,15 +365,17 @@ func main() {
     "administrationSetting": 0,
     "serviceProviderOrganisation": "string"
   },
-  "pregnancy": {
+  "gestation": {
     "gestationWeeks": 4,
-    "gestationDays": 0,
+    "gestationDays": 6
+  },
+  "terminationGroundsDto": {
     "grounds": [
       0
     ],
-    "mainConditionForGroundsAorBorForG": "string",
-    "groundC_RiskToMentalHealth": true,
-    "groundC_PhysicalCondition": "string"
+    "mainCondition": "string",
+    "riskToMentalHealth": true,
+    "physicalCondition": "string"
   },
   "selectiveTermination": {
     "originalFetusCount": 0,
@@ -594,8 +601,21 @@ Required information:</p>
 <ul class='govuk-list govuk-list--bullet'>
 <li>Names and addresses of two certifying doctors.</li>
 <li>Indicate if the performing doctor was a signatory.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Certification Information - Section 2</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-2-certification">Certification Information - Section 2</a></li>
 </ul>
+<p class='govuk-body-m'>
+<strong>Section 2: Certification</strong>
+</p>
+<p class='govuk-body-m'>
+You must provide the full name and address of both registered medical practitioners who certified the patient had grounds for the abortion. 
+If one of these practitioners was also the practitioner who terminated the pregnancy, ensure to complete the relevant certification information accordingly.
+</p>
+<p class='govuk-body-m'>
+Forms will be returned if no information is given, if a hospital stamp is used but no doctor’s name is provided, or if the same doctor is listed twice as shown in Section 1.
+</p>
+<p class='govuk-body-m'>
+For digital submissions, practitioners should be selected from a predefined list, or entered manually if not present. Manually entered details will be saved for future use.
+</p>
 <h3 id="properties-2">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
@@ -613,35 +633,35 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Full name of the first certifying doctor.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>certifyingDoctor1Address</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Address of the first certifying doctor.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>certifyingDoctor2Name</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Full name of the second certifying doctor.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>certifyingDoctor2Address</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Address of the second certifying doctor.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>performingDoctorWasSignatory</td>
 <td class='govuk-table__cell'>boolean</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Indicates if the performing doctor was one of the certifying doctors.</td>
 </tr>
 </tbody>
 </table>
@@ -661,7 +681,9 @@ Required Information:</p>
 <ul class='govuk-list govuk-list--bullet'>
 <li>Indication if screening for chlamydia was offered.</li>
 <li>Response is mandatory for all cases.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a>
+This section must be completed for all cases. Indicate if screening for chlamydia was offered or if screening and prophylactic antibiotic treatment were offered.
+The 'Yes' box should not be ticked if prophylactic treatment alone was offered without screening.</li>
 </ul>
 <h3 id="properties-3">Properties</h3>
 <table class="table">
@@ -680,7 +702,7 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>boolean</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Indicates whether chlamydia screening or screening and prophylactic antibiotic treatment was offered.</td>
 </tr>
 </tbody>
 </table>
@@ -774,7 +796,10 @@ Required Information:</p>
 <ul class='govuk-list govuk-list--bullet'>
 <li>List of complications experienced, if any.</li>
 <li>Additional details if complications are not listed.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a>
+This section should be completed if any complications occurred up until the time of discharge from the place of termination.
+Note: Do not include evacuations of retained products of conception or failed terminations as complications.
+A medical practitioner scrutinises all complications listed under ‘other’ and additional information may be requested as needed.</li>
 </ul>
 <h3 id="properties-5">Properties</h3>
 <table class="table">
@@ -793,14 +818,14 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>[<a href="#schemacomplication">Complication</a>]¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>[Enumeration representing possible complications of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9-complications">Complications - Section 9</a>]</td>
+<td class='govuk-table__cell'>The list of complications experienced during or after the procedure.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>otherComplicationDetails</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Details of any other complications not listed above.</td>
 </tr>
 </tbody>
 </table>
@@ -918,6 +943,46 @@ Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-
 </tr>
 </tbody>
 </table>
+<h2 id="tocS_GestationDetailsDto">GestationDetailsDto</h2>
+<!-- backwards compatibility -->
+<a id="schemagestationdetailsdto"></a>
+<a id="schema_GestationDetailsDto"></a>
+<a id="tocSgestationdetailsdto"></a>
+<a id="tocsgestationdetailsdto"></a>
+<pre><code class="language-json">{
+  "gestationWeeks": 4,
+  "gestationDays": 6
+}
+
+</code></pre>
+<h3 id="properties-8">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>gestationWeeks</td>
+<td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>Valid range: 4 - 40 weeks. Provide additional details if exactly 24 weeks or over.</td>
+<td class='govuk-table__cell'>The gestation period in completed weeks.</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>gestationDays</td>
+<td class='govuk-table__cell'>integer(int32)¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>Valid range: 0 - 6 days. Only applicable when gestation is 24 weeks or more.</td>
+<td class='govuk-table__cell'>The additional days past the completed weeks (0 to 6 days).</td>
+</tr>
+</tbody>
+</table>
 <h2 id="tocS_HSA4FormDto">HSA4FormDto</h2>
 <!-- backwards compatibility -->
 <a id="schemahsa4formdto"></a>
@@ -965,15 +1030,17 @@ Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-
     "administrationSetting": 0,
     "serviceProviderOrganisation": "string"
   },
-  "pregnancy": {
+  "gestation": {
     "gestationWeeks": 4,
-    "gestationDays": 0,
+    "gestationDays": 6
+  },
+  "terminationGroundsDto": {
     "grounds": [
       0
     ],
-    "mainConditionForGroundsAorBorForG": "string",
-    "groundC_RiskToMentalHealth": true,
-    "groundC_PhysicalCondition": "string"
+    "mainCondition": "string",
+    "riskToMentalHealth": true,
+    "physicalCondition": "string"
   },
   "selectiveTermination": {
     "originalFetusCount": 0,
@@ -999,8 +1066,11 @@ Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-
 <p class='govuk-body-m'>HSA4 Form DTO - Represents the entire form submission.
 This object aggregates all the sections of the HSA4 form as specified by the official guidance.
 Each section is represented by a dedicated DTO.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">HSA4 Form Guidance</a></p>
-<h3 id="properties-8">Properties</h3>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">HSA4 Form Guidance</a>
+The HSA4 form must be electronically signed within 14 days of the termination by the responsible registered medical practitioner. In the case of medical abortions, this is usually the practitioner prescribing mifepristone.
+Forms that are not electronically signed within 14 days may be removed from the doctor's account and returned as paper forms for manual processing, which can cause delays and additional workload.
+It is critical for the accuracy of national statistics and operational efficiency that the forms are completed and signed promptly.</p>
+<h3 id="properties-9">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1017,63 +1087,70 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'><a href="#schemapractitionerinfodto">PractitionerInfoDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a><br><p class='govuk-body-m'><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p class='govuk-body-m'><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p class='govuk-body-m'><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p class='govuk-body-m'><br>In cases of medical termination, details of the terminating practitioner must be provided, <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated. <br>For more information, refer to <br><a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.<br></p><br><p class='govuk-body-m'><br>Providing practitioner details constitutes a signed declaration of the following statement <br>(as found on the paper form):  <br></p><br><blockquote><br>Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, <br>the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) <br>in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.<br></blockquote><br><p class='govuk-body-m'><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p class='govuk-body-m'><br>For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.<br></p></td>
+<td class='govuk-table__cell'>Practitioner Information - Section 1<br>Required information:<br>- Full name of the practitioner.<br>- Address of the practitioner.<br>- GMC number (7 digits).<br>- Date of signature.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-1-practitioner-terminating-the-pregnancy">Practitioner Information - Section 1</a><br><p class='govuk-body-m'><br><strong>Section 1: Practitioner Terminating the Pregnancy</strong><br></p><br><p class='govuk-body-m'><br>You must provide a full name, address, and General Medical Council (GMC) registration number, signature, and date.<br></p><br><p class='govuk-body-m'><br>The address stated does not have to be the one shown on the GMC’s annual registration certificate. <br>However, if the form is incomplete and the place of termination is missing, the form will be returned to the address held by the GMC.<br></p><br><p class='govuk-body-m'><br>In cases of medical termination, details of the terminating practitioner must be provided, <br>even if the practitioner has been unable to confirm that the pregnancy has been terminated. <br>For more information, refer to <br><a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details" target="_blank">Section 4: Treatment Details</a> in the guidance document.<br></p><br><p class='govuk-body-m'><br>Providing practitioner details constitutes a signed declaration of the following statement <br>(as found on the paper form):  <br></p><br><blockquote><br>Hereby give notice that I terminated the pregnancy of the woman identified overleaf, and to the best of my knowledge, <br>the particulars on this form are correct. I further certify that I joined/did not join (delete as appropriate) <br>in giving HSA1 having seen/not seen (delete as appropriate) and examined/not examined (delete as appropriate) her before doing so.<br></blockquote><br><p class='govuk-body-m'><br>Forms will be returned if the practitioner’s name, address, GMC number, or signature are missing, or if the GMC number <br>cannot be found on the GMC register.<br></p><br><p class='govuk-body-m'><br>For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> <br>is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.<br></p></td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>certification</td>
 <td class='govuk-table__cell'><a href="#schemacertificationinfodto">CertificationInfoDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Certification Information - Section 2 (Non-Emergency Cases)<br>Required information:<br>- Names and addresses of two certifying doctors.<br>- Indicate if the performing doctor was a signatory.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Certification Information - Section 2</a></td>
+<td class='govuk-table__cell'>Certification Information - Section 2 (Non-Emergency Cases)<br>Required information:<br>- Names and addresses of two certifying doctors.<br>- Indicate if the performing doctor was a signatory.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-2-certification">Certification Information - Section 2</a><br><p class='govuk-body-m'><br><strong>Section 2: Certification</strong><br></p><br><p class='govuk-body-m'><br>You must provide the full name and address of both registered medical practitioners who certified the patient had grounds for the abortion. <br>If one of these practitioners was also the practitioner who terminated the pregnancy, ensure to complete the relevant certification information accordingly.<br></p><br><p class='govuk-body-m'><br>Forms will be returned if no information is given, if a hospital stamp is used but no doctor’s name is provided, or if the same doctor is listed twice as shown in Section 1.<br></p><br><p class='govuk-body-m'><br>For digital submissions, practitioners should be selected from a predefined list, or entered manually if not present. Manually entered details will be saved for future use.<br></p></td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>patient</td>
 <td class='govuk-table__cell'><a href="#schemapatientdetailsdto">PatientDetailsDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Patient's Details - Section 3<br>Required information:<br>- Patient's hospital number and NHS number (if available).<br>- Full name, date of birth, address, and postcode.<br>- Country of residence, ethnic group, and marital status.<br>- Number of previous live births over 24 weeks, miscarriages, and terminations.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3">Patient's Details - Section 3</a></td>
+<td class='govuk-table__cell'>Patient's Details - Section 3<br>Required information:<br>- Patient's hospital number and NHS number (if available).<br>- Full name, date of birth, address, and postcode.<br>- Country of residence, ethnic group, and marital status.<br>- Number of previous live births over 24 weeks, miscarriages, and terminations.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3">Patient's Details - Section 3</a><br><p class='govuk-body-m'><br><strong>Section 3: Patient’s Details</strong><br></p><br><p class='govuk-body-m'><br>You must provide the patient's hospital number or NHS number if available, along with their full name, date of birth, address, and postcode.<br>For residents outside of England and Wales, provide the patient's country of residence. If the country of residence is not known, provide the patient's full postcode or address for their temporary stay in England or Wales.<br></p><br><p class='govuk-body-m'><br>Ethnicity and marital status must be reported if known. The parity section should detail previous live births over 24 weeks, miscarriages, and legal terminations.<br></p></td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>treatment</td>
 <td class='govuk-table__cell'><a href="#schematreatmentdetailsdto">TreatmentDetailsDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Treatment Details - Section 4<br>Required information:<br>- Treatment location, dates of termination, admission, and discharge.<br>- Type of procedure performed (medical or surgical).<br>- Funding type (NHS, Private).<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4">Treatment Details - Section 4</a></td>
+<td class='govuk-table__cell'>Treatment Details - Section 4<br>Required information:<br>- Treatment location, dates of termination, admission, and discharge.<br>- Type of procedure performed (medical or surgical).<br>- Funding type (NHS, Private).<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4">Treatment Details - Section 4</a><br><p class='govuk-body-m'><br><strong>Section 4: Treatment Details</strong><br></p><br><p class='govuk-body-m'><br>You must specify whether the abortion was NHS funded or privately funded. For surgical terminations, indicate the procedure performed and provide relevant dates and methods used.<br>For medical terminations, specify the administration setting (e.g., all at home, partially at home, or in clinic), and if applicable, the organisation providing off-site treatment.<br></p><br><p class='govuk-body-m'><br>If feticide was used, provide the method and date. For all methods, the dates of admission, termination, and discharge (if applicable) must be specified.<br></p><br><p class='govuk-body-m'><br>Failure to provide correct details may result in the form being returned.<br></p></td>
 </tr>
 <tr>
-<td class='govuk-table__cell'>pregnancy</td>
-<td class='govuk-table__cell'><a href="#schemapregnancydetailsdto">PregnancyDetailsDto</a></td>
+<td class='govuk-table__cell'>gestation</td>
+<td class='govuk-table__cell'><a href="#schemagestationdetailsdto">GestationDetailsDto</a></td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
 <td class='govuk-table__cell'>none</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>terminationGroundsDto</td>
+<td class='govuk-table__cell'><a href="#schematerminationgroundsdto">TerminationGroundsDto</a></td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Termination Grounds - Section 6<br>Required information:<br>- Grounds for termination as stated on HSA1 or HSA2 form.<br>- Additional conditions or reasons as applicable.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-6">Termination Grounds - Section 6</a><br>Grounds for termination must be selected as stated on the HSA1 or HSA2 form. The available grounds are:<br>- Risk to the life of the pregnant woman.<br>- To prevent grave permanent injury to the physical or mental health of the pregnant woman.<br>- Risk of injury to the physical or mental health of the pregnant woman (up to 24 weeks).<br>- Risk of injury to the physical or mental health of any existing children of the family of the pregnant woman (up to 24 weeks).<br>- Substantial risk that if the child were born, they would suffer from such physical or mental abnormalities as to be seriously handicapped.<br>- To save the life of the pregnant woman in an emergency.<br>- To prevent grave permanent injury to the physical or mental health of the pregnant woman in an emergency.<br>For applicable grounds, further details should be provided. If the pregnancy was terminated after exceeding the 24th week, provide a full statement of the medical condition.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>selectiveTermination</td>
 <td class='govuk-table__cell'><a href="#schemaselectiveterminationinfodto">SelectiveTerminationInfoDto</a></td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Selective Termination - Section 7<br>Required Information:<br>- Original number of fetuses before selective termination.<br>- Number of fetuses remaining after the procedure.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a></td>
+<td class='govuk-table__cell'>Selective Termination - Section 7<br>Required Information:<br>- Original number of fetuses before selective termination.<br>- Number of fetuses remaining after the procedure.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a><br>This section should only be completed if the original number of fetuses was 2 or more and reduced to 1 or more. All other relevant sections of the form must be completed.<br>A medical practitioner will scrutinise all forms relating to selective terminations, and more information may be requested on a case-by-case basis.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>chlamydiaScreening</td>
 <td class='govuk-table__cell'><a href="#schemachlamydiainfodto">ChlamydiaInfoDto</a></td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Chlamydia Screening - Section 8<br>Required Information:<br>- Indication if screening for chlamydia was offered.<br>- Response is mandatory for all cases.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a></td>
+<td class='govuk-table__cell'>Chlamydia Screening - Section 8<br>Required Information:<br>- Indication if screening for chlamydia was offered.<br>- Response is mandatory for all cases.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Chlamydia Screening - Section 8</a><br>This section must be completed for all cases. Indicate if screening for chlamydia was offered or if screening and prophylactic antibiotic treatment were offered.<br>The 'Yes' box should not be ticked if prophylactic treatment alone was offered without screening.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>complications</td>
 <td class='govuk-table__cell'><a href="#schemacomplicationsinfodto">ComplicationsInfoDto</a></td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Complications - Section 9<br>Required Information:<br>- List of complications experienced, if any.<br>- Additional details if complications are not listed.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a></td>
+<td class='govuk-table__cell'>Complications - Section 9<br>Required Information:<br>- List of complications experienced, if any.<br>- Additional details if complications are not listed.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-9">Complications - Section 9</a><br>This section should be completed if any complications occurred up until the time of discharge from the place of termination.<br>Note: Do not include evacuations of retained products of conception or failed terminations as complications.<br>A medical practitioner scrutinises all complications listed under ‘other’ and additional information may be requested as needed.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>maternalDeath</td>
 <td class='govuk-table__cell'><a href="#schemamaternaldeathinfodto">MaternalDeathInfoDto</a></td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>Death of Woman - Section 10<br>Required Information:<br>- Indicate if a maternal death occurred.<br>- Date and cause of death if applicable.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a></td>
+<td class='govuk-table__cell'>Death of Woman - Section 10<br>Required Information:<br>- Indicate if a maternal death occurred.<br>- Date and cause of death if applicable.<br>For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a><br>If a maternal death occurs as a result of the termination, you must state the date and the cause of death. This section will be scrutinised by a medical practitioner, and additional information may be requested.</td>
 </tr>
 </tbody>
 </table>
@@ -1088,7 +1165,7 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 </code></pre>
 <p class='govuk-body-m'>Enumeration representing the patient's marital status.
 Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3-patients-details">Patient's Details - Section 3</a></p>
-<h3 id="properties-9">Properties</h3>
+<h3 id="properties-10">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1162,9 +1239,10 @@ Required Information:</p>
 <ul class='govuk-list govuk-list--bullet'>
 <li>Indicate if a maternal death occurred.</li>
 <li>Date and cause of death if applicable.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Death of Woman - Section 10</a>
+If a maternal death occurs as a result of the termination, you must state the date and the cause of death. This section will be scrutinised by a medical practitioner, and additional information may be requested.</li>
 </ul>
-<h3 id="properties-10">Properties</h3>
+<h3 id="properties-11">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1179,23 +1257,23 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <tr>
 <td class='govuk-table__cell'>maternalDeathOccurred</td>
 <td class='govuk-table__cell'>boolean</td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Indicates whether a maternal death occurred as a result of the termination.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>dateOfDeath</td>
 <td class='govuk-table__cell'>string(date-time)¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ (UTC time)</td>
+<td class='govuk-table__cell'>The date of death, if applicable.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>causeOfDeath</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The cause of death, if applicable.</td>
 </tr>
 </tbody>
 </table>
@@ -1230,7 +1308,17 @@ Required information:</p>
 <li>Number of previous live births over 24 weeks, miscarriages, and terminations.
 For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-3">Patient's Details - Section 3</a></li>
 </ul>
-<h3 id="properties-11">Properties</h3>
+<p class='govuk-body-m'>
+<strong>Section 3: Patient’s Details</strong>
+</p>
+<p class='govuk-body-m'>
+You must provide the patient's hospital number or NHS number if available, along with their full name, date of birth, address, and postcode.
+For residents outside of England and Wales, provide the patient's country of residence. If the country of residence is not known, provide the patient's full postcode or address for their temporary stay in England or Wales.
+</p>
+<p class='govuk-body-m'>
+Ethnicity and marital status must be reported if known. The parity section should detail previous live births over 24 weeks, miscarriages, and legal terminations.
+</p>
+<h3 id="properties-12">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1247,49 +1335,49 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The patient's hospital or clinic number.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>nhsNumber</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Valid 10 digit NHS Number</td>
+<td class='govuk-table__cell'>The patient's NHS number.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>fullName</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The patient's full name.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>dateOfBirth</td>
 <td class='govuk-table__cell'>string(date-time)</td>
 <td class='govuk-table__cell'>true</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDT00:00:00</td>
+<td class='govuk-table__cell'>The patient's date of birth.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>postcode</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Valid UK Postcode</td>
+<td class='govuk-table__cell'>The patient's full postcode (if applicable).</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>address</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The patient's address (if full postcode is not provided).</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>countryOfResidence</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The patient's country of residence.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>ethnicGroup</td>
@@ -1310,21 +1398,21 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>integer(int32)</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Number of previous live births over 24 weeks.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>previousMiscarriages</td>
 <td class='govuk-table__cell'>integer(int32)</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Number of previous miscarriages.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>previousTerminations</td>
 <td class='govuk-table__cell'>integer(int32)</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Number of previous terminations.</td>
 </tr>
 </tbody>
 </table>
@@ -1349,7 +1437,7 @@ Required information:</p>
 <li>Address of the practitioner.</li>
 <li>GMC number (7 digits).</li>
 <li>Date of signature.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Practitioner Information - Section 1</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-1-practitioner-terminating-the-pregnancy">Practitioner Information - Section 1</a></li>
 </ul>
 <p class='govuk-body-m'>
 <strong>Section 1: Practitioner Terminating the Pregnancy</strong>
@@ -1384,7 +1472,7 @@ cannot be found on the GMC register.
 For <a href="https://www.gov.uk/government/consultations/home-use-of-both-pills-for-early-medical-abortion/home-use-of-both-pills-for-early-medical-abortion-up-to-10-weeks-gestation#:~:text=EMAs%20are%20defined%20as%20a,basis%20for%20England%20and%20Wales" target="_blank">medical abortions</a>, when more than one doctor may be involved in the termination, the <em>terminating practitioner</em> 
 is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the <a href="https://bnf.nice.org.uk/drugs/mifepristone/" target="_blank">Mifepristone</a> or <a href="https://bnf.nice.org.uk/drugs/misoprostol/" target="_blank">Misoprostol</a>.
 </p>
-<h3 id="properties-12">Properties</h3>
+<h3 id="properties-13">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1401,102 +1489,28 @@ is the doctor taking responsibility for the abortion. Usually, this will be the 
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The full name of the practitioner responsible for the termination, required for form validity.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>address</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The address of the practitioner, which does not have to match the GMC’s registration certificate.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>gmcNumber</td>
 <td class='govuk-table__cell'>string</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>Valid 7 digit GMC Reference</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The practitioner's GMC registration number as registered on the GMC register.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>dateOfSignature</td>
 <td class='govuk-table__cell'>string(date-time)</td>
 <td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ  (UTC time)</td>
-<td class='govuk-table__cell'>none</td>
-</tr>
-</tbody>
-</table>
-<h2 id="tocS_PregnancyDetailsDto">PregnancyDetailsDto</h2>
-<!-- backwards compatibility -->
-<a id="schemapregnancydetailsdto"></a>
-<a id="schema_PregnancyDetailsDto"></a>
-<a id="tocSpregnancydetailsdto"></a>
-<a id="tocspregnancydetailsdto"></a>
-<pre><code class="language-json">{
-  "gestationWeeks": 4,
-  "gestationDays": 0,
-  "grounds": [
-    0
-  ],
-  "mainConditionForGroundsAorBorForG": "string",
-  "groundC_RiskToMentalHealth": true,
-  "groundC_PhysicalCondition": "string"
-}
-
-</code></pre>
-<h3 id="properties-13">Properties</h3>
-<table class="table">
-<thead class='govuk-table__head'>
-<tr>
-<th class='govuk-table__header'>Name</th>
-<th class='govuk-table__header'>Type</th>
-<th class='govuk-table__header'>Required</th>
-<th class='govuk-table__header'>Restrictions</th>
-<th class='govuk-table__header'>Description</th>
-</tr>
-</thead>
-<tbody class='govuk-table__body'>
-<tr>
-<td class='govuk-table__cell'>gestationWeeks</td>
-<td class='govuk-table__cell'>integer(int32)</td>
-<td class='govuk-table__cell'>true</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
-</tr>
-<tr>
-<td class='govuk-table__cell'>gestationDays</td>
-<td class='govuk-table__cell'>integer(int32)¦null</td>
-<td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
-</tr>
-<tr>
-<td class='govuk-table__cell'>grounds</td>
-<td class='govuk-table__cell'>[<a href="#schemaabortionground">AbortionGround</a>]</td>
-<td class='govuk-table__cell'>true</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>[Enumeration representing the grounds for abortion, as specified by the HSA4 Guidance Notes.<br>Valid Grounds:<br>- Risk to the life of the pregnant woman.<br>- Preventing grave permanent injury to physical or mental health.<br>- Preventing injury to health of the woman or existing children under 24 weeks.<br>- Substantial risk of severe abnormality if the child were born.<br>- Emergency to save life or prevent grave permanent injury.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-5-gestation">Abortion Grounds - Section 5</a>]</td>
-</tr>
-<tr>
-<td class='govuk-table__cell'>mainConditionForGroundsAorBorForG</td>
-<td class='govuk-table__cell'>string¦null</td>
-<td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
-</tr>
-<tr>
-<td class='govuk-table__cell'>groundC_RiskToMentalHealth</td>
-<td class='govuk-table__cell'>boolean¦null</td>
-<td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
-</tr>
-<tr>
-<td class='govuk-table__cell'>groundC_PhysicalCondition</td>
-<td class='govuk-table__cell'>string¦null</td>
-<td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The date the practitioner signed the form.</td>
 </tr>
 </tbody>
 </table>
@@ -1517,7 +1531,9 @@ Required Information:</p>
 <ul class='govuk-list govuk-list--bullet'>
 <li>Original number of fetuses before selective termination.</li>
 <li>Number of fetuses remaining after the procedure.
-For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a></li>
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales">Selective Termination - Section 7</a>
+This section should only be completed if the original number of fetuses was 2 or more and reduced to 1 or more. All other relevant sections of the form must be completed.
+A medical practitioner will scrutinise all forms relating to selective terminations, and more information may be requested on a case-by-case basis.</li>
 </ul>
 <h3 id="properties-14">Properties</h3>
 <table class="table">
@@ -1534,16 +1550,90 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <tr>
 <td class='govuk-table__cell'>originalFetusCount</td>
 <td class='govuk-table__cell'>integer(int32)</td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The number of fetuses originally present before the selective termination.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>remainingFetusCount</td>
 <td class='govuk-table__cell'>integer(int32)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The number of fetuses remaining after the selective termination.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocS_TerminationGroundsDto">TerminationGroundsDto</h2>
+<!-- backwards compatibility -->
+<a id="schematerminationgroundsdto"></a>
+<a id="schema_TerminationGroundsDto"></a>
+<a id="tocSterminationgroundsdto"></a>
+<a id="tocsterminationgroundsdto"></a>
+<pre><code class="language-json">{
+  "grounds": [
+    0
+  ],
+  "mainCondition": "string",
+  "riskToMentalHealth": true,
+  "physicalCondition": "string"
+}
+
+</code></pre>
+<p class='govuk-body-m'>Termination Grounds - Section 6
+Required information:</p>
+<ul class='govuk-list govuk-list--bullet'>
+<li>Grounds for termination as stated on HSA1 or HSA2 form.</li>
+<li>Additional conditions or reasons as applicable.
+For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-6">Termination Grounds - Section 6</a>
+Grounds for termination must be selected as stated on the HSA1 or HSA2 form. The available grounds are:</li>
+<li>Risk to the life of the pregnant woman.</li>
+<li>To prevent grave permanent injury to the physical or mental health of the pregnant woman.</li>
+<li>Risk of injury to the physical or mental health of the pregnant woman (up to 24 weeks).</li>
+<li>Risk of injury to the physical or mental health of any existing children of the family of the pregnant woman (up to 24 weeks).</li>
+<li>Substantial risk that if the child were born, they would suffer from such physical or mental abnormalities as to be seriously handicapped.</li>
+<li>To save the life of the pregnant woman in an emergency.</li>
+<li>To prevent grave permanent injury to the physical or mental health of the pregnant woman in an emergency.
+For applicable grounds, further details should be provided. If the pregnancy was terminated after exceeding the 24th week, provide a full statement of the medical condition.</li>
+</ul>
+<h3 id="properties-15">Properties</h3>
+<table class="table">
+<thead class='govuk-table__head'>
+<tr>
+<th class='govuk-table__header'>Name</th>
+<th class='govuk-table__header'>Type</th>
+<th class='govuk-table__header'>Required</th>
+<th class='govuk-table__header'>Restrictions</th>
+<th class='govuk-table__header'>Description</th>
+</tr>
+</thead>
+<tbody class='govuk-table__body'>
+<tr>
+<td class='govuk-table__cell'>grounds</td>
+<td class='govuk-table__cell'>[<a href="#schemaabortionground">AbortionGround</a>]</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Grounds for termination selected from HSA1 or HSA2 form.</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>mainCondition</td>
+<td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The main condition relevant to grounds concerning the health or life of the pregnant woman or fetus.</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>riskToMentalHealth</td>
+<td class='govuk-table__cell'>boolean¦null</td>
+<td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Specifies if the risk to mental health was the reason for termination.</td>
+</tr>
+<tr>
+<td class='govuk-table__cell'>physicalCondition</td>
+<td class='govuk-table__cell'>string¦null</td>
+<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The physical condition that warranted termination under the specified grounds.</td>
 </tr>
 </tbody>
 </table>
@@ -1576,7 +1666,20 @@ Required information:</p>
 <li>Funding type (NHS, Private).
 For further details, see: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4">Treatment Details - Section 4</a></li>
 </ul>
-<h3 id="properties-15">Properties</h3>
+<p class='govuk-body-m'>
+<strong>Section 4: Treatment Details</strong>
+</p>
+<p class='govuk-body-m'>
+You must specify whether the abortion was NHS funded or privately funded. For surgical terminations, indicate the procedure performed and provide relevant dates and methods used.
+For medical terminations, specify the administration setting (e.g., all at home, partially at home, or in clinic), and if applicable, the organisation providing off-site treatment.
+</p>
+<p class='govuk-body-m'>
+If feticide was used, provide the method and date. For all methods, the dates of admission, termination, and discharge (if applicable) must be specified.
+</p>
+<p class='govuk-body-m'>
+Failure to provide correct details may result in the form being returned.
+</p>
+<h3 id="properties-16">Properties</h3>
 <table class="table">
 <thead class='govuk-table__head'>
 <tr>
@@ -1590,22 +1693,22 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <tbody class='govuk-table__body'>
 <tr>
 <td class='govuk-table__cell'>placeOfTerminationName</td>
-<td class='govuk-table__cell'>string¦null</td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Name of the place where the termination was performed.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>placeOfTerminationAddress</td>
-<td class='govuk-table__cell'>string¦null</td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>string</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>Address of the place where the termination was performed.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>funding</td>
 <td class='govuk-table__cell'><a href="#schemafundingtype">FundingType</a></td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
 <td class='govuk-table__cell'>Enumeration representing the funding type of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
 </tr>
@@ -1613,48 +1716,48 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>feticideDate</td>
 <td class='govuk-table__cell'>string(date-time)¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ (UTC time)</td>
+<td class='govuk-table__cell'>The date feticide was performed, if applicable.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>feticideMethod</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The method of feticide, if applicable.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>terminationDate</td>
-<td class='govuk-table__cell'>string(date-time)¦null</td>
-<td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>string(date-time)</td>
+<td class='govuk-table__cell'>true</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ (UTC time)</td>
+<td class='govuk-table__cell'>The date of termination.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>admissionDate</td>
 <td class='govuk-table__cell'>string(date-time)¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ (UTC time)</td>
+<td class='govuk-table__cell'>The date of admission to the facility (if an overnight stay was required).</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>dischargeDate</td>
 <td class='govuk-table__cell'>string(date-time)¦null</td>
 <td class='govuk-table__cell'>false</td>
-<td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>YYYY-MM-DDTHH:MM:SSZ (UTC time)</td>
+<td class='govuk-table__cell'>The date of discharge from the facility.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>surgicalMethod</td>
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>none</td>
+<td class='govuk-table__cell'>The surgical method used, if applicable.</td>
 </tr>
 <tr>
 <td class='govuk-table__cell'>administrationSetting</td>
 <td class='govuk-table__cell'><a href="#schemaadministrationsetting">AdministrationSetting</a></td>
-<td class='govuk-table__cell'>false</td>
+<td class='govuk-table__cell'>true</td>
 <td class='govuk-table__cell'>none</td>
 <td class='govuk-table__cell'>Enumeration representing the administration setting of the treatment.<br>Refer to guidance: <a href="https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales/guidance-notes-for-completing-hsa4-paper-forms#section-4-treatment-details">Treatment Details - Section 4</a></td>
 </tr>
@@ -1663,7 +1766,7 @@ For further details, see: <a href="https://www.gov.uk/government/publications/ab
 <td class='govuk-table__cell'>string¦null</td>
 <td class='govuk-table__cell'>false</td>
 <td class='govuk-table__cell'>none</td>
-<td class='govuk-table__cell'>If partial or all medicines are administered off-site, specify the provider's organisation.</td>
+<td class='govuk-table__cell'>Provider's organisation if treatment was administered off-site.</td>
 </tr>
 </tbody>
 </table>
