@@ -14,8 +14,9 @@ public class HSA4FormValidator : AbstractValidator<HSA4FormDto>
 		RuleFor(x => x.Certification).SetValidator(new CertificationInfoValidator());
 		RuleFor(x => x.Patient).SetValidator(new PatientDetailsValidator());
 		RuleFor(x => x.Treatment).SetValidator(new TreatmentDetailsValidator());
-		RuleFor(x => x.Pregnancy).SetValidator(new PregnancyDetailsValidator());
-		RuleFor(x => x.ChlamydiaScreening).SetValidator(new ChlamydiaInfoValidator());
+		RuleFor(x => x.Gestation).SetValidator(new GestationDetailsValidator());
+        RuleFor(x => x.TerminationGroundsDto).SetValidator(new TerminationGroundsValidator());
+        RuleFor(x => x.ChlamydiaScreening).SetValidator(new ChlamydiaInfoValidator());
 		RuleFor(x => x.Complications).SetValidator(new ComplicationsInfoValidator());
 		RuleFor(x => x.MaternalDeath).SetValidator(new MaternalDeathInfoValidator());
 	}

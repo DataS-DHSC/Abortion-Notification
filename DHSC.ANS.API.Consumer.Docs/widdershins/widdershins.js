@@ -13,7 +13,7 @@ const inputPath = process.argv[2];
 const outputPath = process.argv[3];
 
 let options = {
-    user_templates: "C:/_src/DHSC/Abortion-Notification/DHSC.ANS.API.Consumer.Docs/widdershins/templates",
+    user_templates: ".//templates",
     templateCallback: templateCallBack,
     language_tabs: [{ 'javascript': 'JavaScript' }, { 'python': 'Python' }],
     language_tabs: [
