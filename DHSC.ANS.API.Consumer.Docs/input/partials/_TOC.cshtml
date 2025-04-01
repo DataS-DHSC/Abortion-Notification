@@ -3,10 +3,33 @@
 @using Statiq.Common
 
 @{
+    // Grab headings from the model
     var headings = Model.ContainsKey("Headings") ? Model["Headings"] as IEnumerable<dynamic> : null;
+    var mergedHeadings = MergeDuplicateHeadings(headings);
 }
 
 @functions {
+    // This custom comparer is for (string headingKey, string level) so we can do case-insensitive matching.
+    public class CaseInsensitiveHeadingComparer : IEqualityComparer<(string headingKey, string level)>
+    {
+        public bool Equals((string headingKey, string level) x, (string headingKey, string level) y)
+        {
+            return string.Equals(x.headingKey, y.headingKey, StringComparison.OrdinalIgnoreCase)
+                && string.Equals(x.level, y.level, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public int GetHashCode((string headingKey, string level) obj)
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + (obj.headingKey?.ToLowerInvariant().GetHashCode() ?? 0);
+                hash = hash * 23 + (obj.level?.ToLowerInvariant().GetHashCode() ?? 0);
+                return hash;
+            }
+        }
+    }
+
     string GetValue(dynamic heading, string key, string defaultValue)
     {
         if (heading is IReadOnlyDictionary<string, object> dict && dict.ContainsKey(key))
@@ -25,35 +48,120 @@
         return null;
     }
 
-    void RenderToc(dynamic headings)
+    /// <summary>
+    /// MergeDuplicateHeadings ensures that if the same HeadingKey + Level appears multiple times,
+    /// we collapse them under one entry with multiple children, so we don't see repeated headings
+    /// at the same level with different single children.
+    /// </summary>
+    IEnumerable<dynamic> MergeDuplicateHeadings(IEnumerable<dynamic> input)
     {
-        if (headings == null || !((IEnumerable<dynamic>)headings).Any())
+        if (input == null)
+        {
+            return Enumerable.Empty<dynamic>();
+        }
+
+        // Use the custom comparer so that headingKey & level are matched case-insensitively.
+        var seen = new Dictionary<(string headingKey, string level), Dictionary<string, object>>(new CaseInsensitiveHeadingComparer());
+        var mergedList = new List<dynamic>();
+
+        foreach (var h in input)
+        {
+            // Recursively unify children first
+            var children = GetChildren(h) as IEnumerable<dynamic>;
+            var mergedChildren = MergeDuplicateHeadings(children);
+
+            var dict = h as IReadOnlyDictionary<string, object>;
+            if (dict == null)
+            {
+                mergedList.Add(h);
+                continue;
+            }
+
+            // Convert dynamic headingKey and level to string
+            var rawHeadingKey = dict.ContainsKey("HeadingKey") ? dict["HeadingKey"] : null;
+            var rawLevel = dict.ContainsKey("Level") ? dict["Level"] : null;
+
+            // Ensure they're definitely strings
+            var headingKeyStr = (rawHeadingKey as string ?? "").Trim();
+            var levelStr = (rawLevel as string ?? "").Trim();
+
+            // If we have a valid headingKey & level, unify them
+            if (!string.IsNullOrWhiteSpace(headingKeyStr) && !string.IsNullOrWhiteSpace(levelStr))
+            {
+                // Normalise to lower so we can unify headings even if they differ by case
+                var tupleKey = (headingKeyStr.ToLowerInvariant(), levelStr.ToLowerInvariant());
+
+                if (!seen.TryGetValue(tupleKey, out var existingHeading))
+                {
+                    // We haven't seen this headingKey/level
+                    var newHeading = new Dictionary<string, object>(dict)
+                        {
+                            // Store the merged children
+                            ["Children"] = mergedChildren.ToList()
+                        };
+                    seen[tupleKey] = newHeading;
+                    mergedList.Add(newHeading);
+                }
+                else
+                {
+                    // Already saw headingKey/level, so add these children
+                    var existingChildren = existingHeading["Children"] as List<dynamic>;
+                    if (existingChildren != null)
+                    {
+                        existingChildren.AddRange(mergedChildren);
+                    }
+                }
+            }
+            else
+            {
+                // If there's no headingKey or level, just add with merged children
+                var newHeading = new Dictionary<string, object>(dict)
+                    {
+                        ["Children"] = mergedChildren.ToList()
+                    };
+                mergedList.Add(newHeading);
+            }
+        }
+
+        return mergedList;
+    }
+
+    void RenderToc(IEnumerable<dynamic> headings)
+    {
+        if (headings == null || !headings.Any())
         {
             return;
         }
+
         <ul class="table-of-contents">
             @foreach (var heading in headings)
             {
                 var headingId = GetValue(heading, "HeadingId", "");
                 var headingKey = GetValue(heading, "HeadingKey", "");
+                var level = GetValue(heading, "Level", "");
+
+                var children = GetChildren(heading) as IEnumerable<dynamic>;
+
                 if (!string.IsNullOrWhiteSpace(headingId) && !string.IsNullOrWhiteSpace(headingKey))
                 {
-                    <li class="toc-level-@(GetValue(heading, "Level", ""))">
-                        <a href="#@(headingId)"><span>@headingKey</span></a>
+                    <li class="toc-level-@level">
+                        <a href="#@headingId">
+                            <span>@headingKey</span>
+                        </a>
                         @{
-                            var children = GetChildren(heading);
-                            if (children.Count > 1) {
-                                RenderToc(GetChildren(heading)); 
+                            if (children != null && children.Any())
+                            {
+                                RenderToc(children);
                             }
                         }
                     </li>
                 }
                 else
                 {
-                    var children = GetChildren(heading);
-                    if (children.Count > 1)
+                    // If there's no heading text or ID, just render its children
+                    if (children != null && children.Any())
                     {
-                        RenderToc(GetChildren(heading));
+                        RenderToc(children);
                     }
                 }
             }
@@ -65,7 +173,9 @@
     <div class="toc" data-module="table-of-contents" tabindex="-1" aria-label="Table of contents">
         <button type="button" class="toc__close js-toc-close" aria-controls="toc" aria-label="Hide table of contents"></button>
         <nav id="toc" class="js-toc-list toc__list" aria-labelledby="toc-heading">
-            @{ RenderToc(headings); }
+            @{
+                RenderToc(mergedHeadings);
+            }
         </nav>
     </div>
 </div>

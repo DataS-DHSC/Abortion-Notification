@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class PatientDetailsValidator : AbstractValidator<PatientDetailsDto>
+public class PatientDetailsValidator : AbstractValidator<PatientDetails>
 {
 	public PatientDetailsValidator()
 	{

@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Middleware\**" />
+    <Content Remove="Middleware\**" />
+    <EmbeddedResource Remove="Middleware\**" />
+    <None Remove="Middleware\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Examples\ExampleHSA4Form.json" />
   </ItemGroup>
 
@@ -29,14 +36,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Middleware\" />
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
     <Folder Include="Assets\" />
-    <Folder Include="Docs\" />
-    <Folder Include="Utilities\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

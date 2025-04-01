@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class CertificationInfoValidator : AbstractValidator<CertificationInfoDto>
+public class CertificationInfoValidator : AbstractValidator<CertificationInfo>
 {
 	public CertificationInfoValidator()
 	{

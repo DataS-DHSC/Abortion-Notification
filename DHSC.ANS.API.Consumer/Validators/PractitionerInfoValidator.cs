@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class PractitionerInfoValidator : AbstractValidator<PractitionerInfoDto>
+public class PractitionerInfoValidator : AbstractValidator<PractitionerInfo>
 {
 	public PractitionerInfoValidator()
 	{
