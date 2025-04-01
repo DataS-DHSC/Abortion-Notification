@@ -258,6 +258,7 @@
                     <main id="content" class="technical-documentation" data-module="anchored-headings">
                         <html><head></head><body><h1 id="dhsc-ans-api">DHSC.ANS.API v1</h1>
 <p class='govuk-body-m'>Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, <strong>within 14 days</strong> of the termination.</p>
+<p class='govuk-body-m'>undefined</p>
 <h1 id="dhsc-ans-api-hsa4form">HSA4Form</h1>
 <h2 id="apihsa4form">/api/HSA4Form</h2>
 <h3 id="post">POST</h3>
@@ -268,7 +269,8 @@
 <div class="govuk-tabs" data-module="govuk-tabs"><ul class="govuk-tabs__list"><li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#shell-0">shell</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#javascript-1">javascript</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#python-2">python</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#ruby-3">ruby</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#go-4">go</a></li></ul><div><section class="govuk-tabs__panel" id="shell-0"><pre><code class="language-shell"># You can also use wget
 curl -X POST /api/HSA4Form \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: API_KEY'
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="javascript-1"><pre><code class="language-javascript">const inputBody = '{
   "practitioner": {
@@ -344,7 +346,8 @@ curl -X POST /api/HSA4Form \
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form',
@@ -362,7 +365,8 @@ fetch('/api/HSA4Form',
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="python-2"><pre><code class="language-python">import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.post('/api/HSA4Form', headers = headers)
@@ -374,7 +378,8 @@ require 'json'
 
 headers = {
   'Content-Type' =&gt; 'application/json',
-  'Accept' =&gt; 'application/json'
+  'Accept' =&gt; 'application/json',
+  'Authorization' =&gt; 'API_KEY'
 }
 
 result = RestClient.post '/api/HSA4Form',
@@ -395,6 +400,7 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -495,11 +501,13 @@ func main() {
 <h4 id="code-samples-1">Code samples</h4>
 <div class="govuk-tabs" data-module="govuk-tabs"><ul class="govuk-tabs__list"><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#shell-5">shell</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#javascript-6">javascript</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#python-7">python</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#ruby-8">ruby</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#go-9">go</a></li></ul><div><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="shell-5"><pre><code class="language-shell"># You can also use wget
 curl -X GET /api/HSA4Form/{id} \
-  -H 'Accept: text/plain'
+  -H 'Accept: text/plain' \
+  -H 'Authorization: API_KEY'
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="javascript-6"><pre><code class="language-javascript">
 const headers = {
-  'Accept':'text/plain'
+  'Accept':'text/plain',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form/{id}',
@@ -516,7 +524,8 @@ fetch('/api/HSA4Form/{id}',
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="python-7"><pre><code class="language-python">import requests
 headers = {
-  'Accept': 'text/plain'
+  'Accept': 'text/plain',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.get('/api/HSA4Form/{id}', headers = headers)
@@ -527,7 +536,8 @@ print(r.json())
 require 'json'
 
 headers = {
-  'Accept' =&gt; 'text/plain'
+  'Accept' =&gt; 'text/plain',
+  'Authorization' =&gt; 'API_KEY'
 }
 
 result = RestClient.get '/api/HSA4Form/{id}',
@@ -547,6 +557,7 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"text/plain"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -575,7 +586,8 @@ Only the sections provided will be validated; sections omitted remain unchanged.
 <div class="govuk-tabs" data-module="govuk-tabs"><ul class="govuk-tabs__list"><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#shell-10">shell</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#javascript-11">javascript</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#python-12">python</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#ruby-13">ruby</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#go-14">go</a></li></ul><div><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="shell-10"><pre><code class="language-shell"># You can also use wget
 curl -X PUT /api/HSA4Form/{id} \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: API_KEY'
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="javascript-11"><pre><code class="language-javascript">const inputBody = '{
   "practitioner": {
@@ -651,7 +663,8 @@ curl -X PUT /api/HSA4Form/{id} \
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form/{id}',
@@ -669,7 +682,8 @@ fetch('/api/HSA4Form/{id}',
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="python-12"><pre><code class="language-python">import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.put('/api/HSA4Form/{id}', headers = headers)
@@ -681,7 +695,8 @@ require 'json'
 
 headers = {
   'Content-Type' =&gt; 'application/json',
-  'Accept' =&gt; 'application/json'
+  'Accept' =&gt; 'application/json',
+  'Authorization' =&gt; 'API_KEY'
 }
 
 result = RestClient.put '/api/HSA4Form/{id}',
@@ -702,6 +717,7 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -800,13 +816,19 @@ func main() {
 <p class='govuk-body-m'><em>Deletes an existing HSA4 abortion notification form by its identifier.</em></p>
 <h4 id="code-samples-3">Code samples</h4>
 <div class="govuk-tabs" data-module="govuk-tabs"><ul class="govuk-tabs__list"><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#shell-15">shell</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#javascript-16">javascript</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#python-17">python</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#ruby-18">ruby</a></li><li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#go-19">go</a></li></ul><div><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="shell-15"><pre><code class="language-shell"># You can also use wget
-curl -X DELETE /api/HSA4Form/{id}
+curl -X DELETE /api/HSA4Form/{id} \
+  -H 'Authorization: API_KEY'
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="javascript-16"><pre><code class="language-javascript">
+const headers = {
+  'Authorization':'API_KEY'
+};
+
 fetch('/api/HSA4Form/{id}',
 {
-  method: 'DELETE'
+  method: 'DELETE',
 
+  headers: headers
 })
 .then(function(res) {
     return res.json();
@@ -815,17 +837,24 @@ fetch('/api/HSA4Form/{id}',
 });
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="python-17"><pre><code class="language-python">import requests
+headers = {
+  'Authorization': 'API_KEY'
+}
 
-r = requests.delete('/api/HSA4Form/{id}')
+r = requests.delete('/api/HSA4Form/{id}', headers = headers)
 
 print(r.json())
 
 </code></pre></section><section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="ruby-18"><pre><code class="language-ruby">require 'rest-client'
 require 'json'
 
+headers = {
+  'Authorization' =&gt; 'API_KEY'
+}
+
 result = RestClient.delete '/api/HSA4Form/{id}',
   params: {
-  }
+  }, headers: headers
 
 p JSON.parse(result)
 
@@ -837,6 +866,10 @@ import (
 )
 
 func main() {
+
+    headers := map[string][]string{
+        "Authorization": []string{"API_KEY"},
+    }
 
     data := bytes.NewBuffer([]byte{jsonReq})
     req, err := http.NewRequest("DELETE", "/api/HSA4Form/{id}", data)
