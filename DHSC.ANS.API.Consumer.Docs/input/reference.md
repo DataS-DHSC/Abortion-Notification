@@ -4,6 +4,8 @@
 
 Registered medical practitioners must complete and send HSA4 forms to the Chief Medical Officer (CMO), in accordance with the Abortion Act 1967, **within 14 days** of the termination.
 
+undefined
+
 <h1 id="dhsc-ans-api-hsa4form">HSA4Form</h1>
 
 ## /api/HSA4Form
@@ -22,7 +24,8 @@ Refer to the guidance document: [Guidance note for completing HSA4 paper forms](
 # You can also use wget
 curl -X POST /api/HSA4Form \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: API_KEY'
 
 ```
 
@@ -101,7 +104,8 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form',
@@ -122,7 +126,8 @@ fetch('/api/HSA4Form',
 import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.post('/api/HSA4Form', headers = headers)
@@ -137,7 +142,8 @@ require 'json'
 
 headers = {
   'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'API_KEY'
 }
 
 result = RestClient.post '/api/HSA4Form',
@@ -161,6 +167,7 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -270,14 +277,16 @@ undefined
 ```shell
 # You can also use wget
 curl -X GET /api/HSA4Form/{id} \
-  -H 'Accept: text/plain'
+  -H 'Accept: text/plain' \
+  -H 'Authorization: API_KEY'
 
 ```
 
 ```javascript
 
 const headers = {
-  'Accept':'text/plain'
+  'Accept':'text/plain',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form/{id}',
@@ -297,7 +306,8 @@ fetch('/api/HSA4Form/{id}',
 ```python
 import requests
 headers = {
-  'Accept': 'text/plain'
+  'Accept': 'text/plain',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.get('/api/HSA4Form/{id}', headers = headers)
@@ -311,7 +321,8 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'text/plain'
+  'Accept' => 'text/plain',
+  'Authorization' => 'API_KEY'
 }
 
 result = RestClient.get '/api/HSA4Form/{id}',
@@ -334,6 +345,7 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"text/plain"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -368,7 +380,8 @@ Only the sections provided will be validated; sections omitted remain unchanged.
 # You can also use wget
 curl -X PUT /api/HSA4Form/{id} \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: API_KEY'
 
 ```
 
@@ -447,7 +460,8 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'API_KEY'
 };
 
 fetch('/api/HSA4Form/{id}',
@@ -468,7 +482,8 @@ fetch('/api/HSA4Form/{id}',
 import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'API_KEY'
 }
 
 r = requests.put('/api/HSA4Form/{id}', headers = headers)
@@ -483,7 +498,8 @@ require 'json'
 
 headers = {
   'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'API_KEY'
 }
 
 result = RestClient.put '/api/HSA4Form/{id}',
@@ -507,6 +523,7 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"API_KEY"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
@@ -613,16 +630,22 @@ undefined
 
 ```shell
 # You can also use wget
-curl -X DELETE /api/HSA4Form/{id}
+curl -X DELETE /api/HSA4Form/{id} \
+  -H 'Authorization: API_KEY'
 
 ```
 
 ```javascript
 
+const headers = {
+  'Authorization':'API_KEY'
+};
+
 fetch('/api/HSA4Form/{id}',
 {
-  method: 'DELETE'
+  method: 'DELETE',
 
+  headers: headers
 })
 .then(function(res) {
     return res.json();
@@ -634,8 +657,11 @@ fetch('/api/HSA4Form/{id}',
 
 ```python
 import requests
+headers = {
+  'Authorization': 'API_KEY'
+}
 
-r = requests.delete('/api/HSA4Form/{id}')
+r = requests.delete('/api/HSA4Form/{id}', headers = headers)
 
 print(r.json())
 
@@ -645,9 +671,13 @@ print(r.json())
 require 'rest-client'
 require 'json'
 
+headers = {
+  'Authorization' => 'API_KEY'
+}
+
 result = RestClient.delete '/api/HSA4Form/{id}',
   params: {
-  }
+  }, headers: headers
 
 p JSON.parse(result)
 
@@ -662,6 +692,10 @@ import (
 )
 
 func main() {
+
+    headers := map[string][]string{
+        "Authorization": []string{"API_KEY"},
+    }
 
     data := bytes.NewBuffer([]byte{jsonReq})
     req, err := http.NewRequest("DELETE", "/api/HSA4Form/{id}", data)

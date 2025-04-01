@@ -34,53 +34,81 @@ public static class ServiceCollectionExtensions
 		return services;
 	}
 
-	public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
-	{
-		// Load embedded Markdown banner text
-		var assembly = Assembly.GetExecutingAssembly();
-		const string resourceName = "DHSC.ANS.API.Consumer.Assets.Banner.md";
+    public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
+    {
+        // Load embedded Markdown banner text
+        var assembly = Assembly.GetExecutingAssembly();
+        const string resourceName = "DHSC.ANS.API.Consumer.Assets.Banner.md";
 
-		string bannerText = "API for submitting HSA4 Abortion Notification Forms."; 
-		var resourceStream = assembly.GetManifestResourceStream(resourceName);
-		if (resourceStream != null)
-		{
-			using (var reader = new StreamReader(resourceStream))
-			{
-				bannerText = reader.ReadToEnd();
-			}
-		}
+        string bannerText = "API for submitting HSA4 Abortion Notification Forms.";
+        var resourceStream = assembly.GetManifestResourceStream(resourceName);
+        if (resourceStream != null)
+        {
+            using (var reader = new StreamReader(resourceStream))
+            {
+                bannerText = reader.ReadToEnd();
+            }
+        }
 
-		services.AddSwaggerGen(c =>
-		{
-			c.SwaggerDoc("v1", new OpenApiInfo
-			{
-				Title = "DHSC.ANS.API",
-				Version = "v1",
-				Description = bannerText,
-				Contact = new OpenApiContact { Name = "DHSC", Url = new Uri("https://www.gov.uk") }
-			});
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "DHSC.ANS.API",
+                Version = "v1",
+                Description = bannerText,
+                Contact = new OpenApiContact { Name = "DHSC", Url = new Uri("https://www.gov.uk") }
+            });
 
             c.SchemaFilter<EnumSchemaFilter>();
 
             // Include XML Comments
             var xmlFile = $"{assembly.GetName().Name}.xml";
-			var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-			if (File.Exists(xmlPath))
-			{
-				c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
-
-				c.SchemaFilter<RemarksSchemaFilter>(xmlPath);
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            if (File.Exists(xmlPath))
+            {
+                c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+                c.SchemaFilter<RemarksSchemaFilter>(xmlPath);
             }
-            
-			c.SchemaFilter<RestrictionsAttributeSchemaFilter>();
+
+            c.SchemaFilter<RestrictionsAttributeSchemaFilter>();
 
             c.EnableAnnotations();
-		});
 
-		return services;
-	}
+            // Add JWT Bearer security definition and requirement
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
 
-	public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    },
+                    Scheme = "Bearer",
+                    Name = "Bearer",
+                    In = ParameterLocation.Header
+                },
+                new List<string>()
+            }
+        });
+        });
+
+        return services;
+    }
+
+
+    public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
 	{
 		app.UseSwagger();
 		app.UseSwaggerUI(c =>
