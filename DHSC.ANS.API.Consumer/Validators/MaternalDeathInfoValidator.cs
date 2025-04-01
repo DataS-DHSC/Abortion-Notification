@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class MaternalDeathInfoValidator : AbstractValidator<MaternalDeathInfoDto>
+public class MaternalDeathInfoValidator : AbstractValidator<MaternalDeathInfo>
 {
 	public MaternalDeathInfoValidator()
 	{

@@ -11,9 +11,14 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// For further details, see: [Death of Woman - Section 10](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)
 /// </summary>
 /// <remarks>
+/// <para>
+/// <strong>Section 10: Maternal Death</strong>
+/// </para>
+/// <para>
 /// If a maternal death occurs as a result of the termination, you must state the date and the cause of death. This section will be scrutinised by a medical practitioner, and additional information may be requested.
+/// </para>
 /// </remarks>
-public class MaternalDeathInfoDto
+public class MaternalDeathInfo
 {
     /// <summary>
     /// Indicates whether a maternal death occurred as a result of the termination.

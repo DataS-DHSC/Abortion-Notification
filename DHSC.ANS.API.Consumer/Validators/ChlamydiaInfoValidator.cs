@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class ChlamydiaInfoValidator : AbstractValidator<ChlamydiaInfoDto>
+public class ChlamydiaInfoValidator : AbstractValidator<ChlamydiaInfo>
 {
 	public ChlamydiaInfoValidator()
 	{

@@ -14,7 +14,7 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// For abortions at less than 24 weeks, only completed weeks need to be specified. For exactly 24 weeks or more, the format should be "24 + 0", "24 + 3", etc. to indicate additional days. If gestation is above 24 weeks, additional information must be provided.
 /// Forms will be returned if gestation is not provided, if it is less than 4 weeks, or if it is 24 weeks or over and additional details are not included.
 /// </remarks>
-public class GestationDetailsDto
+public class GestationDetails
 {
     /// <summary>
     /// The gestation period in completed weeks.

@@ -25,7 +25,7 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// Ethnicity and marital status must be reported if known. The parity section should detail previous live births over 24 weeks, miscarriages, and legal terminations.
 /// </para>
 /// </remarks>
-public class PatientDetailsDto
+public class PatientDetails
 {
     /// <summary>
     /// The patient's hospital or clinic number.

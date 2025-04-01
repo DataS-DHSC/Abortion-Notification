@@ -17,8 +17,15 @@ public static class ServiceCollectionExtensions
 	public static IServiceCollection AddHSA4Validators(this IServiceCollection services)
 	{
 		
-		services.AddScoped<IValidator<HSA4FormDto>, HSA4FormValidator>();
-		return services;
+		services.AddScoped<IValidator<HSA4Form>, HSA4FormValidator>();
+
+        // Add the combined validation service
+        services.AddTransient(typeof(IValidationService<>), typeof(ApiValidationService<>));
+
+        // Add the service that packages validation errors
+        services.AddTransient<IValidationResponseService, ValidationResponseService>();
+
+        return services;
 	}
 
 	public static IServiceCollection AddHSA4FormService(this IServiceCollection services)
@@ -47,23 +54,25 @@ public static class ServiceCollectionExtensions
 		{
 			c.SwaggerDoc("v1", new OpenApiInfo
 			{
-				Title = "DHSC.ANS.API.Consumer",
+				Title = "DHSC.ANS.API",
 				Version = "v1",
 				Description = bannerText,
 				Contact = new OpenApiContact { Name = "DHSC", Url = new Uri("https://www.gov.uk") }
 			});
 
-			// Include XML Comments
-			var xmlFile = $"{assembly.GetName().Name}.xml";
+            c.SchemaFilter<EnumSchemaFilter>();
+
+            // Include XML Comments
+            var xmlFile = $"{assembly.GetName().Name}.xml";
 			var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 			if (File.Exists(xmlPath))
 			{
 				c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
 
 				c.SchemaFilter<RemarksSchemaFilter>(xmlPath);
-			}
-
-            c.SchemaFilter<RestrictionsAttributeSchemaFilter>();
+            }
+            
+			c.SchemaFilter<RestrictionsAttributeSchemaFilter>();
 
             c.EnableAnnotations();
 		});

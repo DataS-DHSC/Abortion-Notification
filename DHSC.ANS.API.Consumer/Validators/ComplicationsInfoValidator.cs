@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class ComplicationsInfoValidator : AbstractValidator<ComplicationsInfoDto>
+public class ComplicationsInfoValidator : AbstractValidator<ComplicationsInfo>
 {
 	public ComplicationsInfoValidator()
 	{

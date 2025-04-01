@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class TerminationGroundsValidator : AbstractValidator<TerminationGroundsDto>
+public class TerminationGroundsValidator : AbstractValidator<TerminationGrounds>
 {
     public TerminationGroundsValidator()
     {

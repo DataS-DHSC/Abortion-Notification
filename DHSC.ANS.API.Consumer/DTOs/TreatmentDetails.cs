@@ -27,7 +27,7 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// Failure to provide correct details may result in the form being returned.
 /// </para>
 /// </remarks>
-public class TreatmentDetailsDto
+public class TreatmentDetails
 {
     /// <summary>
     /// Name of the place where the termination was performed.

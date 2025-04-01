@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DHSC.ANS.API.Consumer.Validators;
 
-public class TreatmentDetailsValidator : AbstractValidator<TreatmentDetailsDto>
+public class TreatmentDetailsValidator : AbstractValidator<TreatmentDetails>
 {
 	public TreatmentDetailsValidator()
 	{

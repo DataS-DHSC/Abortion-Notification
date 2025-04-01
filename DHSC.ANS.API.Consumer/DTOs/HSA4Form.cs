@@ -12,65 +12,65 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// For further details, see: [HSA4 Form Guidance](https://www.gov.uk/government/publications/abortion-notification-forms-for-england-and-wales)
 /// </summary>
 /// <remarks>
+/// <para>
 /// The HSA4 form must be electronically signed within 14 days of the termination by the responsible registered medical practitioner. In the case of medical abortions, this is usually the practitioner prescribing mifepristone. 
+/// </para>
+/// <para>
 /// Forms that are not electronically signed within 14 days may be removed from the doctor's account and returned as paper forms for manual processing, which can cause delays and additional workload.
+/// </para>
+/// <para>
 /// It is critical for the accuracy of national statistics and operational efficiency that the forms are completed and signed promptly.
+/// </para>
 /// </remarks>
-public class HSA4FormDto
+public class HSA4Form
 {
     /// <summary>
     /// Section 1 - Practitioner Information
     /// </summary>
-    [Required]
-    public required PractitionerInfoDto Practitioner { get; set; }
+    public PractitionerInfo? Practitioner { get; set; }
 
     /// <summary>
     /// Section 2 - Certification (Non-Emergency Cases)
     /// </summary>
-    [Required]
-    public required CertificationInfoDto Certification { get; set; }
+    public CertificationInfo? Certification { get; set; }
 
     /// <summary>
     /// Section 3 - Patient's Details
     /// </summary>
-    [Required]
-    public required PatientDetailsDto Patient { get; set; }
+    public PatientDetails? Patient { get; set; }
 
     /// <summary>
     /// Section 4 - Treatment Details
     /// </summary>
-    [Required]
-    public required TreatmentDetailsDto Treatment { get; set; }
+    public TreatmentDetails? Treatment { get; set; }
 
     /// <summary>
     /// Sections 5 - Gestation Details
     /// </summary>
-    [Required]
-    public required GestationDetailsDto Gestation { get; set; }
+    public GestationDetails? Gestation { get; set; }
 
     /// <summary>
     /// Sections 6 - Termination Details
     /// </summary>
-    [Required]
-    public required TerminationGroundsDto TerminationGroundsDto { get; set; }
+    public TerminationGrounds? TerminationGroundsDto { get; set; }
 
     /// <summary>
     /// Section 7 - Selective Termination (if applicable)
     /// </summary>
-    public SelectiveTerminationInfoDto? SelectiveTermination { get; set; }
+    public SelectiveTerminationInfo? SelectiveTermination { get; set; }
 
     /// <summary>
     /// Section 8 - Chlamydia Screening
     /// </summary>
-    public ChlamydiaInfoDto? ChlamydiaScreening { get; set; }
+    public ChlamydiaInfo? ChlamydiaScreening { get; set; }
 
     /// <summary>
     /// Section 9 - Complications
     /// </summary>
-    public ComplicationsInfoDto? Complications { get; set; }
+    public ComplicationsInfo? Complications { get; set; }
 
     /// <summary>
     /// Section 10 - Death of Woman (if applicable)
     /// </summary>
-    public MaternalDeathInfoDto? MaternalDeath { get; set; }
+    public MaternalDeathInfo? MaternalDeath { get; set; }
 }

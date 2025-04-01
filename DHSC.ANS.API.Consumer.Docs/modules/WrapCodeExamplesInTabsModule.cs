@@ -31,11 +31,13 @@ namespace DHSC.ANS.API.Consumer.Docs.Modules
             AngleDoc doc = await parser.ParseDocumentAsync(html);
 
             // Find all blockquote elements with class "blockquote" whose text is exactly "Code samples"
-            var codeSamplesHeadings = doc.QuerySelectorAll("blockquote.blockquote")
-                .Where(bq => bq.TextContent.Trim().Equals("Code samples", StringComparison.OrdinalIgnoreCase))
+            var codeSamplesHeadings = doc.QuerySelectorAll("h4")
+                .Where(h => h.TextContent.Trim().Equals("Code samples", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             context.LogInformation($"{codeSamplesHeadings.Count} code headings were found in the document {input.Source}");
+
+            int index = 0;
 
             // For each "Code samples" heading, group subsequent siblings that are code blocks.
             foreach (var heading in codeSamplesHeadings)
@@ -74,7 +76,6 @@ namespace DHSC.ANS.API.Consumer.Docs.Modules
                     // Create container for the tab panels.
                     var panelsContainer = doc.CreateElement("div");
 
-                    int index = 0;
                     foreach (var preElement in group)
                     {
                         // Determine the language by inspecting the <code> element's class (e.g., "language-javascript")

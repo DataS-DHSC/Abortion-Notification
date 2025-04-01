@@ -47,7 +47,7 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// is the doctor taking responsibility for the abortion. Usually, this will be the practitioner prescribing the [Mifepristone](https://bnf.nice.org.uk/drugs/mifepristone/) or [Misoprostol](https://bnf.nice.org.uk/drugs/misoprostol/).
 /// </para>
 /// </remarks>
-public class PractitionerInfoDto
+public class PractitionerInfo
 	{
     /// <summary>
     /// The full name of the practitioner responsible for the termination, required for form validity.

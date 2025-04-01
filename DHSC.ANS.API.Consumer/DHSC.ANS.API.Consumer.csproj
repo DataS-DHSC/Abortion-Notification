@@ -13,13 +13,9 @@
 
   <ItemGroup>
     <Compile Remove="Middleware\**" />
-    <Compile Remove="Models\**" />
     <Content Remove="Middleware\**" />
-    <Content Remove="Models\**" />
     <EmbeddedResource Remove="Middleware\**" />
-    <EmbeddedResource Remove="Models\**" />
     <None Remove="Middleware\**" />
-    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,10 +36,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
     <Folder Include="Assets\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -20,19 +20,35 @@ namespace DHSC.ANS.API.Consumer.Docs.Modules
 			return outputDocument.Yield();
 		}
 
-		private string ApplyHeadingIds(string html)
-		{
-			html = Regex.Replace(html, @"<h(\d)>(.*?)</h\1>", m =>
-			{
-				var level = m.Groups[1].Value;
-				var content = m.Groups[2].Value;
+        private string ApplyHeadingIds(string html)
+        {
+            var slugCounts = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-				var slug = Regex.Replace(content.ToLower(), @"[^a-z0-9\s]+", "").Replace(" ", "-").Trim('-');
+            html = Regex.Replace(html, @"<h(\d)>(.*?)</h\1>", m =>
+            {
+                var level = m.Groups[1].Value;
+                var content = m.Groups[2].Value;
 
-				return $"<h{level} id=\"{slug}\">{content}\n</h{level}>";
-			});
+                var baseSlug = Regex.Replace(content.ToLower(), @"[^a-z0-9\s]+", "")
+                    .Replace(" ", "-")
+                    .Trim('-');
 
-			return html;
-		}
-	}
+                if (!slugCounts.ContainsKey(baseSlug))
+                {
+                    slugCounts[baseSlug] = 0;
+                }
+                slugCounts[baseSlug]++;
+
+                var uniqueSlug = baseSlug;
+                if (slugCounts[baseSlug] > 1)
+                {
+                    uniqueSlug = $"{baseSlug}-{slugCounts[baseSlug]}";
+                }
+
+                return $"<h{level} id=\"{uniqueSlug}\">{content}</h{level}>";
+            }, RegexOptions.IgnoreCase);
+
+            return html;
+        }
+    }
 }

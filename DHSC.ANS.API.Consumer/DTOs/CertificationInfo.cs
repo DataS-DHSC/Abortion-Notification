@@ -24,7 +24,7 @@ namespace DHSC.ANS.API.Consumer.DTOs;
 /// For digital submissions, practitioners should be selected from a predefined list, or entered manually if not present. Manually entered details will be saved for future use.
 /// </para>
 /// </remarks>
-public class CertificationInfoDto
+public class CertificationInfo
 {
     /// <summary>
     /// Full name of the first certifying doctor.
