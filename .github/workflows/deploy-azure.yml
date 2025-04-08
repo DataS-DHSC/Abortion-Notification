@@ -129,8 +129,8 @@ jobs:
 
     - name: Zip frontend for deployment
       run: |
-        zip -r service.zip . -x '*.git*'
-      working-directory: DHSC.ANS.Service
+        cd DHSC.ANS.Service
+        zip -r ../service.zip . -x '*.git*'
 
     - name: Install Azure CLI
       run: |
