@@ -40,6 +40,16 @@ resource "azurerm_service_plan" "services_api_asp" {
   sku_name            = "B1"
 }
 
+resource "azurerm_key_vault_secret" "x_api_key" {
+  name         = "x-api-key"
+  value        = var.x_api_key
+  key_vault_id = azurerm_key_vault.services_api_kv.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.terraform_sp_kv_policy
+  ]
+}
+
 resource "azurerm_key_vault" "services_api_kv" {
   name                = "kv-${var.project_name}-${var.environment}"
   location            = azurerm_resource_group.services_api_rg.location
@@ -62,16 +72,6 @@ resource "azurerm_application_insights" "app_insights" {
   resource_group_name = azurerm_resource_group.services_api_rg.name
   application_type    = "web"
   workspace_id        = azurerm_log_analytics_workspace.app_insights_ws.id
-}
-
-resource "azurerm_key_vault_secret" "x_api_key" {
-  name         = "x-api-key"
-  value        = var.x_api_key
-  key_vault_id = azurerm_key_vault.services_api_kv.id
-
-  depends_on = [
-    azurerm_key_vault_access_policy.terraform_sp_kv_policy
-  ]
 }
 
 resource "azurerm_linux_web_app" "services_api_app" {
@@ -129,6 +129,54 @@ resource "azurerm_key_vault_access_policy" "terraform_sp_kv_policy" {
     "List",
     "Set"
   ]
+}
+
+resource "azurerm_linux_web_app" "services_ui_app" {
+  name                = "service-${var.project_name}-${var.environment}"
+  location            = azurerm_resource_group.services_api_rg.location
+  resource_group_name = azurerm_resource_group.services_api_rg.name
+  service_plan_id     = azurerm_service_plan.services_api_asp.id
+
+  site_config {
+    application_stack {
+      node_version = "18-lts"
+    }
+  }
+
+  app_settings = {
+    "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.app_insights.instrumentation_key
+    "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.app_insights.connection_string
+    "SCM_DO_BUILD_DURING_DEPLOYMENT"        = true
+    "WEBSITE_RUN_FROM_PACKAGE"              = "1"
+    "AppSettings__Auth__XApiKey"            = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.x_api_key.id})"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+}
+
+resource "null_resource" "web_app_ui_identity_created" {
+  triggers = {
+    principal_id = azurerm_linux_web_app.services_ui_app.identity[0].principal_id
+  }
+}
+
+resource "azurerm_key_vault_access_policy" "services_ui_kv_policy" {
+  depends_on = [null_resource.web_app_ui_identity_created]
+
+  key_vault_id = azurerm_key_vault.services_api_kv.id
+  tenant_id    = data.azurerm_client_config.example.tenant_id
+  object_id    = azurerm_linux_web_app.services_ui_app.identity[0].principal_id
+
+  secret_permissions = [
+    "Get",
+    "List",
+  ]
+}
+
+output "service_app_name" {
+  value = azurerm_linux_web_app.services_ui_app.name
 }
 
 output "web_app_name" {
