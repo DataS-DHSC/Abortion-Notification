@@ -1,9 +1,9 @@
-name: Deploy Infrastructure, Api, and Services
+name: deply-to-azure
 
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'DHSC.ANS.API.Consumer/**'
       - 'DHSC.ANS.API.Legacy/**'
