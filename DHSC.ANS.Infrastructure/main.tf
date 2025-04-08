@@ -32,11 +32,6 @@ data "azurerm_storage_account" "services_api_sa" {
   resource_group_name = "rg-dhsc-ans-shared-uks-001"
 }
 
-data "azurerm_storage_container" "data" {
-  name                 = "data"
-  storage_account_name = data.azurerm_storage_account.services_api_sa.name
-}
-
 resource "azurerm_service_plan" "services_api_asp" {
   name                = "asp-${var.project_name}-${var.environment}"
   location            = azurerm_resource_group.services_api_rg.location
