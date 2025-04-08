@@ -88,30 +88,6 @@ resource "azurerm_key_vault_secret" "x_api_key" {
   key_vault_id = azurerm_key_vault.services_api_kv.id
 }
 
-resource "azurerm_key_vault_access_policy" "services_api_kv_policy" {
-  key_vault_id = azurerm_key_vault.services_api_kv.id
-  tenant_id    = data.azurerm_client_config.example.tenant_id
-  object_id    = azurerm_linux_web_app.services_api_app.identity[0].principal_id
-
-  secret_permissions = [
-    "Get",
-    "List",
-    "Set"
-  ]
-}
-
-resource "azurerm_key_vault_access_policy" "terraform_sp_kv_policy" {
-  key_vault_id = azurerm_key_vault.services_api_kv.id
-  tenant_id    = data.azurerm_client_config.example.tenant_id
-  object_id    = data.azurerm_client_config.example.object_id
-
-  secret_permissions = [
-    "Get",
-    "List",
-    "Set"
-  ]
-}
-
 resource "azurerm_linux_web_app" "services_api_app" {
   name                = "api-${var.project_name}-${var.environment}"
   location            = azurerm_resource_group.services_api_rg.location
@@ -135,9 +111,37 @@ resource "azurerm_linux_web_app" "services_api_app" {
   identity {
     type = "SystemAssigned"
   }
+}
 
-  depends_on = [
-    azurerm_key_vault_access_policy.services_api_kv_policy
+resource "null_resource" "web_app_identity_created" {
+  triggers = {
+    principal_id = azurerm_linux_web_app.services_api_app.identity[0].principal_id
+  }
+}
+
+resource "azurerm_key_vault_access_policy" "services_api_kv_policy" {
+  depends_on = [null_resource.web_app_identity_created]
+
+  key_vault_id = azurerm_key_vault.services_api_kv.id
+  tenant_id    = data.azurerm_client_config.example.tenant_id
+  object_id    = azurerm_linux_web_app.services_api_app.identity[0].principal_id
+
+  secret_permissions = [
+    "Get",
+    "List",
+    "Set"
+  ]
+}
+
+resource "azurerm_key_vault_access_policy" "terraform_sp_kv_policy" {
+  key_vault_id = azurerm_key_vault.services_api_kv.id
+  tenant_id    = data.azurerm_client_config.example.tenant_id
+  object_id    = data.azurerm_client_config.example.object_id
+
+  secret_permissions = [
+    "Get",
+    "List",
+    "Set"
   ]
 }
 
