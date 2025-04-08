@@ -47,6 +47,7 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
         TF_VAR_x_api_key: ${{ secrets.X_API_KEY }}        
+        TF_VAR_web_password: ${{ secrets.WEB_PASSWORD }}   
 
     - name: Get App Names
       id: get_app_name

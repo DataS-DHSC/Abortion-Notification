@@ -151,6 +151,9 @@ resource "azurerm_linux_web_app" "services_ui_app" {
     "SCM_DO_BUILD_DURING_DEPLOYMENT"        = true
     "WEBSITE_RUN_FROM_PACKAGE"              = "1"
     "AppSettings__Auth__XApiKey"            = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.x_api_key.id})"
+
+    "PASSWORD"                              = var.web_password
+    "NODE_ENV"                              = "production"
   }
 
   identity {
