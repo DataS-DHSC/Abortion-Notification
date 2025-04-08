@@ -45,22 +45,6 @@ resource "azurerm_service_plan" "services_api_asp" {
   sku_name            = "B1"
 }
 
-resource "azurerm_redis_cache" "redis" {
-  name                = "redis-${var.project_name}-${var.environment}"
-  location            = azurerm_resource_group.services_api_rg.location
-  resource_group_name = azurerm_resource_group.services_api_rg.name
-  capacity            = 1
-  family              = "C"
-  sku_name            = "Basic"
-  non_ssl_port_enabled = false
-  minimum_tls_version  = "1.2"
-}
-
-data "azurerm_redis_cache" "redis" {
-  name                = azurerm_redis_cache.redis.name
-  resource_group_name = azurerm_resource_group.services_api_rg.name
-}
-
 resource "azurerm_key_vault" "services_api_kv" {
   name                = "kv-${var.project_name}-${var.environment}"
   location            = azurerm_resource_group.services_api_rg.location
@@ -74,12 +58,6 @@ resource "azurerm_application_insights" "app_insights" {
   location            = azurerm_resource_group.services_api_rg.location
   resource_group_name = azurerm_resource_group.services_api_rg.name
   application_type    = "web"
-}
-
-resource "azurerm_key_vault_secret" "admin_password" {
-  name         = "admin-password"
-  value        = var.admin_password
-  key_vault_id = azurerm_key_vault.services_api_kv.id
 }
 
 resource "azurerm_key_vault_secret" "x_api_key" {
