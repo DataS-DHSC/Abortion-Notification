@@ -48,11 +48,20 @@ resource "azurerm_key_vault" "services_api_kv" {
   sku_name            = "standard"
 }
 
+resource "azurerm_log_analytics_workspace" "app_insights_ws" {
+  name                = "law-${var.project_name}-${var.environment}"
+  location            = azurerm_resource_group.services_api_rg.location
+  resource_group_name = azurerm_resource_group.services_api_rg.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
 resource "azurerm_application_insights" "app_insights" {
   name                = "app-insights-${var.project_name}-${var.environment}"
   location            = azurerm_resource_group.services_api_rg.location
   resource_group_name = azurerm_resource_group.services_api_rg.name
   application_type    = "web"
+  workspace_id        = azurerm_log_analytics_workspace.app_insights_ws.id
 }
 
 resource "azurerm_key_vault_secret" "x_api_key" {
