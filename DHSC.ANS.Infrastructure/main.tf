@@ -138,9 +138,11 @@ resource "azurerm_linux_web_app" "services_ui_app" {
   service_plan_id     = azurerm_service_plan.services_api_asp.id
 
   site_config {
-    application_stack {
-      node_version = "18-lts"
-    }
+     application_stack {
+        node_version = "18-lts"
+     }
+
+     app_command_line = "npm start"
   }
 
   app_settings = {
