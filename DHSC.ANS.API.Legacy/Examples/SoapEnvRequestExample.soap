@@ -1,0 +1,152 @@
+<soapenv:Envelope
+	xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:ser="http://schemas.doh.com/ans/api/services"
+	xmlns:dh="http://schemas.datacontract.org/2004/07/DH.ANS.Model.WebServiceRequest.ProcessCaseForm">
+	<soapenv:Header/>
+	<soapenv:Body>
+		<ser:ProcessNewCaseForm>
+			<!--Optional:-->
+			<ser:caseFormRequest>
+				<!--Optional:-->
+				<dh:CaseFormControl>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; 
+standalone=&quot;yes&quot;?&gt;
+&lt;NEW_DATA_REQUEST&gt;
+ &lt;CONTROL&gt;
+ &lt;GUID&gt;1111190bb3695-4c13-46a9-a906-f3b547d98658&lt;/GUID&gt;
+ &lt;AUTHENTICATION&gt;430fe4851822e15ad411cad745a80227&lt;/AUTHENTICATION&gt; &lt;!-- This 
+must be the correct AUTHCODE for the environment --&gt;
+ &lt;FORM_USER_ID&gt;1111115&lt;/FORM_USER_ID&gt; &lt;!-- This must be a correct Practitioner Code --
+&gt;
+ &lt;/CONTROL&gt;
+ &lt;SECTION1&gt;
+ &lt;S1_PLACEOFTERMINATION&gt;23423497&lt;/S1_PLACEOFTERMINATION&gt; &lt;!-- This must be a 
+correct Clinic Code --&gt;
+ &lt;S1_SELECT1&gt;did not join&lt;/S1_SELECT1&gt;
+ &lt;S1_SELECT2&gt;not seen&lt;/S1_SELECT2&gt;
+ &lt;S1_SELECT3&gt;not examined&lt;/S1_SELECT3&gt;
+&lt;/SECTION1&gt;
+ &lt;SECTION2&gt;
+ &lt;S2_PRAC_A_TITLE&gt;Mr&lt;/S2_PRAC_A_TITLE&gt;
+ &lt;S2_PRAC_A_FORENAME&gt;Johxnx&lt;/S2_PRAC_A_FORENAME&gt;
+ &lt;S2_PRAC_A_SURNAME&gt;George&lt;/S2_PRAC_A_SURNAME&gt;
+ &lt;S2_PRAC_A_ADDRESS&gt;34 Carr Street, Birmingham, B1 1AT&lt;/S2_PRAC_A_ADDRESS&gt;
+ &lt;S2_PRAC_A_STREET&gt;34 Carr Street&lt;/S2_PRAC_A_STREET&gt;
+ &lt;S2_PRAC_A_TOWN&gt;Birmingham&lt;/S2_PRAC_A_TOWN&gt;
+ &lt;S2_PRAC_A_POSTCODE&gt;B1 1AT&lt;/S2_PRAC_A_POSTCODE&gt;
+ &lt;S2_PRAC_B_TITLE&gt;&lt;/S2_PRAC_B_TITLE&gt;
+ &lt;S2_PRAC_B_FORENAME&gt;&lt;/S2_PRAC_B_FORENAME&gt;
+ &lt;S2_PRAC_B_SURNAME&gt;&lt;/S2_PRAC_B_SURNAME&gt;
+ &lt;S2_PRAC_B_ADDRESS&gt;&lt;/S2_PRAC_B_ADDRESS&gt;
+ &lt;S2_PRAC_B_STREET&gt;&lt;/S2_PRAC_B_STREET&gt;
+ &lt;S2_PRAC_B_TOWN&gt;&lt;/S2_PRAC_B_TOWN&gt;
+ &lt;S2_PRAC_B_POSTCODE&gt;&lt;/S2_PRAC_B_POSTCODE&gt;
+ &lt;S2_RADIO_A&gt;true&lt;/S2_RADIO_A&gt;
+ &lt;S2_RADIO_B&gt;false&lt;/S2_RADIO_B&gt;
+ &lt;/SECTION2&gt;
+ &lt;SECTION3&gt;
+ &lt;S3_REFERENCE&gt;12121212&lt;/S3_REFERENCE&gt;
+ &lt;S3_PATIENT_NAME&gt;Test 29&lt;/S3_PATIENT_NAME&gt;
+ &lt;S3_DOB&gt;01/03/1977&lt;/S3_DOB&gt;
+ &lt;S3_IS_UK_RESIDENT&gt;true&lt;/S3_IS_UK_RESIDENT&gt;
+ &lt;S3_POSTCODE&gt;NE31 1TP&lt;/S3_POSTCODE&gt;
+ &lt;S3_COUNTRY_CODE&gt;3C&lt;/S3_COUNTRY_CODE&gt;
+ &lt;S3_BUILDING_NUMBER&gt;405A&lt;/S3_BUILDING_NUMBER&gt;
+ &lt;S3_STREET&gt;ASTCOTE LANE&lt;/S3_STREET&gt;
+ &lt;S3_ADDRESS&gt;405A, EASTCOTE LANE, HARROW, MIDDX, HA2 8SE, United 
+Kingdom&lt;/S3_ADDRESS&gt;
+&lt;S3_ETHNICITY_CODE&gt;a&lt;/S3_ETHNICITY_CODE&gt;
+ &lt;S3_MARITAL_STATUS_CODE&gt;2&lt;/S3_MARITAL_STATUS_CODE&gt;
+ &lt;S3_PARITY1&gt;0&lt;/S3_PARITY1&gt;
+ &lt;S3_PARITY2&gt;1&lt;/S3_PARITY2&gt;
+ &lt;S3_PARITY3&gt;4&lt;/S3_PARITY3&gt;
+ &lt;/SECTION3&gt;
+ &lt;SECTION4&gt;
+ &lt;S4_FUNDING&gt;NHS funded abortion&lt;/S4_FUNDING&gt;
+ &lt;S4_TERMINATION_RADIO&gt;Medical&lt;/S4_TERMINATION_RADIO&gt; &lt;!--
+Selective/Surgical/Medical/Other --&gt;
+ 
+ &lt;!-- Common --&gt;
+ &lt;S4_ABORTIONDATE&gt;22/03/2022&lt;/S4_ABORTIONDATE&gt;
+ &lt;!-- Selective --&gt;
+ &lt;S4_ORIGINAL_FETUSES&gt;3&lt;/S4_ORIGINAL_FETUSES&gt;
+ &lt;S4_REDUCED_FETUSES&gt;2&lt;/S4_REDUCED_FETUSES&gt;
+ &lt;!-- Surgical --&gt;
+ &lt;S4_TERMINATION&gt;&lt;/S4_TERMINATION&gt;
+ &lt;S4_IS_TERMINATIONDATE_DIFF&gt;&lt;/S4_IS_TERMINATIONDATE_DIFF&gt;
+ &lt;S4_ADMISSION&gt;&lt;/S4_ADMISSION&gt;
+ &lt;S4_DISCHARGE&gt;&lt;/S4_DISCHARGE&gt;
+ &lt;S4_METHOD_CODE&gt;&lt;/S4_METHOD_CODE&gt;
+ &lt;S4_METHOD_OTHERS_USED&gt;&lt;/S4_METHOD_OTHERS_USED&gt;
+ &lt;!-- Medical --&gt;
+ &lt;S4_MEDICAL_TERMINATION&gt;Antiprogesterone and 
+Prostaglandin&lt;/S4_MEDICAL_TERMINATION&gt; &lt;!-- This value can be 1 of 4 options below --&gt;
+&lt;!-- Medical: Common --&gt;
+ 
+ &lt;S4_CONFIRMED&gt;25/03/2022&lt;/S4_CONFIRMED&gt;
+ &lt;!-- Medical: ANTIPRO / PROSTA : &quot;Antiprogesterone and Prostaglandin&quot;--&gt;
+ &lt;S4_ANTIPRO_DATE&gt;20/03/2022&lt;/S4_ANTIPRO_DATE&gt;
+ &lt;S4_PROSTA_DATE&gt;20/03/2022&lt;/S4_PROSTA_DATE&gt;
+ &lt;S4_ISPROSTAOTHPLACE&gt;&lt;/S4_ISPROSTAOTHPLACE&gt;
+ &lt;S4_PROSTATREATMENTPLACE&gt;&lt;/S4_PROSTATREATMENTPLACE&gt; &lt;!-- This must be a correct 
+Clinic Code --&gt;
+ &lt;!-- Medical: PROSTA ONLY : &quot;Prostaglandin only&quot; --&gt;
+ &lt;S4_PROOLNYSSTA_DATE&gt;&lt;/S4_PROOLNYSSTA_DATE&gt;
+ &lt;S4_ISPROSTAONLYOTHPLACE&gt;&lt;/S4_ISPROSTAONLYOTHPLACE&gt;
+ &lt;S4_PROSTA_ONLY_TREATMENTPLACE&gt;&lt;/S4_PROSTA_ONLY_TREATMENTPLACE&gt; &lt;!-- This 
+must be a correct Clinic Code --&gt;
+ &lt;!-- Medical: ANTI ONLY : &quot;Antiprogesterone only&quot; --&gt;
+ &lt;S4_ANTIPROONLY_DATE&gt;&lt;/S4_ANTIPROONLY_DATE&gt;
+ &lt;S4_REASONS_NO_PROSTAGLANDIN&gt;&lt;/S4_REASONS_NO_PROSTAGLANDIN&gt;
+ &lt;!-- Medical: OTHER : &quot;Other medical agent/s&quot; --&gt;
+ &lt;S4_AGENT_DATE&gt;&lt;/S4_AGENT_DATE&gt;
+ &lt;S4_AGENT_CODE&gt;&lt;/S4_AGENT_CODE&gt;
+&lt;S4_FACETOFACEQUESTION&gt;&lt;/S4_FACETOFACEQUESTION&gt;
+&lt;S4_FACETOFACEOTHER&gt;&lt;/S4_FACETOFACEOTHER&gt;
+ &lt;!-- Feticide --&gt;
+ &lt;S4_FETICIDE_RADIO&gt;No&lt;/S4_FETICIDE_RADIO&gt;
+ &lt;S4_FETICIDE_DATE&gt;01/04/2022&lt;/S4_FETICIDE_DATE&gt;
+ &lt;S4_FETICIDE_METHOD_CODE&gt;KCL&lt;/S4_FETICIDE_METHOD_CODE&gt;
+ &lt;/SECTION4&gt;
+ &lt;SECTION5&gt;
+ &lt;S5_GESTATION&gt;8&lt;/S5_GESTATION&gt;
+ &lt;/SECTION5&gt;
+ &lt;SECTION6&gt;
+ &lt;S6_GROUNDSA&gt;false&lt;/S6_GROUNDSA&gt;
+ &lt;S6_GROUNDSB&gt;false&lt;/S6_GROUNDSB&gt;
+ &lt;S6_GROUNDSC&gt;true&lt;/S6_GROUNDSC&gt;
+ &lt;S6_GROUNDSD&gt;false&lt;/S6_GROUNDSD&gt;
+ &lt;S6_GROUNDSE&gt;false&lt;/S6_GROUNDSE&gt;
+ &lt;S6_GROUNDSF&gt;false&lt;/S6_GROUNDSF&gt;
+ &lt;S6_GROUNDSG&gt;false&lt;/S6_GROUNDSG&gt;
+ &lt;S6_A_CONDITION&gt;&lt;/S6_A_CONDITION&gt;
+ &lt;S6_B_CONDITION&gt;Test 28&lt;/S6_B_CONDITION&gt;
+ &lt;S6_F_CONDITION&gt;&lt;/S6_F_CONDITION&gt;
+ &lt;S6_G_CONDITION&gt;&lt;/S6_G_CONDITION&gt;
+ &lt;S6_HEALTH_RISK&gt;true&lt;/S6_HEALTH_RISK&gt;
+ &lt;S6_C_NO_CONDITION&gt;&lt;/S6_C_NO_CONDITION&gt;
+ &lt;S6_DE_REASON&gt;&lt;/S6_DE_REASON&gt;
+ &lt;S6_DIAGNOSIS_OTHER&gt;false&lt;/S6_DIAGNOSIS_OTHER&gt;
+ &lt;S6_DIAGNOSIS_OTHER_METHOD&gt;No&lt;/S6_DIAGNOSIS_OTHER_METHOD&gt;
+ &lt;/SECTION6&gt;
+ &lt;SECTION7&gt;
+ &lt;S7_SCREENING&gt;Yes&lt;/S7_SCREENING&gt;
+ &lt;/SECTION7&gt;
+ &lt;SECTION8&gt;
+ &lt;S8_NONE&gt;false&lt;/S8_NONE&gt; &lt;!-- If this No/false - rest is ignored --&gt;
+ &lt;S8_HAEMORRHAGE&gt;false&lt;/S8_HAEMORRHAGE&gt;
+ &lt;S8_PERFORATION&gt;false&lt;/S8_PERFORATION&gt;
+ &lt;S8_SEPSIS&gt;false&lt;/S8_SEPSIS&gt;
+ &lt;S8_CERVICALTEAR&gt;false&lt;/S8_CERVICALTEAR&gt;
+ &lt;S8_OTHER&gt;false&lt;/S8_OTHER&gt;
+ &lt;S8_NOTES&gt;&lt;/S8_NOTES&gt;
+ &lt;/SECTION8&gt;
+ &lt;SECTION9&gt;
+ &lt;S9_DATE&gt;&lt;/S9_DATE&gt;
+ &lt;S9_CAUSE&gt;&lt;/S9_CAUSE&gt;
+ &lt;/SECTION9&gt;
+&lt;/NEW_DATA_REQUEST&gt;
+</dh:CaseFormControl>
+			</ser:caseFormRequest>
+		</ser:ProcessNewCaseForm>
+	</soapenv:Body>
+</soapenv:Envelope>

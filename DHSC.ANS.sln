@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.API.Consumer.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.API.Consumer.Docs", "DHSC.ANS.API.Consumer.Docs\DHSC.ANS.API.Consumer.Docs.csproj", "{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.API.Legacy", "DHSC.ANS.API.Legacy\DHSC.ANS.API.Legacy.csproj", "{59817EBC-FD58-4932-BEE0-551A730D2701}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C5DA2EB-8F01-44E7-9452-CE5DE184DE56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59817EBC-FD58-4932-BEE0-551A730D2701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59817EBC-FD58-4932-BEE0-551A730D2701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59817EBC-FD58-4932-BEE0-551A730D2701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59817EBC-FD58-4932-BEE0-551A730D2701}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
