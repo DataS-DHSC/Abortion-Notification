@@ -13,3 +13,8 @@ variable "x_api_key" {
   type    = string
   default = ""
 }
+
+variable "web_password" {
+  type    = string
+  default = ""
+}
