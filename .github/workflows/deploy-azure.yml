@@ -77,6 +77,7 @@ jobs:
 
     - name: Restore .NET local tools
       run: dotnet tool restore
+      working-directory: DHSC.ANS.API.Consumer
 
     - name: Publish API
       run: |
