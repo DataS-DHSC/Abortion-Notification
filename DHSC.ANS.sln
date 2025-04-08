@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.API.Consumer.Docs"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.API.Legacy", "DHSC.ANS.API.Legacy\DHSC.ANS.API.Legacy.csproj", "{59817EBC-FD58-4932-BEE0-551A730D2701}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DHSC.ANS.Infrastructure", "DHSC.ANS.Infrastructure\DHSC.ANS.Infrastructure.csproj", "{9DD299F6-0961-4E28-8126-2ED326BC62F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B4FBD28-A39E-44E8-8313-B6D395D9F9E3}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy-azure.yml = .github\workflows\deploy-azure.yml
+		.github\workflows\publish-api-guidance.yaml = .github\workflows\publish-api-guidance.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,10 @@ Global
 		{59817EBC-FD58-4932-BEE0-551A730D2701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59817EBC-FD58-4932-BEE0-551A730D2701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59817EBC-FD58-4932-BEE0-551A730D2701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DD299F6-0961-4E28-8126-2ED326BC62F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DD299F6-0961-4E28-8126-2ED326BC62F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DD299F6-0961-4E28-8126-2ED326BC62F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DD299F6-0961-4E28-8126-2ED326BC62F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
