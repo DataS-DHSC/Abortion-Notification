@@ -59,6 +59,10 @@ resource "azurerm_key_vault_secret" "x_api_key" {
   name         = "x-api-key"
   value        = var.x_api_key
   key_vault_id = azurerm_key_vault.services_api_kv.id
+
+  depends_on = [
+    azurerm_key_vault_access_policy.terraform_sp_kv_policy
+  ]
 }
 
 resource "azurerm_linux_web_app" "services_api_app" {
