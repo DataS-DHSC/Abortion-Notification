@@ -138,11 +138,10 @@ resource "azurerm_linux_web_app" "services_ui_app" {
   service_plan_id     = azurerm_service_plan.services_api_asp.id
 
   site_config {
-     application_stack {
-        node_version = "18-lts"
-     }
-
-     app_command_line = "npm start"
+    application_stack {
+      node_version = "20-lts"
+    }
+    app_command_line = "npm start"
   }
 
   app_settings = {
@@ -150,6 +149,7 @@ resource "azurerm_linux_web_app" "services_ui_app" {
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.app_insights.connection_string
     "SCM_DO_BUILD_DURING_DEPLOYMENT"        = true
     "WEBSITE_RUN_FROM_PACKAGE"              = "1"
+    "WEBSITE_NODE_DEFAULT_VERSION"          = "20"
     "AppSettings__Auth__XApiKey"            = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.x_api_key.id})"
 
     "PASSWORD"                              = var.web_password
