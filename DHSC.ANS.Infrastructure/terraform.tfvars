@@ -1,6 +1,2 @@
-project_name     = "botgcapps"
+project_name     = "dhsc-ans"
 environment      = "prd"
-# member_id        = "your_member_id"
-# member_pin       = "your_member_pin"
-# admin_password   = "your_admin_password"
-# mailchimp_api_key = "your_mailchimp_api_key"
