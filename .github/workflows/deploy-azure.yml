@@ -85,7 +85,7 @@ jobs:
         dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
           -c Release \
           -r linux-x64 \
-          --self-contained false \
+          --self-contained true \
           -o published
 
     - name: Zip API for Deployment
@@ -129,7 +129,6 @@ jobs:
 
     - name: Zip frontend for deployment
       run: |
-        npm ci
         zip -r service.zip . -x '*.git*'
       working-directory: DHSC.ANS.Service
 
