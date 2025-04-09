@@ -121,7 +121,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20-lts'
 
     - name: Install frontend dependencies
       run: npm ci
@@ -147,5 +147,5 @@ jobs:
       run: |
         az webapp deploy --resource-group rg-dhsc-ans-prd-uks-001 \
           --name ${{ needs.terraform.outputs.service_app_name }} \
-          --src-path DHSC.ANS.Service/service.zip \
+          --src-path service.zip \
           --type zip
