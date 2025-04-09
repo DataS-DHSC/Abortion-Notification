@@ -123,14 +123,11 @@ jobs:
           with:
             node-version: '20'
 
-        - name: Install frontend dependencies
-          run: npm ci
-          working-directory: DHSC.ANS.Service
-
         - name: Zip frontend for deployment
           run: |
             cd DHSC.ANS.Service
-            zip -r ../service.zip . -x '*.git*' -x 'node_modules/*'
+            npm ci
+            zip -r ../service.zip . -x '*.git*'
 
         - name: Install Azure CLI
           run: |

@@ -148,8 +148,9 @@ resource "azurerm_linux_web_app" "services_ui_app" {
     "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.app_insights.instrumentation_key
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.app_insights.connection_string
     "SCM_DO_BUILD_DURING_DEPLOYMENT"        = true
-    "WEBSITE_RUN_FROM_PACKAGE"              = "1"
-    "WEBSITE_NODE_DEFAULT_VERSION"          = "20"
+    "ENABLE_ORYX_BUILD"                     = "true"
+
+    "WEBSITE_NODE_DEFAULT_VERSION"          = "~20"
     "AppSettings__Auth__XApiKey"            = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.x_api_key.id})"
 
     "PASSWORD"                              = var.web_password
@@ -158,6 +159,10 @@ resource "azurerm_linux_web_app" "services_ui_app" {
 
   identity {
     type = "SystemAssigned"
+  }
+
+  lifecycle {
+    ignore_changes = [ app_settings["WEBSITE_RUN_FROM_PACKAGE"] ]
   }
 }
 
