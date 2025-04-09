@@ -147,7 +147,7 @@ resource "azurerm_linux_web_app" "services_ui_app" {
   app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY"        = azurerm_application_insights.app_insights.instrumentation_key
     "APPLICATIONINSIGHTS_CONNECTION_STRING" = azurerm_application_insights.app_insights.connection_string
-    "SCM_DO_BUILD_DURING_DEPLOYMENT"        = true
+    "SCM_DO_BUILD_DURING_DEPLOYMENT"        = "true"
     "ENABLE_ORYX_BUILD"                     = "true"
 
     "WEBSITE_NODE_DEFAULT_VERSION"          = "~20"
