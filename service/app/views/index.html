@@ -1,0 +1,114 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  Task list template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">{{ serviceName }}</h1>
+
+      <h2 class="govuk-heading-m">Submissions requiring attention</h2>
+
+      {% set completedStatus = {
+        text: "Completed"
+      } %}
+
+      {% set incompleteStatus = {
+        tag: {
+          text: "Incomplete",
+          classes: "govuk-tag--blue"
+        }
+      } %}
+
+      {% set authReqdStatus = {
+        tag: {
+          text: "Signoff Required",
+          classes: "govuk-tag--green"
+        }
+      } %}
+
+      {% set errorsStatus = {
+        tag: {
+          text: "Validation Errors",
+          classes: "govuk-tag--red"
+        }
+      } %}
+
+      {% set overdueStatus = {
+        tag: {
+          text: "Signoff Overdue",
+          classes: "govuk-tag--red"
+        }
+      } %}
+
+      {# To switch between the completed and incomplete statues, use some inline logic within the component below, like this: "status: (completedStatus if ... else incompleteStatus)" #}
+
+      {{ govukTaskList({
+        idPrefix: "NPAS-123-",
+        items: [
+          {
+            title: {
+              text: "NPAS-123-456"
+            },
+            href: "#",
+            status: errorsStatus
+          },
+          {
+            title: {
+              text: "NPAS-234-567"
+            },
+            href: "#",
+            status: incompleteStatus
+          },
+          {
+            title: {
+              text: "NPAS-66-266"
+            },
+            href: "#",
+            status: overdueStatus
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-5">Submissions requiring authorisation</h2>
+
+      {{ govukTaskList({
+        idPrefix: "second-section",
+        items: [
+          {
+            title: {
+              text: "NPAS-987-234"
+            },
+            href: "#",
+            status: authReqdStatus
+          },
+          {
+            title: {
+              text: "NPAS-345-234"
+            },
+            href: "#",
+            status: authReqdStatus
+          },
+          {
+            title: {
+              text: "NPAS-346-666"
+            },
+            href: "#",
+            status: authReqdStatus
+          }
+        ]
+      }) }}
+
+      <div class="govuk-!-margin-top-5">
+        {{ govukButton({ text: "Apply", href: "#" }) }}
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
