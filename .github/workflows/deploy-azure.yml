@@ -127,7 +127,7 @@ jobs:
           run: |
             cd DHSC.ANS.Service
             npm ci
-            zip -r ../service.zip . -x ".git/*" "node_modules/*" ".github/*"
+            zip -r ../service.zip . -x "*.git*" -x "node_modules/*" -x "node_modules"
 
         - name: Install Azure CLI
           run: |
