@@ -3,7 +3,6 @@
     "dev": "govuk-prototype-kit dev",
     "serve": "govuk-prototype-kit serve",
     "start": "govuk-prototype-kit start", 
-    "exec": "node node_modules/govuk-prototype-kit/start.js"
   },
   "dependencies": {
     "@govuk-prototype-kit/common-templates": "2.0.1",
