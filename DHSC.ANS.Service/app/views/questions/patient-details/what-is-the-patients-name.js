@@ -14,6 +14,6 @@ module.exports = {
   },
 
   resolve: () => {
-    return 'do-you-know-the-patients-nhs-number';
+    return '';
   }
 };

@@ -54,7 +54,7 @@ router.get('/questions/:group/:page', (req, res) => {
   });
   
 
-  router.post('/question/:group/:page', async function (req, res) {
+  router.post('/questions/:group/:page', async function (req, res) {
     const { group, page } = req.params;
   
     const META_FIELDS = ['currentPage', 'questionGroup', 'nextPage', 'backPage'];

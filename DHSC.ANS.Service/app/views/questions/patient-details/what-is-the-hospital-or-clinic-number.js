@@ -1,7 +1,7 @@
 function validate(sessionData, formData) {
   const errors = [];
-  const value = formData['patientInformation.hospitalOrClinic.hospitalOrClinicNumber']?.trim();
-
+  const value = formData.patientInformation.hospitalOrClinic.hospitalOrClinicNumber?.trim();
+console.log(formData)
   if (!value) {
     errors.push({
       field: 'patientInformation.hospitalOrClinic.hospitalOrClinicNumber',
