@@ -1,3 +1,6 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Practitioner’s details" %}
@@ -24,61 +27,47 @@
     {% endif %}
   {% endfor %}
 
-  <div class="govuk-form-group {% if postcodeError %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label govuk-label--l" for="postcode">
-      What is the postcode of the hospital or clinic where the practitioner signed the HSA1 form?
-    </label>
-    <div id="postcode-hint" class="govuk-hint">
-      For example, SW1A 2AA
-    </div>
+  {{ govukInput({
+    label: {
+      text: "What is the postcode of the hospital or clinic where the practitioner signed the HSA1 form?",
+      classes: "govuk-label--l"
+    },
+    hint: {
+      text: "For example, SW1A 2AA"
+    },
+    id: "postcode",
+    name: "practitionerInfo.hsa1SigningLocation.postcode",
+    classes: "govuk-input--width-10",
+    errorMessage: postcodeError and {
+      text: postcodeError.message
+    },
+    value: data["practitionerInfo.hsa1SigningLocation.postcode"] or ""
+  }) }}
 
-    {% if postcodeError %}
-      <span class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ postcodeError.message }}
-      </span>
-    {% endif %}
-
-    <input class="govuk-input govuk-input--width-10"
-           id="postcode"
-           name="practitionerInfo.hsa1SigningLocation.postcode"
-           type="text"
-           value="{{ data['practitionerInfo.hsa1SigningLocation.postcode'] or '' }}">
-  </div>
-
-  <div class="govuk-form-group {% if selectError %}govuk-form-group--error{% endif %}">
-    {% if selectError %}
-      <span class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ selectError.message }}
-      </span>
-    {% endif %}
-
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        Select an address
-      </legend>
-
-      <div class="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="address-1" name="practitionerInfo.hsa1SigningLocation.selectedAddress" type="radio" value="1">
-          <label class="govuk-label govuk-radios__label" for="address-1">
-            Prime Minister & First Lord of the Treasury, 10 Downing Street London, SW1A 2AA
-          </label>
-        </div>
-
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="address-2" name="practitionerInfo.hsa1SigningLocation.selectedAddress" type="radio" value="2">
-          <label class="govuk-label govuk-radios__label" for="address-2">
-            Chancellor of the Exchequer, 11 Downing Street London, SW1A 2AB
-          </label>
-        </div>
-
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="address-3" name="practitionerInfo.hsa1SigningLocation.selectedAddress" type="radio" value="3">
-          <label class="govuk-label govuk-radios__label" for="address-3">
-            Government Chief Whips Office, 12 Downing Street London, SW1A 2AD
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  {{ govukRadios({
+    name: "practitionerInfo.hsa1SigningLocation.selectedAddress",
+    fieldset: {
+      legend: {
+        text: "Select an address",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    errorMessage: selectError and {
+      text: selectError.message
+    },
+    items: [
+      {
+        value: "1",
+        text: "Prime Minister & First Lord of the Treasury, 10 Downing Street London, SW1A 2AA"
+      },
+      {
+        value: "2",
+        text: "Chancellor of the Exchequer, 11 Downing Street London, SW1A 2AB"
+      },
+      {
+        value: "3",
+        text: "Government Chief Whips Office, 12 Downing Street London, SW1A 2AD"
+      }
+    ]
+  }) }}
 {% endblock %}
