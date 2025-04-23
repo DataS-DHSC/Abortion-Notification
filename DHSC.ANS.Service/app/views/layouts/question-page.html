@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <a href="{{ backLink or '#' }}" class="govuk-back-link">Back</a>
+
+      <span class="govuk-caption-xl">Question {{ questionNumber }} of {{ totalQuestions }}</span>
+      <h1 class="govuk-heading-xl">{{ sectionTitle }}</h1>
+
+      <form method="post" action="{{ formAction }}">
+        <input type="hidden" name="nextPage" value="{{ nextPage }}">
+        <input type="hidden" name="currentPage" value="{{ currentPage }}">
+        <input type="hidden" name="questionGroup" value="{{ questionGroup }}">
+      
+        {% block form %}{% endblock %}
+
+        <button type="submit" class="govuk-button" data-module="govuk-button">
+          Continue
+        </button>
+        <button type="submit" class="govuk-button govuk-button--secondary" formaction="/save-and-exit">
+          Save and exit
+        </button>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

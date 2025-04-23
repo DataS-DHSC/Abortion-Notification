@@ -1,0 +1,41 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set currentPage = "what-is-the-patients-name" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set nextPage = "what-is-the-patients-date-of-birth" %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.name.fullName" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--l" for="full-name">
+      What is the patient’s name?
+    </label>
+    <div id="full-name-hint" class="govuk-hint">
+      Enter the patient’s full name
+    </div>
+
+    {% if error %}
+      <span id="full-name-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+      </span>
+    {% endif %}
+
+    <input class="govuk-input"
+           id="full-name"
+           name="patientInformation.name.fullName"
+           type="text"
+           spellcheck="false"
+           value="{{ data['patientInformation.name.fullName'] or '' }}">
+  </div>
+{% endblock %}

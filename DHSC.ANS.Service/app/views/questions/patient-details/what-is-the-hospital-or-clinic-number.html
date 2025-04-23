@@ -1,0 +1,43 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "what-is-the-patients-date-of-birth" %}
+{% set currentPage = "what-is-the-hospital-or-clinic-number" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 3 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.hospitalOrClinicNumber" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--l" for="hospital-number">
+      What is the hospital or clinic number?
+    </label>
+    <div id="hospital-number-hint" class="govuk-hint">
+      Hospital or clinic number must be 10 digits long
+    </div>
+
+    {% if error %}
+      <span id="hospital-number-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+      </span>
+    {% endif %}
+
+    <input class="govuk-input"
+           id="hospital-number"
+           name="patientInformation.hospitalOrClinicNumber"
+           type="text"
+           inputmode="numeric"
+           pattern="[0-9]*"
+           value="{{ data['patientInformation.hospitalOrClinicNumber'] or '' }}">
+  </div>
+{% endblock %}

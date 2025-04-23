@@ -1,0 +1,62 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "" %}
+{% set currentPage = "does-the-patient-live-in-england-or-wales" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.livesInEnglandOrWales" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h2 class="govuk-fieldset__heading">
+          Does the patient live in England or Wales?
+        </h2>
+      </legend>
+
+      {% if error %}
+        <span class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+        </span>
+      {% endif %}
+
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="lives-yes"
+                 name="patientInformation.livesInEnglandOrWales"
+                 type="radio"
+                 value="yes"
+                 {{ checked("patientInformation.livesInEnglandOrWales", "yes") }}>
+          <label class="govuk-label govuk-radios__label" for="lives-yes">
+            Yes
+          </label>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input"
+                 id="lives-no"
+                 name="patientInformation.livesInEnglandOrWales"
+                 type="radio"
+                 value="no"
+                 {{ checked("patientInformation.livesInEnglandOrWales", "no") }}>
+          <label class="govuk-label govuk-radios__label" for="lives-no">
+            No
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+{% endblock %}

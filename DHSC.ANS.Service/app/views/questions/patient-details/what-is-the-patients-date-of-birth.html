@@ -1,0 +1,70 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "" %}
+{% set currentPage = "what-is-the-patients-date-of-birth" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 4 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.dateOfBirth" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h2 class="govuk-fieldset__heading">
+          What is the patient’s date of birth?
+        </h2>
+      </legend>
+
+      <div id="dob-hint" class="govuk-hint">
+        For example, 27 3 1987
+      </div>
+
+      {% if error %}
+        <span id="dob-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+        </span>
+      {% endif %}
+
+      <div class="govuk-date-input" id="dob">
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-day">Day</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                   id="dob-day" name="patientInformation.dateOfBirth.day" type="text"
+                   inputmode="numeric"
+                   value="{{ data['patientInformation.dateOfBirth.day'] or '' }}">
+          </div>
+        </div>
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-month">Month</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                   id="dob-month" name="patientInformation.dateOfBirth.month" type="text"
+                   inputmode="numeric"
+                   value="{{ data['patientInformation.dateOfBirth.month'] or '' }}">
+          </div>
+        </div>
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label class="govuk-label govuk-date-input__label" for="dob-year">Year</label>
+            <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                   id="dob-year" name="patientInformation.dateOfBirth.year" type="text"
+                   inputmode="numeric"
+                   value="{{ data['patientInformation.dateOfBirth.year'] or '' }}">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+{% endblock %}

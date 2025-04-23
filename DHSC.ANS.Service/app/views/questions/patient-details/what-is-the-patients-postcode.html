@@ -1,0 +1,43 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set currentPage = "what-is-the-patients-postcode" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set nextPage = "hsa1-signing-location-postcode" %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.address.postcode" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--l" for="postcode">
+      What is the patient’s postcode?
+    </label>
+    <div id="postcode-hint" class="govuk-hint">
+      For example, AB1 2CD
+    </div>
+
+    {% if error %}
+      <span id="postcode-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+      </span>
+    {% endif %}
+
+    <input class="govuk-input govuk-input--width-10"
+           id="postcode"
+           name="patientInformation.address.postcode"
+           type="text"
+           spellcheck="false"
+           autocomplete="postal-code"
+           value="{{ data['patientInformation.address.postcode'] or '' }}">
+  </div>
+{% endblock %}
