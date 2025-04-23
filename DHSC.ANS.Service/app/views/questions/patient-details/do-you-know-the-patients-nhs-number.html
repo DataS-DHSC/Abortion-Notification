@@ -1,3 +1,5 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Patient’s details" %}
@@ -11,7 +13,6 @@
 
 {% block form %}
 
-  {# Extract the field-level error for this question #}
   {% set error = null %}
   {% for e in errors %}
     {% if e.field == "patientInformation.nhsNumber.nhsNumberKnown" %}
@@ -19,45 +20,30 @@
     {% endif %}
   {% endfor %}
 
-  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
-    <fieldset class="govuk-fieldset" aria-describedby="patient-nhs-number-hint">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h2 class="govuk-fieldset__heading">
-          Do you know the patient’s NHS number?
-        </h2>
-      </legend>
+  {{ govukRadios({
+    name: "patientInformation.nhsNumber.nhsNumberKnown",
+    fieldset: {
+      legend: {
+        text: "Do you know the patient’s NHS number?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: error and {
+      text: error.message
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: checked("patientInformation.nhsNumber.nhsNumberKnown", "yes")
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: checked("patientInformation.nhsNumber.nhsNumberKnown", "no")
+      }
+    ]
+  }) }}
 
-      {% if error %}
-        <span id="nhs-number-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
-        </span>
-      {% endif %}
-
-      <div class="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input"
-                 id="nhs-number-yes"
-                 name="patientInformation.nhsNumber.nhsNumberKnown"
-                 type="radio"
-                 value="yes"
-                 {{ checked("patientInformation.nhsNumber.nhsNumberKnown", "yes") }}>
-          <label class="govuk-label govuk-radios__label" for="nhs-number-yes">
-            Yes
-          </label>
-        </div>
-
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input"
-                 id="nhs-number-no"
-                 name="patientInformation.nhsNumber.nhsNumberKnown"
-                 type="radio"
-                 value="no"
-                 {{ checked("patientInformation.nhsNumber.nhsNumberKnown", "no") }}>
-          <label class="govuk-label govuk-radios__label" for="nhs-number-no">
-            No
-          </label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
 {% endblock %}

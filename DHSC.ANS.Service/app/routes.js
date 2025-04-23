@@ -6,28 +6,40 @@ const path = require('path');
 
 const DEBUG = true;
 
-// GET route with session-based backLink
+// GET route with session-based backLink and debug output
 router.get('/questions/:group/:page', (req, res) => {
-  const { group, page } = req.params;
-  const currentPath = `/questions/${group}/${page}`;
-
-  // Initialise history array if not present
-  req.session.history = req.session.history || [];
-
-  // Push current path to history only if it's not the same as the last
-  const last = req.session.history[req.session.history.length - 1];
-  if (last !== currentPath) {
-    req.session.history.push(currentPath);
-  }
-
-  const backLink = req.session.history.length > 1
-    ? req.session.history[req.session.history.length - 2]
-    : '/';
-
-  res.render(`questions/${group}/${page}`, {
-    backLink
+    const { group, page } = req.params;
+    const currentPath = `/questions/${group}/${page}`;
+  
+    // Initialise history array if not present
+    req.session.history = req.session.history || [];
+  
+    // Output current history before update
+    console.log('--- PAGE LOAD ---');
+    console.log('Current page:', currentPath);
+    console.log('Session history BEFORE:', [...req.session.history]);
+  
+    // Push current path to history only if it's not the same as the last
+    const last = req.session.history[req.session.history.length - 1];
+    if (last !== currentPath) {
+      req.session.history.push(currentPath);
+    }
+  
+    // Output updated history
+    console.log('Session history AFTER:', [...req.session.history]);
+  
+    const backLink = req.session.history.length > 1
+      ? req.session.history[req.session.history.length - 2]
+      : '/';
+  
+    console.log('Back link calculated as:', backLink);
+    console.log('-------------------\n');
+  
+    res.render(`questions/${group}/${page}`, {
+      backLink
+    });
   });
-});
+  
 
 router.post('/question/:group/:page', async function (req, res) {
   const { group, page } = req.params;
@@ -93,6 +105,7 @@ router.post('/question/:group/:page', async function (req, res) {
   // Determine backlink for error re-render
   const currentPath = `/questions/${group}/${page}`;
   req.session.history = req.session.history || [];
+  
   const backLink = req.session.history.length > 1
     ? req.session.history[req.session.history.length - 2]
     : '/';
