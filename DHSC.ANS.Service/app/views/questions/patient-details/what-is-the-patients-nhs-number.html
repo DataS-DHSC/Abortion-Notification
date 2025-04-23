@@ -1,0 +1,39 @@
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "do-you-know-the-place-number" %}
+{% set currentPage = "what-is-the-patients-nhs-number" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 2 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.nhsNumber.nhsNumber" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--l" for="nhs-number">
+      What is the patient’s NHS number?
+    </label>
+    <div id="nhs-number-hint" class="govuk-hint">
+      NHS numbers must be 10-digits long
+    </div>
+
+    {% if error %}
+      <span id="nhs-number-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
+      </span>
+    {% endif %}
+
+    <input class="govuk-input" id="nhs-number" name="patientInformation.nhsNumber.nhsNumber" type="text"
+           inputmode="numeric" pattern="[0-9]*"
+           value="{{ data['patientInformation.nhsNumber.nhsNumber'] or '' }}">
+  </div>
+{% endblock %}
