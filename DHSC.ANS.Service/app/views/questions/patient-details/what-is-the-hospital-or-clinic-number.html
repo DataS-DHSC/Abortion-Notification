@@ -1,10 +1,12 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Patient’s details" %}
-{% set nextPage = "what-is-the-patients-date-of-birth" %}
+{% set nextPage = "what-is-the-patients-name" %}
 {% set currentPage = "what-is-the-hospital-or-clinic-number" %}
 {% set questionGroup = "patient-details" %}
-{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set questionNumber = 3 %}
 {% set totalQuestions = 9 %}
 {% set sectionTitle = "Patient’s details" %}
@@ -13,31 +15,28 @@
 
   {% set error = null %}
   {% for e in errors %}
-    {% if e.field == "patientInformation.hospitalOrClinicNumber" %}
+    {% if e.field == "patientInformation.hospitalOrClinic.hospitalOrClinicNumber" %}
       {% set error = e %}
     {% endif %}
   {% endfor %}
 
-  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label govuk-label--l" for="hospital-number">
-      What is the hospital or clinic number?
-    </label>
-    <div id="hospital-number-hint" class="govuk-hint">
-      Hospital or clinic number must be 10 digits long
-    </div>
+  {{ govukInput({
+    id: "hospital-number",
+    name: "patientInformation.hospitalOrClinic.hospitalOrClinicNumber",
+    label: {
+      text: "What is the hospital or clinic number?",
+      classes: "govuk-label--l"
+    },
+    hint: {
+      text: "Hospital or clinic number must be 10 digits long"
+    },
+    classes: "govuk-input--width-10",
+    inputmode: "numeric",
+    pattern: "[0-9]*",
+    errorMessage: error and {
+      text: error.message
+    },
+    value: data["patientInformation.hospitalOrClinic.hospitalOrClinicNumber"] or ""
+  }) }}
 
-    {% if error %}
-      <span id="hospital-number-error" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
-      </span>
-    {% endif %}
-
-    <input class="govuk-input"
-           id="hospital-number"
-           name="patientInformation.hospitalOrClinicNumber"
-           type="text"
-           inputmode="numeric"
-           pattern="[0-9]*"
-           value="{{ data['patientInformation.hospitalOrClinicNumber'] or '' }}">
-  </div>
 {% endblock %}

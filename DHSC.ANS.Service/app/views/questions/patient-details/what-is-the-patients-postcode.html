@@ -1,9 +1,11 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Patient’s details" %}
 {% set currentPage = "what-is-the-patients-postcode" %}
 {% set questionGroup = "patient-details" %}
-{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set nextPage = "hsa1-signing-location-postcode" %}
 {% set questionNumber = 1 %}
 {% set totalQuestions = 9 %}
@@ -18,26 +20,23 @@
     {% endif %}
   {% endfor %}
 
-  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label govuk-label--l" for="postcode">
-      What is the patient’s postcode?
-    </label>
-    <div id="postcode-hint" class="govuk-hint">
-      For example, AB1 2CD
-    </div>
+  {{ govukInput({
+    id: "postcode",
+    name: "patientInformation.address.postcode",
+    label: {
+      text: "What is the patient’s postcode?",
+      classes: "govuk-label--l"
+    },
+    hint: {
+      text: "For example, AB1 2CD"
+    },
+    classes: "govuk-input--width-10",
+    spellcheck: false,
+    autocomplete: "postal-code",
+    errorMessage: error and {
+      text: error.message
+    },
+    value: data["patientInformation.address.postcode"] or ""
+  }) }}
 
-    {% if error %}
-      <span id="postcode-error" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
-      </span>
-    {% endif %}
-
-    <input class="govuk-input govuk-input--width-10"
-           id="postcode"
-           name="patientInformation.address.postcode"
-           type="text"
-           spellcheck="false"
-           autocomplete="postal-code"
-           value="{{ data['patientInformation.address.postcode'] or '' }}">
-  </div>
 {% endblock %}

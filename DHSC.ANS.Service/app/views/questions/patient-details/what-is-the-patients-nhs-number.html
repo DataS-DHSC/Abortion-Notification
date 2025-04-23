@@ -1,10 +1,12 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Patient’s details" %}
 {% set nextPage = "do-you-know-the-place-number" %}
 {% set currentPage = "what-is-the-patients-nhs-number" %}
 {% set questionGroup = "patient-details" %}
-{% set formAction = "/question/" + questionGroup + "/" + currentPage %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set questionNumber = 2 %}
 {% set totalQuestions = 9 %}
 {% set sectionTitle = "Patient’s details" %}
@@ -18,22 +20,23 @@
     {% endif %}
   {% endfor %}
 
-  <div class="govuk-form-group {% if error %}govuk-form-group--error{% endif %}">
-    <label class="govuk-label govuk-label--l" for="nhs-number">
-      What is the patient’s NHS number?
-    </label>
-    <div id="nhs-number-hint" class="govuk-hint">
-      NHS numbers must be 10-digits long
-    </div>
+  {{ govukInput({
+    id: "nhs-number",
+    name: "patientInformation.nhsNumber.nhsNumber",
+    label: {
+      text: "What is the patient’s NHS number?",
+      classes: "govuk-label--l"
+    },
+    hint: {
+      text: "NHS numbers must be 10-digits long"
+    },
+    inputmode: "numeric",
+    pattern: "[0-9]*",
+    classes: "govuk-input--width-10",
+    errorMessage: error and {
+      text: error.message
+    },
+    value: data["patientInformation.nhsNumber.nhsNumber"] or ""
+  }) }}
 
-    {% if error %}
-      <span id="nhs-number-error" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ error.message }}
-      </span>
-    {% endif %}
-
-    <input class="govuk-input" id="nhs-number" name="patientInformation.nhsNumber.nhsNumber" type="text"
-           inputmode="numeric" pattern="[0-9]*"
-           value="{{ data['patientInformation.nhsNumber.nhsNumber'] or '' }}">
-  </div>
 {% endblock %}
