@@ -1,0 +1,43 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set nextPage = "" %}
+{% set currentPage = "was-procedure-selective" %}
+{% set questionGroup = "surgical" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 8 %}
+{% set sectionTitle = "Funding and method of termination" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "terminationInformation.surgical.wasSelective" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+  
+  {{
+    govukRadios({
+      name: "terminationInformation.surgical.wasSelective",
+      fieldset: {
+        legend: {
+          text: "Was the procedure a selective termination?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      errorMessage: error and {
+        text: error.message
+      },
+      value: data["terminationInformation.surgical.wasSelective"],
+      items: [
+        { value: "yes", text: "Yes, it was a selective termination" },
+        { value: "no", text: "No, it was not a selective termination" }
+      ]
+    })
+  }}
+
+{% endblock %}
