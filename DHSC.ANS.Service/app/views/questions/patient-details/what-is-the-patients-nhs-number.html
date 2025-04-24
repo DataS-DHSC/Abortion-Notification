@@ -2,14 +2,13 @@
 
 {% extends "../../layouts/question-page.html" %}
 
-{% set pageName = "Patient’s details" %}
 {% set nextPage = "do-you-know-the-place-number" %}
 {% set currentPage = "what-is-the-patients-nhs-number" %}
 {% set questionGroup = "patient-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set questionNumber = 2 %}
 {% set totalQuestions = 9 %}
-{% set sectionTitle = "Patient’s details" %}
+{% set sectionTitle = "Patient's details" %}
 
 {% block form %}
 
@@ -24,7 +23,7 @@
     id: "nhs-number",
     name: "patientInformation.nhsNumber.nhsNumber",
     label: {
-      text: "What is the patient’s NHS number?",
+      text: "What is the patient's NHS number?",
       classes: "govuk-label--l"
     },
     hint: {

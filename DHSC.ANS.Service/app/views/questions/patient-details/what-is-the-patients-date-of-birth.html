@@ -2,14 +2,13 @@
 
 {% extends "../../layouts/question-page.html" %}
 
-{% set pageName = "Patient’s details" %}
 {% set nextPage = "does-the-patient-live-in-england-or-wales" %}
 {% set currentPage = "what-is-the-patients-date-of-birth" %}
 {% set questionGroup = "patient-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set questionNumber = 4 %}
 {% set totalQuestions = 9 %}
-{% set sectionTitle = "Patient’s details" %}
+{% set sectionTitle = "Patient's details" %}
 
 {% block form %}
 
@@ -24,7 +23,7 @@
     id: "dob",
     fieldset: {
       legend: {
-        text: "What is the patient’s date of birth?",
+        text: "What is the patient's date of birth?",
         isPageHeading: true,
         classes: "govuk-fieldset__legend--l"
       }
@@ -37,19 +36,19 @@
     },
     items: [
       {
-        label: "day",
+        label: "Day",
         name: "patientInformation.dateOfBirth.day",
         classes: "govuk-input--width-2",
         value: data["patientInformation.dateOfBirth.day"] or ""
       },
       {
-        label: "month",
+        label: "Month",
         name: "patientInformation.dateOfBirth.month",
         classes: "govuk-input--width-2",
         value: data["patientInformation.dateOfBirth.month"] or ""
       },
       {
-        label: "year",
+        label: "Year",
         name: "patientInformation.dateOfBirth.year",
         classes: "govuk-input--width-4",
         value: data["patientInformation.dateOfBirth.year"] or ""

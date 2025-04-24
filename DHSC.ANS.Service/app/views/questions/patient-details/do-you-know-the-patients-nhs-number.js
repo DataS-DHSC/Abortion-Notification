@@ -7,8 +7,6 @@ function resolve(sessionData, formData) {
 
 function validate(sessionData, formData) {
     const errors = [];
-  
-    console.log("here");
 
     const value = formData?.patientInformation?.nhsNumber?.nhsNumberKnown;
     if (!value) {
