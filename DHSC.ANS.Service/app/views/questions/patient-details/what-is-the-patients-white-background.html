@@ -1,0 +1,67 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "" %}
+{% set currentPage = "what-is-the-patients-white-background" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 3 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.ethnicGroupWhite" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukRadios({
+    name: "patientInformation.ethnicGroupWhite",
+    fieldset: {
+      legend: {
+        text: "Which of the following best describes the patient’s White background?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: error and {
+      text: error.message
+    },
+    items: [
+      {
+        value: "english-welsh-scottish-northern-irish-british",
+        text: "English, Welsh, Scottish, Northern Irish or British",
+        checked: checked("patientInformation.ethnicGroupWhite", "english-welsh-scottish-northern-irish-british")
+      },
+      {
+        value: "irish",
+        text: "Irish",
+        checked: checked("patientInformation.ethnicGroupWhite", "irish")
+      },
+      {
+        value: "gypsy-traveller",
+        text: "Gypsy or Irish Traveller",
+        checked: checked("patientInformation.ethnicGroupWhite", "gypsy-traveller")
+      },
+      {
+        value: "other-white",
+        text: "Any other White background",
+        checked: checked("patientInformation.ethnicGroupWhite", "other-white")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "not-known",
+        text: "Not known",
+        checked: checked("patientInformation.ethnicGroupWhite", "not-known")
+      }
+    ]
+  }) }}
+
+{% endblock %}

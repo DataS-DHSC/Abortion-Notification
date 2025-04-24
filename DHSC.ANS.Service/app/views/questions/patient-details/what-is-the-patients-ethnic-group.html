@@ -1,0 +1,72 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Patient’s details" %}
+{% set nextPage = "" %}
+{% set currentPage = "what-is-the-patients-ethnic-group" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 3 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.ethnicGroup" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukRadios({
+    name: "patientInformation.ethnicGroup",
+    fieldset: {
+      legend: {
+        text: "What is the patient’s ethnic group?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: error and {
+      text: error.message
+    },
+    items: [
+      {
+        value: "white",
+        text: "White",
+        checked: checked("patientInformation.ethnicGroup", "white")
+      },
+      {
+        value: "mixed",
+        text: "Mixed or multiple ethnic groups",
+        checked: checked("patientInformation.ethnicGroup", "mixed")
+      },
+      {
+        value: "asian",
+        text: "Asian or Asian British",
+        checked: checked("patientInformation.ethnicGroup", "asian")
+      },
+      {
+        value: "black",
+        text: "Black, African, Caribbean or Black British",
+        checked: checked("patientInformation.ethnicGroup", "black")
+      },
+      {
+        value: "other",
+        text: "Other ethnic group",
+        checked: checked("patientInformation.ethnicGroup", "other")
+      },
+      {
+        divider: "or"
+      },
+      {
+        value: "not_known",
+        text: "Not known",
+        checked: checked("patientInformation.ethnicGroup", "not_known")
+      }
+    ]
+  }) }}
+
+{% endblock %}

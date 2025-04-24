@@ -1,11 +1,17 @@
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
 {% extends "layouts/main.html" %}
 
 {% block content %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-      <a href="{{ backLink or '#' }}" class="govuk-back-link">Back</a>
-
+        {{ govukBackLink({
+            text: "Back",
+            href: backLink or "#"
+          }) }}
+      
       <span class="govuk-caption-xl">Question {{ questionNumber }} of {{ totalQuestions }}</span>
       <h1 class="govuk-heading-xl">{{ sectionTitle }}</h1>
 
