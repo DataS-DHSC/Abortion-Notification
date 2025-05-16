@@ -13,10 +13,14 @@
 
 {% block form %}
 
-    {% set error = null %}
+    {% set knownError = null %}
+    {% set numberError = null %}
+
     {% for e in errors %}
         {% if e.field == "patientInformation.hospitalNumber.known" %}
-            {% set error = e %}
+            {% set knownError = e %}
+        {% elseif e.field == "patientInformation.hospitalNumber.number" %}
+            {% set numberError = e %}
         {% endif %}
     {% endfor %}
 
@@ -32,6 +36,9 @@
             hint: {
                 text: "The patient’s hospital or clinic number must be X digits long"
             },
+            errorMessage: numberError and {
+                text: numberError.message
+            },
             value: data["patientInformation.hospitalNumber.number"]
         }) }}
     {% endset %}
@@ -45,8 +52,8 @@
                 classes: "govuk-fieldset__legend--l"
             }
         },
-        errorMessage: error and {
-            text: error.message
+        errorMessage: knownError and {
+            text: knownError.message
         },
         items: [
             {
