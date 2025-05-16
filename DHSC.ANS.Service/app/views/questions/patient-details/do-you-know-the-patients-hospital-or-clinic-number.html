@@ -1,0 +1,68 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set nextPage = "" %}
+{% set currentPage = "do-you-know-the-patients-hospital-or-clinic-number" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient's details" %}
+
+{% block form %}
+
+    {% set error = null %}
+    {% for e in errors %}
+        {% if e.field == "patientInformation.hospitalNumber.known" %}
+            {% set error = e %}
+        {% endif %}
+    {% endfor %}
+
+    {% set hospitalNumberHtml %}
+        {{ govukInput({
+            id: "patient-hospital-number",
+            name: "patientInformation.hospitalNumber.number",
+            classes: "govuk-!-width-one-third",
+            label: {
+                text: "Enter the patient’s hospital or clinic number",
+                classes: "govuk-label--m"
+            },
+            hint: {
+                text: "The patient’s hospital or clinic number must be X digits long"
+            },
+            value: data["patientInformation.hospitalNumber.number"]
+        }) }}
+    {% endset %}
+
+    {{ govukRadios({
+        name: "patientInformation.hospitalNumber.known",
+        fieldset: {
+            legend: {
+                text: "Do you know the patient’s hospital or clinic number?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: error and {
+            text: error.message
+        },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("patientInformation.hospitalNumber.known", "yes"),
+                conditional: {
+                html: hospitalNumberHtml
+            }
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("patientInformation.hospitalNumber.known", "no")
+            }
+        ]
+    }) }}
+
+{% endblock %}
