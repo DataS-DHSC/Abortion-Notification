@@ -83,10 +83,11 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'
-          - name: Install Swagger CLI
-          env:
-            PATH: ${{ env.PATH }}:${{ env.HOME }}/.dotnet/tools
-          run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
+          
+      - name: Install Swagger CLI
+        env:
+          PATH: ${{ env.PATH }}:${{ env.HOME }}/.dotnet/tools
+        run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
         
       - name: Build API
         env:
