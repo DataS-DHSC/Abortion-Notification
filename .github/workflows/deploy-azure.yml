@@ -11,8 +11,8 @@ on:
       - '.github/workflows/*.yml'
 
 env:
-  PROJECT_NAME: ANS
-  ENVIRONMENT: Alpha
+  PROJECT_NAME: ans
+  ENVIRONMENT: alpha
   COST_CENTRE: HC01
   DEPARTMENT: Digital
 
