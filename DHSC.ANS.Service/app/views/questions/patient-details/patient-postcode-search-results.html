@@ -1,0 +1,56 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set pageName = "Search results" %}
+{% set nextPage = "enter-patient-address" %}
+{% set currentPage = "patient-postcode-search-results" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 2 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient’s details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.address.selectedAddress" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukRadios({
+    name: "patientInformation.address.selectedAddress",
+    fieldset: {
+      legend: {
+        text: "3 results found",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: error and {
+      text: error.message
+    },
+    items: [
+      {
+        value: "79",
+        text: "79 Balmoral Place, Bowman Lane, Leeds, LS10 1HR"
+      },
+      {
+        value: "80",
+        text: "80 Balmoral Place, Bowman Lane, Leeds, LS10 1HR"
+      },
+      {
+        value: "81",
+        text: "81 Balmoral Place, Bowman Lane, Leeds, LS10 1HR"
+      },
+      {
+        value: "manual",
+        text: "Manually add address",
+        checked: true
+      }
+    ]
+  }) }}
+
+{% endblock %}

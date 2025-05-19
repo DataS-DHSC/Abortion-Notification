@@ -1,0 +1,38 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set nextPage = "fetuses-after" %}
+{% set currentPage = "fetuses-before" %}
+{% set questionGroup = "surgical" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 2 %}
+{% set totalQuestions = 8 %}
+{% set sectionTitle = "Funding and method of termination" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "terminationInformation.surgical.fetusesBefore" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  {{
+    govukInput({
+      classes: "govuk-input--width-10",
+      name: "terminationInformation.surgical.fetusesBefore",
+      label: {
+        text: "How many fetuses were there before the termination?",
+        isPageHeading: true,
+        classes: "govuk-label--l"
+      },
+      errorMessage: error and {
+        text: error.message
+      },
+      value: data["terminationInformation.surgical.fetusesBefore"]
+    })
+  }}
+
+{% endblock %}

@@ -2,14 +2,13 @@
 
 {% extends "../../layouts/question-page.html" %}
 
-{% set pageName = "Patient’s details" %}
 {% set nextPage = "" %}
 {% set currentPage = "do-you-know-the-patients-nhs-number" %}
 {% set questionGroup = "patient-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set questionNumber = 1 %}
 {% set totalQuestions = 9 %}
-{% set sectionTitle = "Patient’s details" %}
+{% set sectionTitle = "Patient's details" %}
 
 {% block form %}
 
@@ -24,7 +23,7 @@
     name: "patientInformation.nhsNumber.nhsNumberKnown",
     fieldset: {
       legend: {
-        text: "Do you know the patient’s NHS number?",
+        text: "Do you know the patient's NHS number?",
         isPageHeading: true,
         classes: "govuk-fieldset__legend--l"
       }

@@ -2,14 +2,13 @@
 
 {% extends "../../layouts/question-page.html" %}
 
-{% set pageName = "Patient’s details" %}
 {% set currentPage = "what-is-the-patients-name" %}
 {% set questionGroup = "patient-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set nextPage = "what-is-the-patients-date-of-birth" %}
 {% set questionNumber = 1 %}
 {% set totalQuestions = 9 %}
-{% set sectionTitle = "Patient’s details" %}
+{% set sectionTitle = "Patient's details" %}
 
 {% block form %}
 
@@ -24,11 +23,11 @@
     id: "full-name",
     name: "patientInformation.name.fullName",
     label: {
-      text: "What is the patient’s name?",
+      text: "What is the patient's name?",
       classes: "govuk-label--l"
     },
     hint: {
-      text: "Enter the patient’s full name"
+      text: "Enter the patient's full name"
     },
     spellcheck: false,
     errorMessage: error and {

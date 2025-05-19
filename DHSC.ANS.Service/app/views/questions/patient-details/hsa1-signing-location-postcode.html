@@ -3,14 +3,13 @@
 
 {% extends "../../layouts/question-page.html" %}
 
-{% set pageName = "Practitioner’s details" %}
 {% set currentPage = "hsa1-signing-location-postcode" %}
 {% set questionGroup = "practitioner-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
 {% set nextPage = "" %}
 {% set questionNumber = 5 %}
 {% set totalQuestions = 9 %}
-{% set sectionTitle = "Terminating practitioner and certifying practitioners’ details" %}
+{% set sectionTitle = "Terminating practitioner and certifying practitioners' details" %}
 
 {% block form %}
   <input type="hidden" name="currentPage" value="{{ currentPage }}">
@@ -27,47 +26,77 @@
     {% endif %}
   {% endfor %}
 
-  {{ govukInput({
-    label: {
-      text: "What is the postcode of the hospital or clinic where the practitioner signed the HSA1 form?",
-      classes: "govuk-label--l"
-    },
-    hint: {
-      text: "For example, SW1A 2AA"
-    },
-    id: "postcode",
-    name: "practitionerInfo.hsa1SigningLocation.postcode",
-    classes: "govuk-input--width-10",
-    errorMessage: postcodeError and {
-      text: postcodeError.message
-    },
-    value: data["practitionerInfo.hsa1SigningLocation.postcode"] or ""
-  }) }}
+  <div class="govuk-form-group {% if postcodeError %}govuk-form-group--error{% endif %}">
+    <label class="govuk-label govuk-label--l" for="postcode">
+      What is the postcode of the hospital or clinic where the practitioner signed the HSA1 form?
+    </label>
+    <div id="postcode-hint" class="govuk-hint">
+      For example, SW1A 2AA
+    </div>
 
-  {{ govukRadios({
-    name: "practitionerInfo.hsa1SigningLocation.selectedAddress",
-    fieldset: {
-      legend: {
-        text: "Select an address",
-        classes: "govuk-fieldset__legend--m"
-      }
-    },
-    errorMessage: selectError and {
-      text: selectError.message
-    },
-    items: [
-      {
-        value: "1",
-        text: "Prime Minister & First Lord of the Treasury, 10 Downing Street London, SW1A 2AA"
+    {% if postcodeError %}
+      <span class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ postcodeError.message }}
+      </span>
+    {% endif %}
+
+    <div style="display: flex; gap: 1rem; align-items: flex-end;">
+      <input class="govuk-input govuk-input--width-10"
+             id="postcode"
+             name="practitionerInfo.hsa1SigningLocation.postcode"
+             type="text"
+             value="{{ data['practitionerInfo.hsa1SigningLocation.postcode'] or '' }}">
+
+      <button type="button" class="govuk-button govuk-button--secondary" id="search-button" style="margin-bottom: 2px;">
+        Search
+      </button>
+    </div>
+  </div>
+
+  <div id="search-results" style="display: none;">
+    {{ govukRadios({
+      name: "practitionerInfo.hsa1SigningLocation.selectedAddress",
+      fieldset: {
+        legend: {
+          text: "Select an address",
+          classes: "govuk-fieldset__legend--m"
+        }
       },
-      {
-        value: "2",
-        text: "Chancellor of the Exchequer, 11 Downing Street London, SW1A 2AB"
+      errorMessage: selectError and {
+        text: selectError.message
       },
-      {
-        value: "3",
-        text: "Government Chief Whips Office, 12 Downing Street London, SW1A 2AD"
+      items: [
+        {
+          value: "manual",
+          text: "Enter address manually",
+          checked: true
+        },
+        {
+          value: "1",
+          text: "Prime Minister & First Lord of the Treasury, 10 Downing Street London, SW1A 2AA"
+        },
+        {
+          value: "2",
+          text: "Chancellor of the Exchequer, 11 Downing Street London, SW1A 2AB"
+        },
+        {
+          value: "3",
+          text: "Government Chief Whips Office, 12 Downing Street London, SW1A 2AD"
+        }
+      ]
+    }) }}
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const button = document.getElementById("search-button");
+      const results = document.getElementById("search-results");
+
+      if (button && results) {
+        button.addEventListener("click", function () {
+          results.style.display = "block";
+        });
       }
-    ]
-  }) }}
+    });
+  </script>
 {% endblock %}

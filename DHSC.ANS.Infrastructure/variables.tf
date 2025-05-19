@@ -6,7 +6,19 @@ variable "project_name" {
 variable "environment" {
   type        = string
   description = "The environment (e.g., dev, prd)"
-  default     = "prd"
+  default     = "alpha"
+}
+
+variable "cost_centre" {
+  type        = string
+  description = "The cost centre"
+  default     = ""
+}
+
+variable "department" {
+  type        = string
+  description = "The department"
+  default     = ""
 }
 
 variable "x_api_key" {
