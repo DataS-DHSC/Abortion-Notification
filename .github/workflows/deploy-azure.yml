@@ -1,9 +1,8 @@
-name: deply-to-azure
+name: deploy-to-azure
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'DHSC.ANS.API.Consumer/**'
       - 'DHSC.ANS.API.Legacy/**'
@@ -11,138 +10,136 @@ on:
       - 'DHSC.ANS.Service/**'
       - '.github/workflows/*.yml'
 
+env:
+  PROJECT_NAME: ans
+  ENVIRONMENT: Alpha
+  COST_CENTRE: HC01
+  DEPARTMENT: Digital
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
+    # expose Terraform outputs to the deploy jobs
     outputs:
-      web_app_name: ${{ steps.get_app_name.outputs.web_app_name }}
-      service_app_name: ${{ steps.get_app_name.outputs.service_app_name }}
+      web_app_name:        ${{ steps.outs.outputs.web_app_name }}
+      service_app_name:    ${{ steps.outs.outputs.service_app_name }}
+      resource_group_name: ${{ steps.outs.outputs.resource_group_name }}
+
+    # make the four ARM_* vars available to every step in this job
+    env:
+      ARM_CLIENT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientId }}
+      ARM_CLIENT_SECRET:   ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
+      ARM_SUBSCRIPTION_ID: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
+      ARM_TENANT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).tenantId }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        terraform_wrapper: false
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
 
-    - name: Terraform Init
-      run: terraform init
-      working-directory: DHSC.ANS.Infrastructure
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Terraform Init
+        run: terraform init
+        working-directory: DHSC.ANS.Infrastructure
 
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply -auto-approve
-      working-directory: DHSC.ANS.Infrastructure
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-        TF_VAR_x_api_key: ${{ secrets.X_API_KEY }}        
-        TF_VAR_web_password: ${{ vars.WEB_PASSWORD }}   
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: DHSC.ANS.Infrastructure
+        env:
+          TF_VAR_project_name: ${{ env.PROJECT_NAME }}
+          TF_VAR_environment:  ${{ env.ENVIRONMENT }}
+          TF_VAR_cost_centre:  ${{ env.COST_CENTRE }}
+          TF_VAR_department:   ${{ env.DEPARTMENT }}
+          TF_VAR_x_api_key:    ${{ secrets.X_API_KEY }}
+          TF_VAR_web_password: ${{ vars.WEB_PASSWORD }}
 
-    - name: Get App Names
-      id: get_app_name
-      run: |
-        web_app_name=$(terraform output -raw web_app_name)
-        service_app_name=$(terraform output -raw service_app_name)
-        echo "web_app_name=${web_app_name}" >> "$GITHUB_OUTPUT"
-        echo "service_app_name=${service_app_name}" >> "$GITHUB_OUTPUT"
-      working-directory: DHSC.ANS.Infrastructure
-      env:
-        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      - name: Capture outputs
+        id: outs
+        run: |
+          echo "web_app_name=$(terraform output -raw api_web_app_name)"          >> "$GITHUB_OUTPUT"
+          echo "service_app_name=$(terraform output -raw svc_web_app_name)"       >> "$GITHUB_OUTPUT"
+          echo "resource_group_name=$(terraform output -raw resource_group_name)" >> "$GITHUB_OUTPUT"
+        working-directory: DHSC.ANS.Infrastructure
 
   deploy-api:
     runs-on: ubuntu-latest
     needs: terraform
 
+    env:                                     # ARM_* available for az CLI
+      ARM_CLIENT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientId }}
+      ARM_CLIENT_SECRET:   ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
+      ARM_SUBSCRIPTION_ID: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
+      ARM_TENANT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).tenantId }}
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '9.0.x'
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
 
-    - name: Restore .NET local tools
-      run: dotnet tool restore
-      working-directory: DHSC.ANS.API.Consumer
+      - name: Build API
+        run: |
+          dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
+            -c Release -r linux-x64 --self-contained true -o published
 
-    - name: Publish API
-      run: |
-        dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
-          -c Release \
-          -r linux-x64 \
-          --self-contained true \
-          -o published
+      - name: Zip artefact
+        run: zip -r api.zip . -x '*.git*'
+        working-directory: published
 
-    - name: Zip API for Deployment
-      run: zip -r api.zip . -x '*.git*'
-      working-directory: published
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Install Azure CLI
-      run: |
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    - name: Azure CLI Login
-      run: |
-        az login --service-principal \
-          -u ${{ secrets.AZURE_CLIENT_ID }} \
-          -p ${{ secrets.AZURE_CLIENT_SECRET }} \
-          --tenant ${{ secrets.AZURE_TENANT_ID }}
-
-    - name: Deploy to API
-      run: |
-        az webapp deploy --resource-group rg-dhsc-ans-prd-uks-001 \
-          --name ${{ needs.terraform.outputs.web_app_name }} \
-          --src-path published/api.zip \
-          --type zip
+      - name: Deploy API
+        run: |
+          az webapp deploy \
+            --resource-group ${{ needs.terraform.outputs.resource_group_name }} \
+            --name          ${{ needs.terraform.outputs.web_app_name }} \
+            --src-path      published/api.zip \
+            --type          zip
 
   deploy-service:
-      runs-on: ubuntu-latest
-      needs: terraform
+    runs-on: ubuntu-latest
+    needs: terraform
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+    env:
+      ARM_CLIENT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientId }}
+      ARM_CLIENT_SECRET:   ${{ fromJSON(secrets.AZURE_CREDENTIALS).clientSecret }}
+      ARM_SUBSCRIPTION_ID: ${{ fromJSON(secrets.AZURE_CREDENTIALS).subscriptionId }}
+      ARM_TENANT_ID:       ${{ fromJSON(secrets.AZURE_CREDENTIALS).tenantId }}
 
-        - name: Install Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: '20'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-        - name: Zip frontend for deployment
-          run: |
-            cd DHSC.ANS.Service
-            npm ci
-            zip -r ../service.zip . -x "*.git*" -x "node_modules/*" -x "node_modules"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-        - name: Install Azure CLI
-          run: |
-            curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      - name: Build & zip service
+        run: |
+          cd DHSC.ANS.Service
+          npm ci
+          zip -r ../service.zip . -x "*.git*" -x "node_modules/*" -x "node_modules"
 
-        - name: Azure CLI Login
-          run: |
-            az login --service-principal \
-              -u ${{ secrets.AZURE_CLIENT_ID }} \
-              -p ${{ secrets.AZURE_CLIENT_SECRET }} \
-              --tenant ${{ secrets.AZURE_TENANT_ID }}
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: Deploy to Service App
-          run: |
-            az webapp deploy --resource-group rg-dhsc-ans-prd-uks-001 \
-              --name ${{ needs.terraform.outputs.service_app_name }} \
-              --src-path service.zip \
-              --type zip
+      - name: Deploy service
+        run: |
+          az webapp deploy \
+            --resource-group ${{ needs.terraform.outputs.resource_group_name }} \
+            --name          ${{ needs.terraform.outputs.service_app_name }} \
+            --src-path      service.zip \
+            --type          zip
