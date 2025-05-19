@@ -83,24 +83,22 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'
-          
+  
       - name: Install Swagger CLI
-        env:
-          PATH: ${{ env.PATH }}:${{ env.HOME }}/.dotnet/tools
         run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
-        
+  
+      - name: Add global tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+  
       - name: Build API
-        env:
-          PATH: ${{ env.PATH }}:${{ env.HOME }}/.dotnet/tools
         run: dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
-              -c Release -r linux-x64 --self-contained true -o published
-      
+             -c Release -r linux-x64 --self-contained true -o published
+  
       - name: Generate swagger.json
         run: |
           dotnet swagger tofile \
-            --output DHSC.ANS.API.Consumer/swagger.json \
+            --output published/swagger.json \
             published/DHSC.ANS.API.Consumer.dll v1
-
       - name: Zip artefact
         run: zip -r api.zip . -x '*.git*'
         working-directory: published
