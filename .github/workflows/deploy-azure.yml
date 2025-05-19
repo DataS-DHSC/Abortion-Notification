@@ -86,7 +86,10 @@ jobs:
 
       - name: Install Swashbuckle CLI
         run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
-        
+
+      - name: Add dotnet-tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> "$GITHUB_PATH"
+
       - name: Build API
         run: |
           dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
