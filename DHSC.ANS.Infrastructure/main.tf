@@ -24,7 +24,7 @@ terraform {
 locals {
   region_code   = "uks"      # CAF region code
   location_name = "UK South" # Azure location display name
-  instance      = "001"      # three-digit counter
+  instance      = "01"       # three-digit counter
 
   # Build-timestamp locked at first apply
   created_on = formatdate("2006-01-02", time_static.build.rfc3339)
@@ -184,7 +184,7 @@ resource "azurerm_key_vault_access_policy" "terraform_sp_kv_policy" {
 
 # ───────────────────────────  OUTPUTS  ────────────────────────
 # ───────────────────────────  OUTPUTS  ────────────────────────
-output "svc_web_app_name"       { value = azurerm_linux_web_app.services_ui_app.name }
-output "api_web_app_name"       { value = azurerm_linux_web_app.services_api_app.name }
-output "resource_group_name"    { value = azurerm_resource_group.services_api_rg.name }
+output "svc_web_app_name" { value = azurerm_linux_web_app.services_ui_app.name }
+output "api_web_app_name" { value = azurerm_linux_web_app.services_api_app.name }
+output "resource_group_name" { value = azurerm_resource_group.services_api_rg.name }
 
