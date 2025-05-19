@@ -48,7 +48,7 @@
 
   <Target Name="GenerateOpenApiSpec" AfterTargets="Build">
     <!-- Run Swagger to generate the OpenAPI spec as swagger.json -->
-    <Exec Command="dotnet swagger tofile --output $(ProjectDir)swagger.json $(TargetDir)DHSC.ANS.API.Consumer.dll v1" />
+    <!--<Exec Command="dotnet swagger tofile --output $(ProjectDir)swagger.json $(TargetDir)DHSC.ANS.API.Consumer.dll v1" />-->
   </Target>
 
 </Project>
