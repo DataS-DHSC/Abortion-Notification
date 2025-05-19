@@ -84,6 +84,9 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
+      - name: Install Swashbuckle CLI
+        run: dotnet tool install --global Swashbuckle.AspNetCore.Cli
+        
       - name: Build API
         run: |
           dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
