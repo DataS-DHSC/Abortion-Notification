@@ -2,6 +2,7 @@
 {% from "govuk/components/tag/macro.njk"    import govukTag    %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+
 {% block pageTitle %}Forms – Abortion Notification Service{% endblock %}
 
 {% block content %}
@@ -58,45 +59,50 @@
     </tbody>
   </table>
 
+  {# ---------------- Pagination (Design-System component) ---------------- #}
   {% if totalPages > 1 %}
-    {% if search %}
-      {% set qs = '&amp;q=' + (search | urlencode) %}
-    {% else %}
-      {% set qs = '' %}
+  
+    {# ---------- rebuild the query-string (everything except page) ---------- #}
+    {% set qs = '' %}
+    {% if search %}{% set qs = qs + '&q=' + (search | urlencode) %}{% endif %}
+    {% for c in selectedClin %}{% set qs = qs + '&clinic=' + (c | urlencode) %}{% endfor %}
+    {% for s in selectedStat %}{% set qs = qs + '&status=' + (s | urlencode) %}{% endfor %}
+  
+    {# ---------- previous / next link objects ---------- #}
+    {% set prevLink = false %}
+    {% if page > 1 %}
+      {% set prevLink = { href: '/forms?page=' + (page - 1) + qs } %}
     {% endif %}
-
-    <nav class="govuk-pagination" role="navigation" aria-label="results">
-      {% if page > 1 %}
-        <div class="govuk-pagination__prev">
-          <a class="govuk-link govuk-pagination__link"
-             href="/forms?page={{ page - 1 }}{{ qs }}" rel="prev">
-             Previous<span class="govuk-visually-hidden"> page</span>
-          </a>
-        </div>
-      {% endif %}
-
-      <ul class="govuk-pagination__list">
-        {% for n in range(1, totalPages + 1) %}
-          {% if n == page %}
-            <li class="govuk-pagination__item govuk-pagination__item--current">{{ n }}</li>
-          {% else %}
-            <li class="govuk-pagination__item">
-              <a class="govuk-link govuk-pagination__link"
-                 href="/forms?page={{ n }}{{ qs }}" aria-label="Page {{ n }}">{{ n }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-
-      {% if page < totalPages %}
-        <div class="govuk-pagination__next">
-          <a class="govuk-link govuk-pagination__link"
-             href="/forms?page={{ page + 1 }}{{ qs }}" rel="next">
-             Next<span class="govuk-visually-hidden"> page</span>
-          </a>
-        </div>
-      {% endif %}
-    </nav>
+  
+    {% set nextLink = false %}
+    {% if page < totalPages %}
+      {% set nextLink = { href: '/forms?page=' + (page + 1) + qs } %}
+    {% endif %}
+  
+    {# ---------- items array (choose the layout, then call macro) ---------- #}
+    {% if totalPages > 3 %}
+      {% set items = [
+        { number: 1,          current: (page == 1),          href: '/forms?page=1' + qs },
+        { number: 2,          current: (page == 2),          href: '/forms?page=2' + qs },
+        { ellipsis: true },
+        { number: totalPages, current: (page == totalPages), href: '/forms?page=' + totalPages + qs }
+      ] %}
+    {% else %}
+      {% set items = [
+        { number: 1, current: (page == 1), href: '/forms?page=1' + qs },
+        { number: 2, current: (page == 2), href: '/forms?page=2' + qs }
+      ] %}
+    {% endif %}
+  
+    {{ govukPagination({
+      previous: prevLink,
+      next: nextLink,
+      items: items
+    }) }}
+  
   {% endif %}
+  
+
+   
 
 {% endblock %}
