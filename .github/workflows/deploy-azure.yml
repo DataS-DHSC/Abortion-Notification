@@ -96,9 +96,10 @@ jobs:
   
       - name: Generate swagger.json
         run: |
-          dotnet swagger tofile \
-            --output published/swagger.json \
-            published/DHSC.ANS.API.Consumer.dll v1
+          swagger tofile \
+                --output published/swagger.json \
+                published/DHSC.ANS.API.Consumer.dll v1
+            
       - name: Zip artefact
         run: zip -r api.zip . -x '*.git*'
         working-directory: published
