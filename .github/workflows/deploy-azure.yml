@@ -132,7 +132,8 @@ jobs:
         run: |
           cd DHSC.ANS.Service
           npm ci
-          zip -r ../service.zip . -x "*.git*" -x "node_modules/*" -x "node_modules"
+          rm -f ../service.zip
+          zip -r ../service.zip . -x "*.tmp*"  -x "*build*" -x "*.git*" -x "node_modules/*" -x "node_modules"
 
       - name: Azure login
         uses: azure/login@v1
