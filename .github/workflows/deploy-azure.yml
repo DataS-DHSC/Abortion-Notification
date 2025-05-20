@@ -146,3 +146,4 @@ jobs:
             --name          ${{ needs.terraform.outputs.service_app_name }} \
             --src-path      service.zip \
             --type          zip
+            --timeout       600
