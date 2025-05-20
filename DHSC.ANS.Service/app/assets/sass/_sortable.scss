@@ -1,0 +1,7 @@
+/* in application.scss (or a <style> in your head) */
+.govuk-table__header a[aria-sort="asc"]::after {
+    content: " ▲";
+}
+.govuk-table__header a[aria-sort="desc"]::after {
+    content: " ▼";
+}

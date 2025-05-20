@@ -1,45 +1,157 @@
 {% extends "layouts/main.html" %}
 {% from "govuk/components/tag/macro.njk"    import govukTag    %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "moj/components/filter/macro.njk" import mojFilter -%}
+{%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{%- from "govuk/components/details/macro.njk" import govukDetails -%}
 
 {% block pageTitle %}Forms – Abortion Notification Service{% endblock %}
-
+    
 {% block content %}
 
-  {{ govukButton({
-    text: "Add a new form",
-    href: "/forms/new",
-    classes: "govuk-!-margin-bottom-6"
-  }) }}
+<form method="get" action="/forms">
+    {# keep pagination reset to page 1 whenever filters change #}
+    <input type="hidden" name="page" value="1">
 
-  <form method="get" class="govuk-!-margin-bottom-6">
-    <div class="govuk-form-group">
-      <label class="govuk-label" for="q">Find a form</label>
-      <span class="govuk-hint">Search by form ID, patient reference, clinic name or clinic number</span>
-      <input class="govuk-input" id="q" name="q" type="search" value="{{ search | escape }}" autocomplete="off">
-    </div>
-    {{ govukButton({ text: "Search" }) }}
+    {{ govukButton({
+        text: "Add a new form",
+        href: "/forms/new",
+        classes: "govuk-!-margin-bottom-6"
+    }) }}
+
+    {%- set filterOptionsHtml %}
+
+        {{ govukInput({
+            id:    "q",
+            name:  "q",
+            classes: "govuk-!-margin-bottom-3",
+            value: search,
+            label: {
+                text:    "Find a form",
+                classes: "govuk-label--m"
+            },
+            hint: {
+                text: "Search by form ID, patient reference, clinic name or clinic number"
+            }
+        }) }}
+
+        {{ govukDetails({
+            summaryText: "Clinic",
+            summaryClasses: "govuk-details__summary--m",
+            classes: "govuk-!-margin-bottom-3",
+            html: govukCheckboxes({
+              idPrefix: "clinic",
+              name:     "clinic",
+              classes:  "govuk-checkboxes--small",
+              fieldset: { legend: { text: "", classes: "" } }, 
+              items:    clinicItems
+            })
+          }) }}
+        
+          {{ govukDetails({
+            summaryText: "Form status",
+            summaryClasses: "govuk-details__summary--m",
+            classes: "govuk-!-margin-bottom-3",
+            html: govukCheckboxes({
+              idPrefix: "status",
+              name:     "status",
+              classes:  "govuk-checkboxes--small",
+              fieldset: { legend: { text: "", classes: "" } },
+              items:    statusItems
+            })
+          }) }}
+    {% endset -%}
+
+    {% if selectedClinItems.length or selectedStatItems.length %}
+        {{ mojFilter({
+        heading: { text: "Filter" },
+        submit:  { text: "Apply filters" },
+    
+        selectedFilters: {
+            heading:   { text: "Current filters" },
+            clearLink: { text: "Clear filters", href: "/forms" },
+            categories: [
+            { heading: { text: "Clinic"     }, items: selectedClinItems },
+            { heading: { text: "Form status" }, items: selectedStatItems }
+            ]
+        },
+    
+        optionsHtml: filterOptionsHtml
+        }) }}
+    {% else %}
+        {{ mojFilter({
+        heading:     { text: "Filter" },
+        submit:      { text: "Apply filters" },
+        optionsHtml: filterOptionsHtml
+        }) }}
+    {% endif %}
+      
   </form>
-
+  
+  <p class="govuk-body govuk-!-text-align-right govuk-!-margin-bottom-5 govuk-!-margin-top-3">
+    Showing <span class="govuk-!-font-weight-bold">{{ forms | length }}</span>
+    of <span class="govuk-!-font-weight-bold">{{ totalFiltered }}</span> forms
+  </p>
+  
+    
   <table class="govuk-table">
     <thead class="govuk-table__head">
-      <tr class="govuk-table__row">
-        <th scope="col" class="govuk-table__header">Date created</th>
-        <th scope="col" class="govuk-table__header">Form ID</th>
-        <th scope="col" class="govuk-table__header">Patient reference</th>
-        <th scope="col" class="govuk-table__header">Clinic</th>
-        <th scope="col" class="govuk-table__header">Form status</th>
-        <th scope="col" class="govuk-table__header">Actions</th>
-      </tr>
+        <tr class="govuk-table__row">
+    
+            {% macro sortLink(field, label) %}
+                {# are we currently sorting by this column? #}
+                {% set isCurrent = (sort == field) %}
+            
+                {# compute the next direction #}
+                {% if isCurrent and direction == 'asc' %}
+                    {% set nextDir = 'desc' %}
+                {% else %}
+                    {% set nextDir = 'asc' %}
+                {% endif %}
+            
+                <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline"
+                    href="/forms?page=1&sort={{ field }}&direction={{ nextDir }}{{ qs | safe }}"
+                    aria-sort="{{ 'none' if not isCurrent else direction }}">
+                    {{ label }}
+                </a>
+            {% endmacro %}
+          
+    
+            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
+                {{ sortLink('dateCreated', 'Date created') }}
+            </th>
+            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
+                {{ sortLink('formId', 'Form ID') }}
+            </th>
+            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
+                {{ sortLink('patientReference','Patient reference') }}
+            </th>
+            <th scope="col" class="govuk-table__header">
+                {{ sortLink('clinicName', 'Clinic') }}
+            </th>
+            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
+                {{ sortLink('formStatus', 'Form status') }}
+            </th>
+            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
+                Actions
+            </th>
+    
+        </tr>
     </thead>
+  
     <tbody class="govuk-table__body">
       {% for f in forms %}
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell">{{ f.dateCreated }}</td>
-          <td class="govuk-table__cell">{{ f.formId }}</td>
-          <td class="govuk-table__cell">{{ f.patientReference }}</td>
+          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.dateCreated }}</td>
+          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.formId }}</td>
+          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.patientReference }}</td>
+  
+          {# Clinic column may wrap #}
           <td class="govuk-table__cell">{{ f.clinicName }}</td>
-          <td class="govuk-table__cell">
+  
+          <td class="govuk-table__cell govuk-!-white-space-nowrap">
             {% if f.formStatus == 'SUBMITTED' %}
               {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--green' }) }}
             {% elif f.formStatus == 'RETURNED' %}
@@ -48,7 +160,8 @@
               {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--yellow' }) }}
             {% endif %}
           </td>
-          <td class="govuk-table__cell">
+  
+          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">
             <a class="govuk-link" href="/forms/{{ f.formId }}">Review</a>
             &nbsp;&nbsp;
             <a class="govuk-link" href="/forms/{{ f.formId }}/archive">Archive</a>
@@ -57,46 +170,9 @@
       {% endfor %}
     </tbody>
   </table>
+  
 
-  {% if totalPages > 1 %}
-    {% if search %}
-      {% set qs = '&amp;q=' + (search | urlencode) %}
-    {% else %}
-      {% set qs = '' %}
-    {% endif %}
-
-    <nav class="govuk-pagination" role="navigation" aria-label="results">
-      {% if page > 1 %}
-        <div class="govuk-pagination__prev">
-          <a class="govuk-link govuk-pagination__link"
-             href="/forms?page={{ page - 1 }}{{ qs }}" rel="prev">
-             Previous<span class="govuk-visually-hidden"> page</span>
-          </a>
-        </div>
-      {% endif %}
-
-      <ul class="govuk-pagination__list">
-        {% for n in range(1, totalPages + 1) %}
-          {% if n == page %}
-            <li class="govuk-pagination__item govuk-pagination__item--current">{{ n }}</li>
-          {% else %}
-            <li class="govuk-pagination__item">
-              <a class="govuk-link govuk-pagination__link"
-                 href="/forms?page={{ n }}{{ qs }}" aria-label="Page {{ n }}">{{ n }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-
-      {% if page < totalPages %}
-        <div class="govuk-pagination__next">
-          <a class="govuk-link govuk-pagination__link"
-             href="/forms?page={{ page + 1 }}{{ qs }}" rel="next">
-             Next<span class="govuk-visually-hidden"> page</span>
-          </a>
-        </div>
-      {% endif %}
-    </nav>
-  {% endif %}
+  {# ---------------- Pagination (Design-System component) ---------------- #}
+  {% if totalPages > 1 %}  {{ govukPagination(pagination) }}  {% endif %}
 
 {% endblock %}

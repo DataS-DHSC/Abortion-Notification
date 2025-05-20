@@ -145,5 +145,5 @@ jobs:
             --resource-group ${{ needs.terraform.outputs.resource_group_name }} \
             --name          ${{ needs.terraform.outputs.service_app_name }} \
             --src-path      service.zip \
-            --type          zip
+            --type          zip \
             --timeout       600
