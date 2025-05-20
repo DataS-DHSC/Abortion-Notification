@@ -1,8 +1,0 @@
-/* Show ▲/▼ after the link in the sorted column header */
-.govuk-table__header[aria-sort="ascending"] a::after {
-    content: " ▲";
-}
-  
-.govuk-table__header[aria-sort="descending"] a::after {
-    content: " ▼";
-}
