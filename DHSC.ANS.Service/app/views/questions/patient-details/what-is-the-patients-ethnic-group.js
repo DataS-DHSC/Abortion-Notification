@@ -3,13 +3,14 @@ exports.validate = function (session) {
     if (!value) {
       return [{
         field: 'patientInformation.ethnicGroup',
-        message: 'Select the patient’s ethnic group'
+        message: 'Select an ethnic group'
       }];
     }
     return [];
   };
   
-  exports.resolve = function () {
-    return '';
+  exports.resolve = function (session) {
+      console.log("RESOLVE")
+    return session.patientInformation?.ethnicGroup == 'white' ? 'what-is-the-patients-white-background' : '';
   };
   

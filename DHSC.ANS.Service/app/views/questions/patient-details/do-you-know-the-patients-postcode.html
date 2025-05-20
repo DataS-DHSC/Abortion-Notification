@@ -1,0 +1,77 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set currentPage = "do-you-know-the-patients-postcode" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set nextPage = "what-is-the-patients-ethnic-group" %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient's details" %}
+
+{% block form %}
+
+    {% set knownPostcodeError = null %}
+    {% set postcodeValueError = null %}
+
+    {% for e in errors %}
+        {% if e.field == "patientInformation.postcode.known" %}
+            {% set knownPostcodeError = e %}
+        {% elseif e.field == "patientInformation.address.postcode" %}
+            {% set postcodeValueError = e %}
+        {% endif %}
+    {% endfor %}
+
+    {% set postcodeHtml %}
+        {{ govukInput({
+            id: "postcode",
+            name: "patientInformation.address.postcode",
+            classes: "govuk-input--width-10",
+            label: {
+                text: "Enter the patient’s postcode",
+                classes: "govuk-label--m"
+            },
+            hint: {
+                text: "For example, AB1 2CD"
+            },
+            spellcheck: false,
+            autocomplete: "postal-code",
+            errorMessage: postcodeValueError and {
+                text: postcodeValueError.message
+            },
+            value: data["patientInformation.address.postcode"] or ""
+        }) }}
+    {% endset %}
+
+    {{ govukRadios({
+        name: "patientInformation.postcode.known",
+        fieldset: {
+            legend: {
+                text: "Do you know the patient’s postcode?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: knownPostcodeError and {
+            text: knownPostcodeError.message
+        },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("patientInformation.postcode.known", "yes"),
+                conditional: {
+                html: postcodeHtml
+            }
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("patientInformation.postcode.known", "no")
+            }
+        ]
+    }) }}
+
+{% endblock %}

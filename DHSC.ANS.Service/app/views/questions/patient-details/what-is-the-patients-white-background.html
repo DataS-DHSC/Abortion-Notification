@@ -1,9 +1,9 @@
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
+ {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% extends "../../layouts/question-page.html" %}
 
 {% set pageName = "Patient’s details" %}
-{% set nextPage = "" %}
+{% set nextPage = "what-is-the-patients-martial-status" %}
 {% set currentPage = "what-is-the-patients-white-background" %}
 {% set questionGroup = "patient-details" %}
 {% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
@@ -52,9 +52,6 @@
         value: "other-white",
         text: "Any other White background",
         checked: checked("patientInformation.ethnicGroupWhite", "other-white")
-      },
-      {
-        divider: "or"
       },
       {
         value: "not-known",
