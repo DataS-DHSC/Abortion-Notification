@@ -55,6 +55,6 @@ module.exports = {
   },
 
   resolve(sessionData) {
-    return 'what-is-the-patients-ethnic-group';
+    return sessionData?.patientInformation?.postcode?.known == 'yes' ? 'what-is-the-patients-ethnic-group' : 'what-is-the-patients-address';
   }
 };

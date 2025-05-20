@@ -12,9 +12,9 @@ exports.validate = function (session) {
     return errors;
 };
 
-exports.resolve = function (session) {
-    const maritalStatus = session.patientInformation?.maritalStatus;
-    
-    
-    return '';
-};
+// exports.resolve = function (session) {
+//     const maritalStatus = session.patientInformation?.maritalStatus;
+//    
+//    
+//     return '';
+// };

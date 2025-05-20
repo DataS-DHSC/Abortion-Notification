@@ -1,7 +1,7 @@
 function resolve(sessionData, formData) {
     const answer = sessionData?.patientInformation?.hospitalNumber?.known;
     if (answer === 'yes') return 'what-is-the-patients-date-of-birth';
-    if (answer === 'no') return 'do-you-know-the-place-number';
+    if (answer === 'no') return 'do-you-know-the-patients-nhs-number';
     return null;
 }
 
