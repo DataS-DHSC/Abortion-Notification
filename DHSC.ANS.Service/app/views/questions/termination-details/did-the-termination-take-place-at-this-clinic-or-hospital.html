@@ -1,0 +1,53 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{# ── Page variables ───────────────────────────────────────── #}
+{% set nextPage       = "" %}
+{% set currentPage    = "did-the-termination-take-place-at-this-clinic-or-hospital" %}
+{% set questionGroup  = "termination-details" %}
+{% set formAction     = "/questions/" + questionGroup + "/" + currentPage %}
+{% set questionNumber = 2 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle   = "Funding and method of termination" %}
+
+{% block form %}
+    {# Pull out any validation error for this field #}
+    {% set error = null %}
+    {% for e in errors %}
+        {% if e.field == "termination.location.atClinic" %}
+            {% set error = e %}
+        {% endif %}
+    {% endfor %}
+
+    <p class="govuk-body govuk-!-margin-bottom-2">
+        DHSC Test Hospital<br>
+        Victoria Street<br>
+        London<br>
+        L98WK
+    </p>
+
+    {{ govukRadios({
+        name: "termination.location.atClinic",
+        fieldset: {
+            legend: {
+                text: "Did the termination take place at this clinic or hospital?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: error and { text: error.message },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("termination.location.atClinic", "yes")
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("termination.location.atClinic", "no")
+            }
+        ]
+    }) }}
+{% endblock %}
