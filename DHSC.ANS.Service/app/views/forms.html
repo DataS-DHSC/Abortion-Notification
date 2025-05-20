@@ -60,49 +60,6 @@
   </table>
 
   {# ---------------- Pagination (Design-System component) ---------------- #}
-  {% if totalPages > 1 %}
-  
-    {# ---------- rebuild the query-string (everything except page) ---------- #}
-    {% set qs = '' %}
-    {% if search %}{% set qs = qs + '&q=' + (search | urlencode) %}{% endif %}
-    {% for c in selectedClin %}{% set qs = qs + '&clinic=' + (c | urlencode) %}{% endfor %}
-    {% for s in selectedStat %}{% set qs = qs + '&status=' + (s | urlencode) %}{% endfor %}
-  
-    {# ---------- previous / next link objects ---------- #}
-    {% set prevLink = false %}
-    {% if page > 1 %}
-      {% set prevLink = { href: '/forms?page=' + (page - 1) + qs } %}
-    {% endif %}
-  
-    {% set nextLink = false %}
-    {% if page < totalPages %}
-      {% set nextLink = { href: '/forms?page=' + (page + 1) + qs } %}
-    {% endif %}
-  
-    {# ---------- items array (choose the layout, then call macro) ---------- #}
-    {% if totalPages > 3 %}
-      {% set items = [
-        { number: 1,          current: (page == 1),          href: '/forms?page=1' + qs },
-        { number: 2,          current: (page == 2),          href: '/forms?page=2' + qs },
-        { ellipsis: true },
-        { number: totalPages, current: (page == totalPages), href: '/forms?page=' + totalPages + qs }
-      ] %}
-    {% else %}
-      {% set items = [
-        { number: 1, current: (page == 1), href: '/forms?page=1' + qs },
-        { number: 2, current: (page == 2), href: '/forms?page=2' + qs }
-      ] %}
-    {% endif %}
-  
-    {{ govukPagination({
-      previous: prevLink,
-      next: nextLink,
-      items: items
-    }) }}
-  
-  {% endif %}
-  
-
-   
+  {% if totalPages > 1 %}  {{ govukPagination(pagination) }}  {% endif %}
 
 {% endblock %}
