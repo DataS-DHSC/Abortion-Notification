@@ -1,0 +1,48 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set currentPage = "does-the-patient-live-in-another-country" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set nextPage = "practitioner-clinic-postcode" %}
+{% set questionNumber = 1 %}
+{% set totalQuestions = 9 %}
+{% set sectionTitle = "Patient's details" %}
+
+{% block form %}
+
+  {% set error = null %}
+  {% for e in errors %}
+    {% if e.field == "patientInformation.country.otherCountry" %}
+      {% set error = e %}
+    {% endif %}
+  {% endfor %}
+
+  {{ govukRadios({
+    name: "patientInformation.country.otherCountry",
+    fieldset: {
+      legend: {
+        text: "Does the patient live in another country?",
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    errorMessage: error and {
+      text: error.message
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes",
+        checked: checked("patientInformation.country.otherCountry", "yes")
+      },
+      {
+        value: "no",
+        text: "No",
+        checked: checked("patientInformation.country.otherCountry", "no")
+      }
+    ]
+  }) }}
+
+{% endblock %}
