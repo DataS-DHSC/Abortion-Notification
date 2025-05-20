@@ -8,15 +8,25 @@ const path              = require('path');
 const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
 const PAGE_SIZE = 15;
 
+const SORT_FIELDS = {
+    dateCreated:      'dateCreated',
+    formId:           'formId',
+    patientReference: 'patientReference',
+    clinicName:       'clinicName',
+    formStatus:       'formStatus'
+};
+
 /* ---------- GET /forms ---------- */
 router.get('/forms', (req, res) => {
-  /* raw query params ----------------------------------------------------- */
+  /* raw query params */
   const page         = parseInt(req.query.page, 10) || 1;
   const search       = (req.query.q || '').trim().toLowerCase();
-  const selectedClin = [].concat(req.query.clinic || []);
-  const selectedStat = [].concat(req.query.status || []);
-
-  /* look-ups for counts -------------------------------------------------- */
+  const rawClin  = [].concat(req.query.clinic  || []);
+  const rawStat  = [].concat(req.query.status  || []);
+  const selectedClin = rawClin .filter(v => v !== '_unchecked');
+  const selectedStat = rawStat .filter(v => v !== '_unchecked');
+        
+  /* counts */
   const clinicCounts = {};
   const statusCounts = {};
   FORMS.forEach(f => {
@@ -24,7 +34,7 @@ router.get('/forms', (req, res) => {
     statusCounts[f.formStatus] = (statusCounts[f.formStatus] || 0) + 1;
   });
 
-  /* apply filters -------------------------------------------------------- */
+  /* apply filters */
   let filtered = FORMS;
   if (search) {
     filtered = filtered.filter(f =>
@@ -36,28 +46,42 @@ router.get('/forms', (req, res) => {
   if (selectedClin.length) filtered = filtered.filter(f => selectedClin.includes(f.clinicName));
   if (selectedStat.length) filtered = filtered.filter(f => selectedStat.includes(f.formStatus));
 
-  /* pagination slice ----------------------------------------------------- */
+  /* sorting */
+  const sort      = SORT_FIELDS[req.query.sort] ? req.query.sort : 'formId';
+  const direction = req.query.direction === 'desc' ? 'desc' : 'asc';
+  filtered.sort((a, b) => {
+    let va = a[SORT_FIELDS[sort]];
+    let vb = b[SORT_FIELDS[sort]];
+    // For dates dd/mm/yyyy, parse to ISO
+    if (sort === 'dateCreated') {
+      const [da, ma, ya] = va.split('/'); va = new Date(`${ya}-${ma}-${da}`);
+      const [db, mb, yb] = vb.split('/'); vb = new Date(`${yb}-${mb}-${db}`);
+    }
+    if (va < vb) return direction === 'asc' ? -1 : 1;
+    if (va > vb) return direction === 'asc' ? 1  : -1;
+    return 0;
+  });
+
+  /* pagination slice */
   const totalFiltered = filtered.length;
   const totalPages    = Math.ceil(totalFiltered / PAGE_SIZE);
   const start         = (page - 1) * PAGE_SIZE;
   const pageItems     = filtered.slice(start, start + PAGE_SIZE);
 
-  /* build query-string suffix (everything except page) ------------------- */
+  /* query-string suffix (everything except page) */
   const qsParts = [];
   if (search) qsParts.push(`q=${encodeURIComponent(search)}`);
   selectedClin.forEach(c => qsParts.push(`clinic=${encodeURIComponent(c)}`));
   selectedStat.forEach(s => qsParts.push(`status=${encodeURIComponent(s)}`));
   const qs = qsParts.length ? `&${qsParts.join('&')}` : '';
 
-  /* pagination object for govukPagination -------------------------------- */
+  /* GOV.UK pagination object */
   function link(n) {
     return { number: n, current: n === page, href: `/forms?page=${n}${qs}` };
   }
-
   const items = [];
   if (totalPages >= 1) items.push(link(1));
   if (totalPages >= 2) items.push(link(2));
-
   if (totalPages > 3) {
     if (page > 2 && page < totalPages) {
       items.push({ ellipsis: true });
@@ -66,16 +90,37 @@ router.get('/forms', (req, res) => {
     if (page < totalPages - 1) items.push({ ellipsis: true });
     items.push(link(totalPages));
   }
-
   const pagination = {
     previous: page > 1         ? { href: `/forms?page=${page - 1}${qs}` } : false,
     next:     page < totalPages ? { href: `/forms?page=${page + 1}${qs}` } : false,
     items
   };
 
-  /* render --------------------------------------------------------------- */
+  /* -------- arrays for MOJ Filter component -------- */
+  const clinicItems = Object.keys(clinicCounts).sort().map(name => ({
+    text:    name,
+    value:   name,
+    checked: selectedClin.includes(name)
+  }));
+
+  const statusItems = Object.keys(statusCounts).sort().map(name => ({
+    text:    name[0].toUpperCase() + name.slice(1).toLowerCase(),
+    value:   name,
+    checked: selectedStat.includes(name)
+  }));
+
+  const selectedClinItems = selectedClin.map(c => ({
+     href: `/forms?clinic=${encodeURIComponent(c)}`,
+     text: c
+  }));
+
+  const selectedStatItems = selectedStat.map(s => ({
+     href: `/forms?status=${encodeURIComponent(s)}`,
+     text: s
+  }));
+
+  /* render */
   res.render('forms', {
-    /* table data */
     forms: pageItems,
 
     /* counts & filters */
@@ -83,13 +128,19 @@ router.get('/forms', (req, res) => {
     totalPages,
     totalFiltered,
     totalAll: FORMS.length,
-    search,
+    search, sort, direction,
     clinics:  Object.keys(clinicCounts).sort().map(n => ({ name: n, count: clinicCounts[n] })),
     statuses: Object.keys(statusCounts).sort().map(n => ({ name: n, count: statusCounts[n] })),
     selectedClin,
     selectedStat,
 
-    /* for govukPagination */
+    /* MOJ filter arrays */
+    clinicItems,
+    statusItems,
+    selectedClinItems,
+    selectedStatItems,
+
+    /* GOV.UK pagination */
     pagination
   });
 });

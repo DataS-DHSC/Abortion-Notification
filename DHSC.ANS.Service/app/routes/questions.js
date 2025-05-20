@@ -1,70 +1,114 @@
-// app/routes/questions.js
+// app/routes/forms.js
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router            = govukPrototypeKit.requests.setupRouter();
-const set               = require('lodash.set');
 const fs                = require('fs');
 const path              = require('path');
-const { parse }         = require('url');
 
-/* helper */
-function getBackLink(history) {
-  return history && history.length > 1 ? history[history.length - 2] : '/';
-}
+/* ---------- load data ---------- */
+const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
+const PAGE_SIZE = 15;
 
-/* ---------- QUESTIONS FLOW (unchanged) ---------- */
+/* ---------- GET /forms ---------- */
+router.get('/forms', (req, res) => {
+  /* raw query params ----------------------------------------------------- */
+  const page         = parseInt(req.query.page, 10) || 1;
+  const search       = (req.query.q || '').trim().toLowerCase();
+  const selectedClin = [].concat(req.query.clinic || []);
+  const selectedStat = [].concat(req.query.status || []);
 
-router.get('/questions/:group/:page', (req, res) => {
-  const { group, page } = req.params;
-  const currentPath     = `/questions/${group}/${page}`;
-  const referrerPath    = parse(req.get('Referer') || '').pathname;
-
-  req.session.data.history = req.session.data.history || [];
-  const history    = req.session.data.history;
-  const last       = history[history.length - 1];
-  const secondLast = history[history.length - 2];
-
-  if (referrerPath === last && currentPath === secondLast) {
-    history.pop();
-    history.pop();
-    history.push(currentPath);
-  } else if (last !== currentPath) {
-    history.push(currentPath);
-  }
-
-  const backLink = getBackLink(history);
-  res.render(`questions/${group}/${page}`, { backLink });
-});
-
-router.post('/questions/:group/:page', (req, res) => {
-  const { group, page } = req.params;
-  const META = ['currentPage', 'questionGroup', 'nextPage', 'backPage'];
-  const raw  = req.body;
-
-  const formData = {};
-  Object.entries(raw).forEach(([k, v]) => {
-    if (!META.includes(k)) set(formData, k, v);
+  /* look-ups for counts -------------------------------------------------- */
+  const clinicCounts = {};
+  const statusCounts = {};
+  FORMS.forEach(f => {
+    clinicCounts[f.clinicName] = (clinicCounts[f.clinicName] || 0) + 1;
+    statusCounts[f.formStatus] = (statusCounts[f.formStatus] || 0) + 1;
   });
 
-  req.session.data.formData = req.session.data.formData || {};
-  Object.entries(formData).forEach(([k, v]) => set(req.session.data.formData, k, v));
-
-  const pageJsPath = path.join(__dirname, `../views/questions/${group}/${page}.js`);
-  let nextPage = raw.nextPage;
-  let errors   = [];
-
-  if (fs.existsSync(pageJsPath)) {
-    const pageModule = require(pageJsPath);
-    if (typeof pageModule.validate === 'function') errors = pageModule.validate(req.session.data.formData, formData);
-    if (!errors.length && typeof pageModule.resolve === 'function') nextPage = pageModule.resolve(req.session.data.formData, formData);
+  /* apply filters -------------------------------------------------------- */
+  let filtered = FORMS;
+  if (search) {
+    filtered = filtered.filter(f =>
+      f.formId.toLowerCase().includes(search) ||
+      f.patientReference.includes(search)     ||
+      f.clinicName.toLowerCase().includes(search)
+    );
   }
+  if (selectedClin.length) filtered = filtered.filter(f => selectedClin.includes(f.clinicName));
+  if (selectedStat.length) filtered = filtered.filter(f => selectedStat.includes(f.formStatus));
 
-  const backLink = getBackLink(req.session.data.history);
+  /* pagination slice ----------------------------------------------------- */
+  const totalFiltered = filtered.length;
+  const totalPages    = Math.ceil(totalFiltered / PAGE_SIZE);
+  const start         = (page - 1) * PAGE_SIZE;
+  const pageItems     = filtered.slice(start, start + PAGE_SIZE);
 
-  if (errors.length) {
-    return res.render(`questions/${group}/${page}`, { errors, backLink });
+  /* build query-string suffix (everything except page) ------------------ */
+  const qsParts = [];
+  if (search) qsParts.push(`q=${encodeURIComponent(search)}`);
+  selectedClin.forEach(c => qsParts.push(`clinic=${encodeURIComponent(c)}`));
+  selectedStat.forEach(s => qsParts.push(`status=${encodeURIComponent(s)}`));
+  const qs = qsParts.length ? `&${qsParts.join('&')}` : '';
+
+  /* pagination object for govukPagination -------------------------------- */
+  function link(n) {
+    return { number: n, current: n === page, href: `/forms?page=${n}${qs}` };
   }
+  const items = [];
+  if (totalPages >= 1) items.push(link(1));
+  if (totalPages >= 2) items.push(link(2));
+  if (totalPages > 3) {
+    if (page > 2 && page < totalPages) {
+      items.push({ ellipsis: true });
+      items.push(link(page));
+    }
+    if (page < totalPages - 1) items.push({ ellipsis: true });
+    items.push(link(totalPages));
+  }
+  const pagination = {
+    previous: page > 1         ? { href: `/forms?page=${page - 1}${qs}` } : false,
+    next:     page < totalPages ? { href: `/forms?page=${page + 1}${qs}` } : false,
+    items
+  };
 
-  res.redirect(`/questions/${group}/${nextPage}`);
+  /* arrays for MOJ Filter macro ----------------------------------------- */
+  const clinicItems = Object.keys(clinicCounts).sort().map(name => ({
+    text:    name,
+    value:   name,
+    checked: selectedClin.includes(name)
+  }));
+  const statusItems = Object.keys(statusCounts).sort().map(name => ({
+    text:    name[0].toUpperCase() + name.slice(1).toLowerCase(),
+    value:   name,
+    checked: selectedStat.includes(name)
+  }));
+  const selectedItems = [];
+  selectedClin.forEach(c => selectedItems.push({ href: `/forms?clinic=${encodeURIComponent(c)}`,  text: c }));
+  selectedStat.forEach(s => selectedItems.push({ href: `/forms?status=${encodeURIComponent(s)}`, text: s }));
+  if (search) selectedItems.push({ href: `/forms?q=${encodeURIComponent(search)}`, text: `Search: “${search}”` });
+
+  /* render --------------------------------------------------------------- */
+  res.render('forms', {
+    forms: pageItems,
+
+    /* counts & filters */
+    page,
+    totalPages,
+    totalFiltered,
+    totalAll: FORMS.length,
+    search,
+    clinics:  Object.keys(clinicCounts).sort().map(n => ({ name: n, count: clinicCounts[n] })),
+    statuses: Object.keys(statusCounts).sort().map(n => ({ name: n, count: statusCounts[n] })),
+    selectedClin,
+    selectedStat,
+
+    /* MOJ filter arrays */
+    clinicItems,
+    statusItems,
+    selectedItems,
+
+    /* pagination for govukPagination */
+    pagination
+  });
 });
 
 module.exports = router;
