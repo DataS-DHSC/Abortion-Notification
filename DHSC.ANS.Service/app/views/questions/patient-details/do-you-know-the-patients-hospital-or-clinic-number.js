@@ -1,15 +1,12 @@
 function resolve(sessionData, formData) {
-    console.log("resolve");
     const answer = sessionData?.patientInformation?.hospitalNumber?.known;
-    if (answer === 'yes') return 'what-is-the-patients-hospital-number';
+    if (answer === 'yes') return 'what-is-the-patients-date-of-birth';
     if (answer === 'no') return 'do-you-know-the-place-number';
     return null;
 }
 
 function validate(sessionData, formData) {
     const errors = [];
-
-    console.log("validate");
     
     const value = formData?.patientInformation?.hospitalNumber?.known;
     if (!value) {

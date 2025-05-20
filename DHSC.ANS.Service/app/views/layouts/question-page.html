@@ -12,9 +12,15 @@
             href: backLink or "#"
           }) }}
       
-      <span class="govuk-caption-xl">Question {{ questionNumber }} of {{ totalQuestions }}</span>
-      <h1 class="govuk-heading-xl">{{ sectionTitle }}</h1>
+<!--      <span class="govuk-caption-xl">Question {{ questionNumber }} of {{ totalQuestions }}</span>-->
+<!--      <h1 class="govuk-heading-xl">{{ sectionTitle }}</h1>-->
 
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-hint govuk-hint--m">
+          Patient's Details
+        </label>
+      </h1>
+      
       <form method="post" action="{{ formAction }}">
         <input type="hidden" name="nextPage" value="{{ nextPage }}">
         <input type="hidden" name="currentPage" value="{{ currentPage }}">
