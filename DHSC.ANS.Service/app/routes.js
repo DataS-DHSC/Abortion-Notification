@@ -14,7 +14,7 @@ function getBackLink(history) {
 
 /* ---------- FORMS LIST ROUTE ---------- */
 
-const FORMS      = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
+const FORMS      = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/forms.json')));
 const PAGE_SIZE  = 15;
 
 router.get('/forms', (req, res) => {
