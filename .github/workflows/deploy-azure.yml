@@ -91,8 +91,6 @@ jobs:
           dotnet tool restore                           # finds .config/dotnet-tools.json here
           dotnet publish DHSC.ANS.API.Consumer.csproj \
                 -c Release -r linux-x64 --self-contained true -o ../published
-          swagger tofile --output ../published/swagger.json \
-                ../published/DHSC.ANS.API.Consumer.dll v1
                 
       - name: Zip artefact
         run: zip -r api.zip . -x '*.git*'
