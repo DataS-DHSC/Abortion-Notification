@@ -1,4 +1,5 @@
 // app/routes/forms.js
+
 const govukPrototypeKit = require('govuk-prototype-kit');
 const router            = govukPrototypeKit.requests.setupRouter();
 const fs                = require('fs');
@@ -9,11 +10,11 @@ const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms
 const PAGE_SIZE = 15;
 
 const SORT_FIELDS = {
-    dateCreated:      'dateCreated',
-    formId:           'formId',
-    patientReference: 'patientReference',
-    clinicName:       'clinicName',
-    formStatus:       'formStatus'
+  dateCreated:      'dateCreated',
+  formId:           'formId',
+  patientReference: 'patientReference',
+  clinicName:       'clinicName',
+  formStatus:       'formStatus'
 };
 
 /* ---------- GET /forms ---------- */
@@ -21,11 +22,11 @@ router.get('/forms', (req, res) => {
   /* raw query params */
   const page         = parseInt(req.query.page, 10) || 1;
   const search       = (req.query.q || '').trim().toLowerCase();
-  const rawClin  = [].concat(req.query.clinic  || []);
-  const rawStat  = [].concat(req.query.status  || []);
-  const selectedClin = rawClin .filter(v => v !== '_unchecked');
-  const selectedStat = rawStat .filter(v => v !== '_unchecked');
-        
+  const rawClin      = [].concat(req.query.clinic  || []);
+  const rawStat      = [].concat(req.query.status  || []);
+  const selectedClin = rawClin.filter(v => v !== '_unchecked');
+  const selectedStat = rawStat.filter(v => v !== '_unchecked');
+
   /* counts */
   const clinicCounts = {};
   const statusCounts = {};
@@ -47,15 +48,17 @@ router.get('/forms', (req, res) => {
   if (selectedStat.length) filtered = filtered.filter(f => selectedStat.includes(f.formStatus));
 
   /* sorting */
-  const sort      = SORT_FIELDS[req.query.sort] ? req.query.sort : 'formId';
-  const direction = req.query.direction === 'desc' ? 'desc' : 'asc';
+  const sort      = SORT_FIELDS[req.query.sort] ? req.query.sort : 'dateCreated';
+  const direction = req.query.direction === 'asc' ? 'asc' : 'desc';
   filtered.sort((a, b) => {
     let va = a[SORT_FIELDS[sort]];
     let vb = b[SORT_FIELDS[sort]];
     // For dates dd/mm/yyyy, parse to ISO
     if (sort === 'dateCreated') {
-      const [da, ma, ya] = va.split('/'); va = new Date(`${ya}-${ma}-${da}`);
-      const [db, mb, yb] = vb.split('/'); vb = new Date(`${yb}-${mb}-${db}`);
+      const [da, ma, ya] = va.split('/');
+      va = new Date(`${ya}-${ma}-${da}`);
+      const [db, mb, yb] = vb.split('/');
+      vb = new Date(`${yb}-${mb}-${db}`);
     }
     if (va < vb) return direction === 'asc' ? -1 : 1;
     if (va > vb) return direction === 'asc' ? 1  : -1;
@@ -68,24 +71,30 @@ router.get('/forms', (req, res) => {
   const start         = (page - 1) * PAGE_SIZE;
   const pageItems     = filtered.slice(start, start + PAGE_SIZE);
 
-  /* query-string suffix (everything except page) */
-  const qsParts = [];
-  if (search) qsParts.push(`q=${encodeURIComponent(search)}`);
-  selectedClin.forEach(c => qsParts.push(`clinic=${encodeURIComponent(c)}`));
-  selectedStat.forEach(s => qsParts.push(`status=${encodeURIComponent(s)}`));
+  /* query-string suffix (sort, direction, then filters) */
+  const qsParts = [
+    `sort=${sort}`,
+    `direction=${direction}`
+  ];
+  if (search)                            qsParts.push(`q=${encodeURIComponent(search)}`);
+  selectedClin.forEach(c =>             qsParts.push(`clinic=${encodeURIComponent(c)}`));
+  selectedStat.forEach(s =>             qsParts.push(`status=${encodeURIComponent(s)}`));
   const qs = qsParts.length ? `&${qsParts.join('&')}` : '';
 
   /* GOV.UK pagination object */
   function link(n) {
-    return { number: n, current: n === page, href: `/forms?page=${n}${qs}` };
+    return {
+      number:  n,
+      current: n === page,
+      href:    `/forms?page=${n}${qs}`
+    };
   }
   const items = [];
   if (totalPages >= 1) items.push(link(1));
   if (totalPages >= 2) items.push(link(2));
   if (totalPages > 3) {
     if (page > 2 && page < totalPages) {
-      items.push({ ellipsis: true });
-      items.push(link(page));
+      items.push({ ellipsis: true }, link(page));
     }
     if (page < totalPages - 1) items.push({ ellipsis: true });
     items.push(link(totalPages));
@@ -109,15 +118,42 @@ router.get('/forms', (req, res) => {
     checked: selectedStat.includes(name)
   }));
 
-  const selectedClinItems = selectedClin.map(c => ({
-     href: `/forms?clinic=${encodeURIComponent(c)}`,
-     text: c
-  }));
+  /* “remove this filter” links */
+  const selectedClinItems = selectedClin.map(c => {
+    const parts = [
+      `page=1`,
+      `sort=${sort}`,
+      `direction=${direction}`,
+      ...(search ? [`q=${encodeURIComponent(search)}`] : []),
+      // all other clinics
+      ...selectedClin.filter(x => x !== c)
+                   .map(x => `clinic=${encodeURIComponent(x)}`),
+      // all statuses
+      ...selectedStat.map(s => `status=${encodeURIComponent(s)}`)
+    ];
+    return {
+      href: `/forms?${parts.join('&')}`,
+      text: c
+    };
+  });
 
-  const selectedStatItems = selectedStat.map(s => ({
-     href: `/forms?status=${encodeURIComponent(s)}`,
-     text: s
-  }));
+  const selectedStatItems = selectedStat.map(s => {
+    const parts = [
+      `page=1`,
+      `sort=${sort}`,
+      `direction=${direction}`,
+      ...(search ? [`q=${encodeURIComponent(search)}`] : []),
+      // all clinics
+      ...selectedClin.map(c => `clinic=${encodeURIComponent(c)}`),
+      // all other statuses
+      ...selectedStat.filter(x => x !== s)
+                     .map(x => `status=${encodeURIComponent(x)}`)
+    ];
+    return {
+      href: `/forms?${parts.join('&')}`,
+      text: s
+    };
+  });
 
   /* render */
   res.render('forms', {

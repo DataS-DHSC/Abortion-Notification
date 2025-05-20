@@ -12,8 +12,11 @@
 {% block content %}
 
 <form method="get" action="/forms">
+    
     {# keep pagination reset to page 1 whenever filters change #}
     <input type="hidden" name="page" value="1">
+    <input type="hidden" name="sort"      value="{{ sort }}">
+    <input type="hidden" name="direction" value="{{ direction }}">
 
     {{ govukButton({
         text: "Add a new form",
@@ -42,42 +45,45 @@
             summaryClasses: "govuk-details__summary--m",
             classes: "govuk-!-margin-bottom-3",
             html: govukCheckboxes({
-              idPrefix: "clinic",
-              name:     "clinic",
-              classes:  "govuk-checkboxes--small",
-              fieldset: { legend: { text: "", classes: "" } }, 
-              items:    clinicItems
+                idPrefix: "clinic",
+                name:     "clinic",
+                classes:  "govuk-checkboxes--small",
+                fieldset: { legend: { text: "", classes: "" } }, 
+                items:    clinicItems
             })
-          }) }}
+            }) }}
         
-          {{ govukDetails({
+        {{ govukDetails({
             summaryText: "Form status",
             summaryClasses: "govuk-details__summary--m",
             classes: "govuk-!-margin-bottom-3",
             html: govukCheckboxes({
-              idPrefix: "status",
-              name:     "status",
-              classes:  "govuk-checkboxes--small",
-              fieldset: { legend: { text: "", classes: "" } },
-              items:    statusItems
+                idPrefix: "status",
+                name:     "status",
+                classes:  "govuk-checkboxes--small",
+                fieldset: { legend: { text: "", classes: "" } },
+                items:    statusItems
             })
-          }) }}
+        }) }}
     {% endset -%}
 
     {% if selectedClinItems.length or selectedStatItems.length %}
         {{ mojFilter({
         heading: { text: "Filter" },
         submit:  { text: "Apply filters" },
-    
+
         selectedFilters: {
             heading:   { text: "Current filters" },
-            clearLink: { text: "Clear filters", href: "/forms" },
+            clearLink: {
+                text: "Clear filters",
+                href: "/forms?page=1&sort=" ~ sort ~ "&direction=" ~ direction
+            },
             categories: [
-            { heading: { text: "Clinic"     }, items: selectedClinItems },
-            { heading: { text: "Form status" }, items: selectedStatItems }
+                { heading: { text: "Clinic"     }, items: selectedClinItems },
+                { heading: { text: "Form status" }, items: selectedStatItems }
             ]
         },
-    
+
         optionsHtml: filterOptionsHtml
         }) }}
     {% else %}
@@ -87,90 +93,105 @@
         optionsHtml: filterOptionsHtml
         }) }}
     {% endif %}
-      
-  </form>
-  
-  <p class="govuk-body govuk-!-text-align-right govuk-!-margin-bottom-5 govuk-!-margin-top-3">
+</form>
+
+<p class="govuk-body govuk-!-text-align-right govuk-!-margin-bottom-5 govuk-!-margin-top-3">
     Showing <span class="govuk-!-font-weight-bold">{{ forms | length }}</span>
     of <span class="govuk-!-font-weight-bold">{{ totalFiltered }}</span> forms
-  </p>
-  
+</p>
+
+{# build only the filters/search part of the querystring #}
+{% set filterQs = '' %}
+{% if search %}
+  {% set filterQs = filterQs + '&q=' + (search | urlencode) %}
+{% endif %}
+{% for c in selectedClin %}
+  {% set filterQs = filterQs + '&clinic=' + (c | urlencode) %}
+{% endfor %}
+{% for s in selectedStat %}
+  {% set filterQs = filterQs + '&status=' + (s | urlencode) %}
+{% endfor %}
+
     
-  <table class="govuk-table">
+{% macro sortableColumn(field, label, thClasses="govuk-!-white-space-nowrap no-wrap", qString="") %}
+    {% set isCurrent = (sort == field) %}
+    {% if isCurrent and direction == 'asc' %}
+    {% set nextDir = 'desc' %}
+    {% else %}
+    {% set nextDir = 'asc' %}
+    {% endif %}
+    <th
+    scope="col"
+    class="govuk-table__header {{ thClasses }}"
+    {% if isCurrent and direction == 'asc' %}
+        aria-sort="ascending"
+    {% elif isCurrent and direction == 'desc' %}
+        aria-sort="descending"
+    {% else %}
+        aria-sort="none"
+    {% endif %}
+    >
+    <a
+        class="govuk-link govuk-link--no-underline govuk-link--no-visited-state"
+        href="/forms?page=1&sort={{ field }}&direction={{ nextDir }}{{ qString }}"
+    >
+        {{ label }}
+    </a>
+    </th>
+{% endmacro %}
+
+<table class="govuk-table">
     <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-    
-            {% macro sortLink(field, label) %}
-                {# are we currently sorting by this column? #}
-                {% set isCurrent = (sort == field) %}
-            
-                {# compute the next direction #}
-                {% if isCurrent and direction == 'asc' %}
-                    {% set nextDir = 'desc' %}
-                {% else %}
-                    {% set nextDir = 'asc' %}
-                {% endif %}
-            
-                <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-                    href="/forms?page=1&sort={{ field }}&direction={{ nextDir }}{{ qs | safe }}"
-                    aria-sort="{{ 'none' if not isCurrent else direction }}">
-                    {{ label }}
-                </a>
-            {% endmacro %}
-          
-    
+            {{ sortableColumn("dateCreated",      "Date created",       "govuk-!-white-space-nowrap no-wrap", filterQs) }}
+            {{ sortableColumn("formId",           "Form ID",            "govuk-!-white-space-nowrap no-wrap", filterQs) }}
+            {{ sortableColumn("patientReference", "Patient reference",  "govuk-!-white-space-nowrap no-wrap", filterQs) }}
+            {{ sortableColumn("clinicName",       "Clinic",              "",                             filterQs) }}
+            {{ sortableColumn("formStatus",       "Form status",        "govuk-!-white-space-nowrap no-wrap", filterQs) }}
             <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
-                {{ sortLink('dateCreated', 'Date created') }}
+              Actions
             </th>
-            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
-                {{ sortLink('formId', 'Form ID') }}
-            </th>
-            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
-                {{ sortLink('patientReference','Patient reference') }}
-            </th>
-            <th scope="col" class="govuk-table__header">
-                {{ sortLink('clinicName', 'Clinic') }}
-            </th>
-            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
-                {{ sortLink('formStatus', 'Form status') }}
-            </th>
-            <th scope="col" class="govuk-table__header govuk-!-white-space-nowrap no-wrap">
-                Actions
-            </th>
-    
         </tr>
     </thead>
-  
+
     <tbody class="govuk-table__body">
-      {% for f in forms %}
+    {% for f in forms %}
         <tr class="govuk-table__row">
-          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.dateCreated }}</td>
-          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.formId }}</td>
-          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.patientReference }}</td>
-  
-          {# Clinic column may wrap #}
-          <td class="govuk-table__cell">{{ f.clinicName }}</td>
-  
-          <td class="govuk-table__cell govuk-!-white-space-nowrap">
-            {% if f.formStatus == 'SUBMITTED' %}
-              {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--green' }) }}
-            {% elif f.formStatus == 'RETURNED' %}
-              {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--red' }) }}
-            {% else %}
-              {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--yellow' }) }}
-            {% endif %}
-          </td>
-  
-          <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">
-            <a class="govuk-link" href="/forms/{{ f.formId }}">Review</a>
-            &nbsp;&nbsp;
-            <a class="govuk-link" href="/forms/{{ f.formId }}/archive">Archive</a>
-          </td>
+            <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.dateCreated }}</td>
+            <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.formId }}</td>
+            <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.patientReference }}</td>
+
+            {# Clinic column may wrap #}
+            <td class="govuk-table__cell">{{ f.clinicName }}</td>
+
+            <td class="govuk-table__cell govuk-!-white-space-nowrap">
+                {% if f.formStatus == 'SUBMITTED' %}
+                {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--green' }) }}
+                {% elif f.formStatus == 'RETURNED' %}
+                {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--red' }) }}
+                {% else %}
+                {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--yellow' }) }}
+                {% endif %}
+            </td>
+
+            <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">
+                {{ govukButton({
+                    text: "Review",
+                    href: "/forms/" ~ f.formId,
+                    classes: "govuk-button--secondary govuk-!-margin-right-2"
+                }) }}
+                
+                {{ govukButton({
+                    text: "Archive",
+                    href: "/forms/" ~ f.formId ~ "/archive",
+                    classes: "govuk-button--secondary"
+                }) }}
+            </td>
+          
         </tr>
-      {% endfor %}
+    {% endfor %}
     </tbody>
-  </table>
-  
+</table>
 
   {# ---------------- Pagination (Design-System component) ---------------- #}
   {% if totalPages > 1 %}  {{ govukPagination(pagination) }}  {% endif %}

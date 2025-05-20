@@ -1,7 +1,8 @@
-/* in application.scss (or a <style> in your head) */
-.govuk-table__header a[aria-sort="asc"]::after {
+/* Show ▲/▼ after the link in the sorted column header */
+.govuk-table__header[aria-sort="ascending"] a::after {
     content: " ▲";
 }
-.govuk-table__header a[aria-sort="desc"]::after {
+  
+.govuk-table__header[aria-sort="descending"] a::after {
     content: " ▼";
 }
