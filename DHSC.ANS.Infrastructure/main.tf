@@ -144,6 +144,8 @@ resource "azurerm_linux_web_app" "services_ui_app" {
     AppSettings__Auth__XApiKey            = "@Microsoft.KeyVault(SecretUri=${azurerm_key_vault_secret.x_api_key.id})"
     PASSWORD                              = var.web_password
     NODE_ENV                              = "production"
+
+    WEBSITE_RUN_FROM_PACKAGE = "1"
   }
 
   identity { type = "SystemAssigned" }
