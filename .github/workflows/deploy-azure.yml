@@ -84,11 +84,15 @@ jobs:
         with:
           dotnet-version: '9.0.x'
   
-      - name: Restore local tools and publish API
+      # ⬇︎ replace your current “Restore & Publish” step with this
+      - name: Restore tools, build, generate swagger
+        working-directory: DHSC.ANS.API.Consumer       # ← run inside the folder that HAS the manifest
         run: |
-          dotnet tool restore \
-            && dotnet publish DHSC.ANS.API.Consumer/DHSC.ANS.API.Consumer.csproj \
-                  -c Release -r linux-x64 --self-contained true -o published
+          dotnet tool restore                           # finds .config/dotnet-tools.json here
+          dotnet publish DHSC.ANS.API.Consumer.csproj \
+                -c Release -r linux-x64 --self-contained true -o ../published
+          swagger tofile --output ../published/swagger.json \
+                ../published/DHSC.ANS.API.Consumer.dll v1
                 
       - name: Zip artefact
         run: zip -r api.zip . -x '*.git*'
