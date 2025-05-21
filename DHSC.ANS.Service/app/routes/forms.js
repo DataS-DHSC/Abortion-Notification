@@ -4,6 +4,7 @@ const govukPrototypeKit = require('govuk-prototype-kit');
 const router            = govukPrototypeKit.requests.setupRouter();
 const fs                = require('fs');
 const path              = require('path');
+const qs                = require('querystring');
 
 /* ---------- load data ---------- */
 //const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
@@ -169,10 +170,20 @@ router.get('/forms', (req, res) => {
     ];
     return {
       href: `/forms?${parts.join('&')}`,
-      text: s, 
-      classes: "simon"
+      text: s
     };
   });
+
+  const filtersAndSort = [
+    `page=${page}`,
+    `sort=${sort}`,
+    `direction=${direction}`,
+    ...(search ? [`q=${encodeURIComponent(search)}`] : []),
+    // all clinics
+    ...selectedClin.map(c => `clinic=${encodeURIComponent(c)}`),
+    // all other statuses
+    ...selectedStat.map(x => `status=${encodeURIComponent(x)}`)
+]
 
   /* render */
   res.render('forms', {
@@ -188,6 +199,7 @@ router.get('/forms', (req, res) => {
     statuses: Object.keys(statusCounts).sort().map(n => ({ name: n, count: statusCounts[n] })),
     selectedClin,
     selectedStat,
+    filterAndSort: filtersAndSort.join('&'),
 
     /* MOJ filter arrays */
     clinicItems,
@@ -211,7 +223,8 @@ router.post('/forms/:formId/archive', (req, res) => {
     if (f) f.formStatus = "ARCHIVED";
   
     // redirect back to the listing (with whatever querystring you like)
-    res.redirect('/forms');
+    const redirectQs = qs.stringify(req.query);
+    res.redirect('/forms' + (redirectQs ? '?' + redirectQs : '') + `#${formId}`);
   });
 
 module.exports = router;
