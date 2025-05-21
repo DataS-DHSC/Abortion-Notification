@@ -1,0 +1,7 @@
+/* overrides the GOV.UK table word-wrap rule */
+.no-wrap {
+    white-space: nowrap !important;
+    overflow-wrap: normal !important; /* undo break-word */
+    word-break: normal !important;
+  }
+  
