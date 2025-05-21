@@ -1,0 +1,87 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set currentPage = "what-is-the-patients-martial-status" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+{% set nextPage = "has-the-patient-had-any-stillbirths-or-livebirths" %}
+{% set sectionTitle = "Patient's details" %}
+{% set questionNumber = 4 %}
+{% set totalQuestions = 9 %}
+
+{% block form %}
+
+    {% set error = null %}
+    {% for e in errors %}
+        {% if e.field == "patientInformation.maritalStatus" %}
+            {% set error = e %}
+        {% endif %}
+    {% endfor %}
+
+    {{ govukRadios({
+        name: "patientInformation.maritalStatus",
+        fieldset: {
+            legend: {
+                text: "What is the patient’s legal marital or registered civil partnership status?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: error and {
+            text: error.message
+        },
+        items: [
+            {
+                value: "single_with_no_partner",
+                text: "Single with no partner",
+                checked: checked("patientInformation.maritalStatus", "single_with_no_partner")
+            },
+            {
+                value: "single_do_not_know_if_partner",
+                text: "Single but do not know if they have a partner",
+                checked: checked("patientInformation.maritalStatus", "single_do_not_know_if_partner")
+            },
+            {
+                value: "in_relationship_not_married_civil_partnership",
+                text: "In a relationship but not married or in a civil partnership",
+                checked: checked("patientInformation.maritalStatus", "in_relationship_not_married_civil_partnership")
+            },
+            {
+                value: "married",
+                text: "Married",
+                checked: checked("patientInformation.maritalStatus", "married")
+            },
+            {
+                value: "in_civil_partnership",
+                text: "In a civil partnership",
+                checked: checked("patientInformation.maritalStatus", "in_civil_partnership")
+            },
+            {
+                value: "divorced",
+                text: "Divorced",
+                checked: checked("patientInformation.maritalStatus", "divorced")
+            },
+            {
+                value: "separated",
+                text: "Separated",
+                checked: checked("patientInformation.maritalStatus", "separated")
+            },
+            {
+                value: "widowed_or_surviving_partner",
+                text: "Widowed or surviving partner from a registered civil partnership",
+                checked: checked("patientInformation.maritalStatus", "widowed_or_surviving_partner")
+            },
+            {
+                divider: "or"
+            },
+            {
+                value: "not_known",
+                text: "Not known",
+                checked: checked("patientInformation.maritalStatus", "not_known")
+            }
+        ]
+    }) }}
+
+{% endblock %}

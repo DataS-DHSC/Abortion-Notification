@@ -11,6 +11,6 @@ exports.validate = function (session) {
 
 exports.resolve = function (session) {
   return session.patientInformation.livesInEnglandOrWales === 'yes'
-    ? 'what-is-the-patients-postcode'
-    : 'does-the-patient-live-in-another-country';
+    ? 'do-you-know-the-patients-postcode'
+    : 'which-country-does-the-patient-live-in';
 };

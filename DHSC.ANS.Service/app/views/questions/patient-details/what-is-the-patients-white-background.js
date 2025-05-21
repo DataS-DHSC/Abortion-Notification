@@ -3,13 +3,13 @@ exports.validate = function (session) {
     if (!value) {
       return [{
         field: 'patientInformation.ethnicGroupWhite',
-        message: 'Select the option that best describes the patient’s White background'
+        message: "Select the patient's background"
       }];
     }
     return [];
   };
   
-  exports.resolve = function () {
-    return '';
-  };
+  // exports.resolve = function () {
+  //   return '';
+  // };
   

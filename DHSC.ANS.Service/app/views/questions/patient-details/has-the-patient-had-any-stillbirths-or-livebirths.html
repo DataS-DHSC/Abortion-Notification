@@ -1,0 +1,183 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "../../layouts/question-page.html" %}
+
+{% set currentPage = "has-the-patient-had-any-stillbirths-or-livebirths" %}
+{% set backLink = "what-is-the-patients-martial-status" %}
+{% set questionGroup = "patient-details" %}
+{% set formAction = "/questions/" + questionGroup + "/" + currentPage %}
+
+{% set sectionTitle = "Patient's details" %}
+{% set questionNumber = 5 %}
+{% set totalQuestions = 9 %}
+
+{% block form %}
+
+    {% set stillbirthsKnownError = null %}
+    {% set stillbirthsNumberError = null %}
+    {% set miscarriagesKnownError = null %}
+    {% set miscarriagesNumberError = null %}
+    {% set abortionsKnownError = null %}
+    {% set abortionsNumberError = null %}
+
+    {% for e in errors %}
+        {% if e.field == "patientHistory.stillbirthsOrLivebirthsOver24Weeks.known" %}
+            {% set stillbirthsKnownError = e %}
+        {% elseif e.field == "patientHistory.stillbirthsOrLivebirthsOver24Weeks.number" %}
+            {% set stillbirthsNumberError = e %}
+        {% elseif e.field == "patientHistory.spontaneousMiscarriagesOrEctopic.known" %}
+            {% set miscarriagesKnownError = e %}
+        {% elseif e.field == "patientHistory.spontaneousMiscarriagesOrEctopic.number" %}
+            {% set miscarriagesNumberError = e %}
+        {% elseif e.field == "patientHistory.previousLegalAbortions.known" %}
+            {% set abortionsKnownError = e %}
+        {% elseif e.field == "patientHistory.previousLegalAbortions.number" %}
+            {% set abortionsNumberError = e %}
+        {% endif %}
+    {% endfor %}
+
+    {% set stillbirthsNumberHtml %}
+        {{ govukInput({
+            id: "stillbirths-number",
+            name: "patientHistory.stillbirthsOrLivebirthsOver24Weeks.number",
+            label: {
+                text: "Number of stillbirths or livebirths over 24 weeks",
+                classes: "govuk-label--s"
+            },
+            classes: "govuk-input--width-10",
+            type: "number",
+            inputmode: "numeric",
+            pattern: "[0-9]*",
+            errorMessage: stillbirthsNumberError and {
+                text: stillbirthsNumberError.message
+            },
+            value: data['patientHistory.stillbirthsOrLivebirthsOver24Weeks.number']
+        }) }}
+    {% endset %}
+
+    {{ govukRadios({
+        name: "patientHistory.stillbirthsOrLivebirthsOver24Weeks.known",
+        fieldset: {
+            legend: {
+                text: "Has the patient had any stillbirths or livebirths over 24 weeks?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+            }
+        },
+        errorMessage: stillbirthsKnownError and {
+            text: stillbirthsKnownError.message
+        },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("patientHistory.stillbirthsOrLivebirthsOver24Weeks.known", "yes"),
+                conditional: {
+                html: stillbirthsNumberHtml
+            }
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("patientHistory.stillbirthsOrLivebirthsOver24Weeks.known", "no")
+            }
+        ]
+    }) }}
+
+    {% set miscarriagesNumberHtml %}
+        {{ govukInput({
+            id: "miscarriages-number",
+            name: "patientHistory.spontaneousMiscarriagesOrEctopic.number",
+            label: {
+                text: "Number of spontaneous miscarriages and ectopic pregnancies",
+                classes: "govuk-label--s"
+            },
+            classes: "govuk-input--width-10",
+            type: "number",
+            inputmode: "numeric",
+            pattern: "[0-9]*",
+            errorMessage: miscarriagesNumberError and {
+                text: miscarriagesNumberError.message
+            },
+            value: data['patientHistory.spontaneousMiscarriagesOrEctopic.number']
+        }) }}
+    {% endset %}
+
+    {{ govukRadios({
+        name: "patientHistory.spontaneousMiscarriagesOrEctopic.known",
+        fieldset: {
+            legend: {
+                text: "Has the patient had any spontaneous miscarriages or ectopic pregnancies?",
+                classes: "govuk-fieldset__legend--l govuk-!-margin-top-7"
+            }
+        },
+        errorMessage: miscarriagesKnownError and {
+            text: miscarriagesKnownError.message
+        },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("patientHistory.spontaneousMiscarriagesOrEctopic.known", "yes"),
+                conditional: {
+                html: miscarriagesNumberHtml
+            }
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("patientHistory.spontaneousMiscarriagesOrEctopic.known", "no")
+            }
+        ]
+    }) }}
+
+    {% set abortionsNumberHtml %}
+        {{ govukInput({
+            id: "abortions-number",
+            name: "patientHistory.previousLegalAbortions.number",
+            label: {
+                text: "Number of legal abortions",
+                classes: "govuk-label--s"
+            },
+            classes: "govuk-input--width-10",
+            type: "number",
+            inputmode: "numeric",
+            pattern: "[0-9]*",
+            errorMessage: abortionsNumberError and {
+                text: abortionsNumberError.message
+            },
+            value: data['patientHistory.previousLegalAbortions.number']
+        }) }}
+    {% endset %}
+
+    {{ govukRadios({
+        name: "patientHistory.previousLegalAbortions.known",
+        fieldset: {
+            legend: {
+                text: "Has the patient had any legal abortions before?",
+                classes: "govuk-fieldset__legend--l govuk-!-margin-top-7"
+            }
+        },
+        errorMessage: abortionsKnownError and {
+            text: abortionsKnownError.message
+        },
+        items: [
+            {
+                value: "yes",
+                text: "Yes",
+                checked: checked("patientHistory.previousLegalAbortions.known", "yes"),
+                conditional: {
+                html: abortionsNumberHtml
+            }
+            },
+            {
+                value: "no",
+                text: "No",
+                checked: checked("patientHistory.previousLegalAbortions.known", "no")
+            }
+        ]
+    }) }}
+
+{% endblock %}
