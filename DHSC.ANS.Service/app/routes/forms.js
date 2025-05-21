@@ -6,8 +6,13 @@ const fs                = require('fs');
 const path              = require('path');
 
 /* ---------- load data ---------- */
-const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
+//const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
 const PAGE_SIZE = 15;
+
+const BASE_FORMS = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '../data/forms.json'))
+  );
+
 
 const SORT_FIELDS = {
   dateCreated:      'dateCreated',
@@ -17,8 +22,20 @@ const SORT_FIELDS = {
   formStatus:       'formStatus'
 };
 
+router.use('/forms', (req, res, next) => {
+    if (!req.session.data || !req.session.data.forms) {
+        // deep-clone so that changes to req.session.forms
+        // don’t accidentally change BASE_FORMS in memory
+        req.session.data.forms = JSON.parse(JSON.stringify(BASE_FORMS));
+    }
+    next();
+});
+
 /* ---------- GET /forms ---------- */
 router.get('/forms', (req, res) => {
+
+  const FORMS = req.session.data.forms;
+  
   /* raw query params */
   const page         = parseInt(req.query.page, 10) || 1;
   const search       = (req.query.q || '').trim().toLowerCase();
@@ -142,6 +159,7 @@ router.get('/forms', (req, res) => {
       `page=1`,
       `sort=${sort}`,
       `direction=${direction}`,
+      `remove=${s}`,
       ...(search ? [`q=${encodeURIComponent(search)}`] : []),
       // all clinics
       ...selectedClin.map(c => `clinic=${encodeURIComponent(c)}`),
@@ -151,7 +169,8 @@ router.get('/forms', (req, res) => {
     ];
     return {
       href: `/forms?${parts.join('&')}`,
-      text: s
+      text: s, 
+      classes: "simon"
     };
   });
 
@@ -180,5 +199,19 @@ router.get('/forms', (req, res) => {
     pagination
   });
 });
+
+// POST /forms/:id/status  — example “action” endpoint
+router.post('/forms/:formId/archive', (req, res) => {
+    const { formId } = req.params;
+    const { newStatus } = req.body;       
+    const forms = req.session.data.forms;
+  
+    // find and mutate
+    const f = forms.find(f => f.formId === formId);
+    if (f) f.formStatus = "ARCHIVED";
+  
+    // redirect back to the listing (with whatever querystring you like)
+    res.redirect('/forms');
+  });
 
 module.exports = router;

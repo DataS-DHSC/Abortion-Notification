@@ -1,0 +1,27 @@
+ 
+  /* Now hook into the moj-filter __tag links */
+.moj-filter__tag {
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+    margin-top: 0px !important;
+}
+
+.moj-filter__tag[href*="remove=SUBMITTED"] {
+    @extend .govuk-tag;
+    @extend .govuk-tag--green;
+}
+
+.moj-filter__tag[href*="remove=RETURNED"] {
+    @extend .govuk-tag;
+    @extend .govuk-tag--red;
+}
+
+.moj-filter__tag[href*="remove=INCOMPLETE"] {
+    @extend .govuk-tag;
+    @extend .govuk-tag--yellow;
+}
+
+.moj-filter__tag[href*="remove=ARCHIVED"] {
+    @extend .govuk-tag;
+    @extend .govuk-tag--blue;
+}
