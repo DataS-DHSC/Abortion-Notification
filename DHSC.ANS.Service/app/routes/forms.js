@@ -213,18 +213,22 @@ router.get('/forms', (req, res) => {
 });
 
 // POST /forms/:id/status  — example “action” endpoint
-router.post('/forms/:formId/archive', (req, res) => {
+router.post('/forms/:formId/archive', (req, res, next) => {
     const { formId } = req.params;
-    const { newStatus } = req.body;       
-    const forms = req.session.data.forms;
+    const forms = req.session.data?.forms || [];
+    const form = forms.find(f => f.formId === formId);
   
-    // find and mutate
-    const f = forms.find(f => f.formId === formId);
-    if (f) f.formStatus = "ARCHIVED";
-  
-    // redirect back to the listing (with whatever querystring you like)
-    const redirectQs = qs.stringify(req.query);
-    res.redirect('/forms' + (redirectQs ? '?' + redirectQs : '') + `#${formId}`);
+    if (form) {
+      form.formStatus = 'ARCHIVED';
+      req.session.save(err => {
+        if (err) return next(err);
+        const redirectQs = qs.stringify(req.query);
+        res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
+      });
+    } else {
+      const redirectQs = qs.stringify(req.query);
+      res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}`);
+    }
   });
 
 module.exports = router;
