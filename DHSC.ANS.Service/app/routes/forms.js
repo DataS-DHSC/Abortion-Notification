@@ -73,10 +73,16 @@ router.get('/forms', (req, res) => {
     let vb = b[SORT_FIELDS[sort]];
     // For dates dd/mm/yyyy, parse to ISO
     if (sort === 'dateCreated') {
-      const [da, ma, ya] = va.split('/');
-      va = new Date(`${ya}-${ma}-${da}`);
-      const [db, mb, yb] = vb.split('/');
-      vb = new Date(`${yb}-${mb}-${db}`);
+      if (typeof va === 'string' && typeof vb === 'string') {
+        const [da, ma, ya] = va.split('/');
+        va = new Date(`${ya}-${ma}-${da}`);
+        const [db, mb, yb] = vb.split('/');
+        vb = new Date(`${yb}-${mb}-${db}`);
+      } else {
+        // fallback if format is bad
+        va = new Date(0);
+        vb = new Date(0);
+      }
     }
     if (va < vb) return direction === 'asc' ? -1 : 1;
     if (va > vb) return direction === 'asc' ? 1  : -1;

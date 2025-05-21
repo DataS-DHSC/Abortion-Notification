@@ -58,8 +58,8 @@ function validate(_, formData) {
   return errors;
 }
 
-function resolve() {
-  return ''; // Replace with next page slug
-}
+// function resolve() {
+//   return ''; // Replace with next page slug
+// }
 
-module.exports = { validate, resolve };
+module.exports = { validate };

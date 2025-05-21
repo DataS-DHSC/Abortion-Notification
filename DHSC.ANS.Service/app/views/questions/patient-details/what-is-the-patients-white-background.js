@@ -9,7 +9,7 @@ exports.validate = function (session) {
     return [];
   };
   
-  exports.resolve = function () {
-    return '';
-  };
+  // exports.resolve = function () {
+  //   return '';
+  // };
   

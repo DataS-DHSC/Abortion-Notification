@@ -4,7 +4,7 @@ exports.validate = function (session) {
     const maritalStatus = session.patientInformation?.maritalStatus;
 
     if (!maritalStatus) {
-        errors.push({
+        errors.push({   
             field: 'patientInformation.maritalStatus',
             message: 'Select a marital or civil partnership status'
         });
