@@ -20,7 +20,7 @@
 
     {{ govukButton({
         text: "Add a new form",
-        href: "/questions/patient-details/do-you-know-the-patients-nhs-number",
+        href: "/questions/patient-details/do-you-know-the-patients-hospital-or-clinic-number",
         classes: "govuk-!-margin-bottom-6"
     }) }}
 
@@ -69,22 +69,22 @@
 
     {% if selectedClinItems.length or selectedStatItems.length %}
         {{ mojFilter({
-        heading: { text: "Filter" },
-        submit:  { text: "Apply filters" },
+            heading: { text: "Filter" },
+            submit:  { text: "Apply filters" },
 
-        selectedFilters: {
-            heading:   { text: "Current filters" },
-            clearLink: {
-                text: "Clear filters",
-                href: "/forms?page=1&sort=" ~ sort ~ "&direction=" ~ direction
+            selectedFilters: {
+                heading:   { text: "Current filters" },
+                clearLink: {
+                    text: "Clear filters",
+                    href: "/forms?page=1&sort=" ~ sort ~ "&direction=" ~ direction
+                },
+                categories: [
+                    { heading: { text: "Clinic"     }, items: selectedClinItems },
+                    { heading: { text: "Form status" }, items: selectedStatItems }
+                ]
             },
-            categories: [
-                { heading: { text: "Clinic"     }, items: selectedClinItems },
-                { heading: { text: "Form status" }, items: selectedStatItems }
-            ]
-        },
 
-        optionsHtml: filterOptionsHtml
+            optionsHtml: filterOptionsHtml
         }) }}
     {% else %}
         {{ mojFilter({
@@ -169,6 +169,8 @@
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--green' }) }}
                 {% elif f.formStatus == 'RETURNED' %}
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--red' }) }}
+                {% elif f.formStatus == 'ARCHIVED' %}
+                {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--blue' }) }}
                 {% else %}
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--yellow' }) }}
                 {% endif %}
@@ -181,11 +183,19 @@
                     classes: "govuk-button--secondary govuk-!-margin-right-2"
                 }) }}
                 
-                {{ govukButton({
-                    text: "Archive",
-                    href: "/forms/" ~ f.formId ~ "/archive",
-                    classes: "govuk-button--secondary"
-                }) }}
+                <form
+                    method="post"
+                    action="/forms/{{ f.formId }}/archive"
+                    style="display: inline;"               {# keep it on the same line as your other button #}
+                    >
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                    <button
+                        type="submit"
+                        class="govuk-button govuk-button--secondary"
+                    >
+                        Archive
+                    </button>
+                    </form>
             </td>
           
         </tr>
