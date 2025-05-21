@@ -25,3 +25,8 @@
     @extend .govuk-tag;
     @extend .govuk-tag--blue;
 }
+
+:target {
+    /* push the element down by half the viewport height */
+    scroll-margin-top: 50vh;
+}
