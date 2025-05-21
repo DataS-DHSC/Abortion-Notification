@@ -4,6 +4,7 @@ const govukPrototypeKit = require('govuk-prototype-kit');
 const router            = govukPrototypeKit.requests.setupRouter();
 const fs                = require('fs');
 const path              = require('path');
+const qs                = require('querystring');
 
 /* ---------- load data ---------- */
 //const FORMS     = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/forms.json')));
@@ -169,10 +170,20 @@ router.get('/forms', (req, res) => {
     ];
     return {
       href: `/forms?${parts.join('&')}`,
-      text: s, 
-      classes: "simon"
+      text: s
     };
   });
+
+  const filtersAndSort = [
+    `page=${page}`,
+    `sort=${sort}`,
+    `direction=${direction}`,
+    ...(search ? [`q=${encodeURIComponent(search)}`] : []),
+    // all clinics
+    ...selectedClin.map(c => `clinic=${encodeURIComponent(c)}`),
+    // all other statuses
+    ...selectedStat.map(x => `status=${encodeURIComponent(x)}`)
+]
 
   /* render */
   res.render('forms', {
@@ -188,6 +199,7 @@ router.get('/forms', (req, res) => {
     statuses: Object.keys(statusCounts).sort().map(n => ({ name: n, count: statusCounts[n] })),
     selectedClin,
     selectedStat,
+    filterAndSort: filtersAndSort.join('&'),
 
     /* MOJ filter arrays */
     clinicItems,
@@ -201,17 +213,22 @@ router.get('/forms', (req, res) => {
 });
 
 // POST /forms/:id/status  — example “action” endpoint
-router.post('/forms/:formId/archive', (req, res) => {
+router.post('/forms/:formId/archive', (req, res, next) => {
     const { formId } = req.params;
-    const { newStatus } = req.body;       
-    const forms = req.session.data.forms;
+    const forms = req.session.data?.forms || [];
+    const form = forms.find(f => f.formId === formId);
   
-    // find and mutate
-    const f = forms.find(f => f.formId === formId);
-    if (f) f.formStatus = "ARCHIVED";
-  
-    // redirect back to the listing (with whatever querystring you like)
-    res.redirect('/forms');
+    if (form) {
+      form.formStatus = 'ARCHIVED';
+      req.session.save(err => {
+        if (err) return next(err);
+        const redirectQs = qs.stringify(req.query);
+        res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
+      });
+    } else {
+      const redirectQs = qs.stringify(req.query);
+      res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}`);
+    }
   });
 
 module.exports = router;

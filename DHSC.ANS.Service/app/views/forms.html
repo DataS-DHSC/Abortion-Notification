@@ -156,7 +156,7 @@
 
     <tbody class="govuk-table__body">
     {% for f in forms %}
-        <tr class="govuk-table__row">
+        <tr class="govuk-table__row" id="{{ f.formId }}">
             <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.dateCreated }}</td>
             <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.formId }}</td>
             <td class="govuk-table__cell govuk-!-white-space-nowrap no-wrap">{{ f.patientReference }}</td>
@@ -185,7 +185,7 @@
                 
                 <form
                     method="post"
-                    action="/forms/{{ f.formId }}/archive"
+                    action="/forms/{{ f.formId }}/archive?{{filterAndSort}}"
                     style="display: inline;"               {# keep it on the same line as your other button #}
                     >
                     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
