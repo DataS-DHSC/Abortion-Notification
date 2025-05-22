@@ -95,12 +95,18 @@ router.get('/questions/:group/:page', (req, res) => {
           formStatus: "INCOMPLETE"
         });
 
-       res.redirect(`/forms`);
+        req.session.save(err => {
+            if (err) return next(err);
+            const redirectQs = qs.stringify(req.query);
+            res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
+        });
+
        return;
       }
     }
-
-  res.redirect(`/questions/${group}/${nextPage}`);
+    else {
+        res.redirect(`/questions/${group}/${nextPage}`);
+    }
 });
 
 module.exports = router;
