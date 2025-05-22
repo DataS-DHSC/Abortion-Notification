@@ -5,6 +5,7 @@ const set               = require('lodash.set');
 const fs                = require('fs');
 const path              = require('path');
 const { parse }         = require('url');
+const qs                = require('querystring');
 
 /* helper */
 function getBackLink(history) {
@@ -96,7 +97,9 @@ router.get('/questions/:group/:page', (req, res) => {
         });
 
         req.session.save(err => {
-            if (err) return next(err);
+            if (err) {
+              console.log(err)
+            } 
             const redirectQs = qs.stringify(req.query);
             res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
         });
