@@ -11,6 +11,6 @@ exports.validate = function (session) {
   
   exports.resolve = function (session) {
       console.log("RESOLVE")
-    return session.patientInformation?.ethnicGroup == 'white' ? 'what-is-the-patients-white-background' : '';
+    return session.patientInformation?.ethnicGroup == 'white' ? 'what-is-the-patients-white-background' : 'what-is-the-patients-marital-status';
   };
   
