@@ -33,4 +33,4 @@ fs.writeFileSync(
   JSON.stringify(forms, null, 2)
 );
 
-console.log(`✔  Generated ${forms.length} test records across ${CLINICS.length} clinics → app/data/forms.json`);
+console.log(`✔ Generated ${forms.length} test records across ${CLINICS.length} clinics → app/data/forms.json`);

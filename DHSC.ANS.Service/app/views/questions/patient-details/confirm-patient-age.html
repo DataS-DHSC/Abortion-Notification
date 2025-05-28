@@ -1,0 +1,39 @@
+{% from "moj/components/interruption-card/macro.njk" import interruptionCard %}
+
+{% extends "../../layouts/main.html" %}
+
+{% set currentPage = "confirm-patient-age" %}
+{% set questionGroup = "patient-details" %}
+{% set primaryActionHref = "/questions/" + questionGroup + "/" + (nextPageSlug | default('ERROR-nextPageSlug-missing')) %}
+{% set secondaryActionHref = "/questions/" + questionGroup + "/" + (backLinkTarget | default('what-is-the-patients-date-of-birth')) %}
+
+{% block content %}
+
+{{ govukBackLink({
+text: "Back",
+href: "what-is-the-patients-date-of-birth"
+}) }}
+
+
+    {% block form %}
+
+        {% call interruptionCard({
+            headingLevel: 1,
+            heading: "Is the patient " + (data.patientAge | default('AGE_MISSING')) + "?",
+            primaryAction: {
+                text: "Yes, this is correct",
+                href: primaryActionHref
+            },
+            secondaryAction: {
+                text: "Go back to patient date of birth",
+                href: secondaryActionHref
+            }
+        }) %}
+            <p class="govuk-body">You entered a date of birth that means the patient is <strong
+                        class="govuk-!-font-weight-bold">{{ data.patientAgeCalculated | default('UNKNOWN age') }} years
+                    old</strong>. You need to confirm that is correct.</p>
+            <p class="govuk-body">You can go back if you need to change the date of birth.</p>
+        {% endcall %}
+
+    {% endblock %}
+{% endblock %}
