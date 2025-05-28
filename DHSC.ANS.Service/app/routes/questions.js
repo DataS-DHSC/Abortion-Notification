@@ -7,13 +7,24 @@ const path              = require('path');
 const { parse }         = require('url');
 const qs                = require('querystring');
 
-/* helper */
+// Load BASE_FORMS data, similar to forms.js
+// Ensure the path to forms.json is correct relative to questions.js
+const FORMS_DATA_PATH = path.join(__dirname, '../data/forms.json');
+let BASE_FORMS_IN_QUESTIONS; // To avoid reading file on every request
+try {
+  // Read file synchronously at startup
+  BASE_FORMS_IN_QUESTIONS = JSON.parse(fs.readFileSync(FORMS_DATA_PATH, 'utf8'));
+} catch (err) {
+  console.error("CRITICAL ERROR: Could not read or parse forms.json in questions.js. Defaulting to empty forms list.", err);
+  BASE_FORMS_IN_QUESTIONS = []; // Default to an empty array if there's an error loading base forms
+}
+
+/* helper (unchanged) */
 function getBackLink(history) {
   return history && history.length > 1 ? history[history.length - 2] : '/';
 }
 
-/* ---------- QUESTIONS FLOW (unchanged) ---------- */
-
+/* ---------- QUESTIONS FLOW (GET part unchanged) ---------- */
 router.get('/questions/:group/:page', (req, res) => {
   const { group, page } = req.params;
   const currentPath     = `/questions/${group}/${page}`;
@@ -36,7 +47,7 @@ router.get('/questions/:group/:page', (req, res) => {
   res.render(`questions/${group}/${page}`, { backLink });
 });
 
-  router.post('/questions/:group/:page', (req, res) => {
+router.post('/questions/:group/:page', (req, res) => {
   const { group, page } = req.params;
   const META = ['currentPage', 'questionGroup', 'nextPage', 'backPage'];
   const raw  = req.body;
@@ -65,51 +76,66 @@ router.get('/questions/:group/:page', (req, res) => {
     return res.render(`questions/${group}/${page}`, { errors, backLink });
   }
 
-    console.log(page)
-   console.log(group)
+  // console.log(page) // Kept for your debugging
+  // console.log(group) // Kept for your debugging
 
+  if (page === 'has-the-patient-had-any-stillbirths-or-livebirths') {
+    // This block only runs if there were no validation errors from page.js
+    // (since the errors.length check above would have returned)
+    // console.log("NEW FORM TESTTTTTTT") // Kept for your debugging
 
-    //UPDATE
-    if (page === 'has-the-patient-had-any-stillbirths-or-livebirths') {
-      if (!errors.length) {
-        console.log("NEW FORM TESTTTTTTT")
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0'); // getMonth() is 0-indexed
+    const yy = now.getFullYear().toString().slice(-2);
+    const yearForDate = now.getFullYear(); // Use a distinct variable name for clarity
+    const rand = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
 
-        const now = new Date();
-        const dd = String(now.getDate()).padStart(2, '0');
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const yy = now.getFullYear().toString().slice(-2);
-        const yyyy = now.getFullYear();
-        const rand = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    const formId = `S${yy}${mm}-${rand}`;
+    // Corrected variable name for the year in formattedDate:
+    const formattedDate = `${dd}/${mm}/${yearForDate}`;
 
-        const formId = `S${yy}${mm}-${rand}`;
-        const formattedDate = `${dd}/${mm}/${yyyy}`; // dd/mm/yyyy
-        
-        console.log(formattedDate)
-        
-        // Add new form
-        req.session.data.forms = req.session.data.forms || [];
-        req.session.data.forms.push({
-          dateCreated: formattedDate  ,
-          formId: formId,
-          patientReference: "21323132232",
-          clinicName: "Harbourview Reproductive Health Clinic",
-          formStatus: "INCOMPLETE"
-        });
+    // console.log(formattedDate) // Kept for your debugging
 
-        req.session.save(err => {
-            if (err) {
-              console.log(err)
-            } 
-            const redirectQs = qs.stringify(req.query);
-            res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
-        });
+    // --- MODIFIED SECTION ---
+    // Ensure req.session.data.forms is initialized with BASE_FORMS if it's not already set.
+    // This logic mirrors the initialization in forms.js middleware.
+    if (!req.session.data.forms) { // Checks for undefined, null, "", 0, false, NaN
+      console.log("questions.js: Initializing req.session.data.forms from BASE_FORMS_IN_QUESTIONS");
+      // Deep clone to prevent modification of the loaded BASE_FORMS_IN_QUESTIONS object
+      req.session.data.forms = JSON.parse(JSON.stringify(BASE_FORMS_IN_QUESTIONS));
+    }
+    // --- END MODIFIED SECTION ---
 
-       return;
+    if (!req.session.data.forms) {
+      console.log("questions.js: Initializing req.session.data.forms from BASE_FORMS_IN_QUESTIONS");
+      req.session.data.forms = JSON.parse(JSON.stringify(BASE_FORMS_IN_QUESTIONS)); // Deep clone
+    }
+    
+    // Add new form
+    req.session.data.forms.push({
+      dateCreated: formattedDate,
+      formId: formId,
+      patientReference: "21323132232", // Consider making this dynamic
+      clinicName: "Harbourview Reproductive Health Clinic", // Consider making this dynamic
+      formStatus: "INCOMPLETE"
+    });
+
+    req.session.save(err => {
+      if (err) {
+        console.error("Error saving session in questions.js:", err); // Use console.error for errors
       }
-    }
-    else {
-        res.redirect(`/questions/${group}/${nextPage}`);
-    }
+      const redirectQs = qs.stringify(req.query);
+      // It's good practice to clear specific temporary form data from session after successful submission to avoid reuse
+      // For example: delete req.session.data.formData; (if formData is per-submission)
+      res.redirect(303, `/forms${redirectQs ? `?${redirectQs}` : ''}#${formId}`);
+    });
+
+    return; // Essential to prevent falling through to the next res.redirect
+  }
+  else { // This else is for when page !== 'has-the-patient-had-any-stillbirths-or-livebirths'
+    res.redirect(`/questions/${group}/${nextPage}`);
+  }
 });
 
 module.exports = router;
