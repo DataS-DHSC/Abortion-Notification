@@ -44,6 +44,46 @@ router.get('/questions/:group/:page', (req, res) => {
   }
 
   const backLink = getBackLink(history);
+
+  let templateToRender = `questions/${group}/${page}`;
+  let viewData = {
+    // Your existing common view data (e.g., backLink, currentPage, questionGroup, etc.)
+    backLink: getBackLink(req.session.data.history),
+    currentPage: page,
+    questionGroup: group,
+    // ... other common variables needed by your layout or page ...
+  };
+
+  // ---- START: New/Modified code within the GET handler for confirm-patient-age page ----
+  if (page === 'confirm-patient-age') {
+    const displayAge = req.session.patientDisplayAge;
+    const displayAgeString = req.session.patientDisplayAgeString;
+
+    if (typeof displayAge === 'undefined' || typeof displayAgeString === 'undefined') {
+      console.warn('Age data not found in session for confirm-patient-age page. Redirecting.');
+      // Optional: Clear potentially stale age data if you prefer
+      // delete req.session.patientDisplayAge;
+      // delete req.session.patientDisplayAgeString;
+      return res.redirect('/questions/patient-details/what-is-the-patients-date-of-birth'); // Or an error page
+    }
+
+    // Prepare the 'data' object for the Nunjucks template
+    viewData.data = {
+      patientAge: displayAge,           // e.g., "58"
+      patientAgeCalculated: displayAgeString // e.g., "58 years old"
+    };
+
+    // Add other specific variables needed by confirm-patient-age.njk,
+    // especially for the interruptionCard actions
+    viewData.nextPageSlug = "REPLACE_WITH_SLUG_AFTER_CONFIRMATION"; // For primary action
+    viewData.backLinkTarget = "what-is-the-patients-date-of-birth"; // For secondary action (back to DOB)
+    // Add any other variables your confirm-patient-age.njk (interruption card version) expects
+    // like sectionTitle, questionNumber (if used by the layout it extends)
+    viewData.sectionTitle = "Patient's details"; // As per your interruption card template
+
+  }
+  
+  
   res.render(`questions/${group}/${page}`, { backLink });
 });
 
@@ -76,6 +116,40 @@ router.post('/questions/:group/:page', (req, res) => {
     return res.render(`questions/${group}/${page}`, { errors, backLink });
   }
 
+  if (page === 'what-is-the-patients-date-of-birth' && !errors.length) { // Ensure this 'if' targets your DOB page
+    const dobData = formData.patientInformation?.dateOfBirth || {}; // Adjust path if needed
+    const day = parseInt(dobData.day, 10);
+    const month = parseInt(dobData.month, 10); // Month from form is 1-indexed
+    const year = parseInt(dobData.year, 10);
+
+    if (!isNaN(day) && !isNaN(month) && !isNaN(year)) { // Check if parsing was successful
+      const today = new Date();
+      const birthDate = new Date(year, month - 1, day); // JS Date month is 0-indexed
+
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDifference = today.getMonth() - birthDate.getMonth();
+      if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      // Store the calculated age and a display string in the session
+      req.session.patientDisplayAge = String(age); // e.g., "58"
+      req.session.patientDisplayAgeString = `${age} years old`; // e.g., "58 years old"
+      console.log(`Calculated age: ${age}, stored in session.`);
+    } else {
+      // Handle case where DOB parts are not valid numbers after validation somehow
+      // This should ideally be caught by validate, but as a fallback:
+      console.error('Error parsing DOB components in POST handler after validation.');
+      // Decide on fallback action, e.g., redirect to an error page or back to DOB form
+    }
+  }
+
+  req.session.save(err => {
+    if (err) {
+      console.error('Session save error before redirect:', err);
+      return next(err); // Pass error to an error handler
+    }
+  
   // console.log(page) // Kept for your debugging
   // console.log(group) // Kept for your debugging
 
