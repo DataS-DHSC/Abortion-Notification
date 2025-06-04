@@ -3,7 +3,7 @@ const fs   = require('fs');
 const path = require('path');
 
 const TOTAL_RECORDS = 150;
-const STATUSES      = Array(13).fill('INCOMPLETE').concat(['RETURNED', 'SUBMITTED']);
+const STATUSES      = Array(13).fill('Incomplete').concat(['Returned', 'Submitted']);
 const CLINICS       = [
   'Riverside Women’s Health Centre',
   'Northgate Reproductive Care Clinic',

@@ -180,7 +180,7 @@ router.post('/questions/:group/:page', (req, res, next) => { // Added 'next' for
       formId: formId,
       patientReference: "21323132232", // Consider making dynamic
       clinicName: "Harbourview Reproductive Health Clinic", // Consider making dynamic
-      formStatus: "INCOMPLETE"
+      formStatus: "Incomplete"
     });
 
     req.session.save(err => {

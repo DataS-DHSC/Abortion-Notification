@@ -1,6 +1,17 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
 
 {% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+  {% if errors and errors.length > 0 %}
+    Error – {% if pageName %}{{ pageName }} – {% endif %}{{ serviceName }} – GOV.UK
+  {% else %}
+    {% if pageName %}{{ pageName }} – {% endif %}{{ serviceName }} – GOV.UK
+  {% endif %}
+{% endblock %}
+
 
 {% block content %}
 
@@ -19,6 +30,24 @@
         <input type="hidden" name="currentPage" value="{{ currentPage }}">
         <input type="hidden" name="questionGroup" value="{{ questionGroup }}">
       
+        {% set errorSummaryList = [] %}
+
+        {% if errors and errors.length %}
+          {% for error in errors %}
+            {% if error and error.message %}
+              {% set errorSummaryList = errorSummaryList.concat([{
+                text: error.message,
+                href: "#" + (error.field | default('')) | replace(".", "-")
+              }]) %}
+            {% endif %}
+          {% endfor %}
+        
+          {{ govukErrorSummary({
+            titleText: "There is a problem",
+            errorList: errorSummaryList
+          }) }}
+        {% endif %}
+
         {% block form %}{% endblock %}
 
         <button type="submit" class="govuk-button" data-module="govuk-button">
