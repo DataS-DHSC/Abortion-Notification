@@ -6,6 +6,7 @@
 {% set questionGroup = "patient-details" %}
 {% set primaryActionHref = "/questions/" + questionGroup + "/" + (nextPageSlug | default('ERROR-nextPageSlug-missing')) %}
 {% set secondaryActionHref = "/questions/" + questionGroup + "/" + (backLinkTarget | default('what-is-the-patients-date-of-birth')) %}
+{% set pageName = "Confirm the patients age" %}
 
 {% block content %}
 

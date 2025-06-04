@@ -6,17 +6,17 @@
     margin-top: 0px !important;
 }
 
-.moj-filter__tag[href*="remove=SUBMITTED"] {
+.moj-filter__tag[href*="remove=Submitted"] {
     @extend .govuk-tag;
     @extend .govuk-tag--green;
 }
 
-.moj-filter__tag[href*="remove=RETURNED"] {
+.moj-filter__tag[href*="remove=Returned"] {
     @extend .govuk-tag;
     @extend .govuk-tag--red;
 }
 
-.moj-filter__tag[href*="remove=INCOMPLETE"] {
+.moj-filter__tag[href*="remove=Incomplete"] {
     @extend .govuk-tag;
     @extend .govuk-tag--yellow;
 }

@@ -165,9 +165,9 @@
             <td class="govuk-table__cell">{{ f.clinicName }}</td>
 
             <td class="govuk-table__cell govuk-!-white-space-nowrap">
-                {% if f.formStatus == 'SUBMITTED' %}
+                {% if f.formStatus == 'Submitted' %}
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--green' }) }}
-                {% elif f.formStatus == 'RETURNED' %}
+                {% elif f.formStatus == 'Returned' %}
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--red' }) }}
                 {% elif f.formStatus == 'ARCHIVED' %}
                 {{ govukTag({ text: f.formStatus, classes: 'govuk-tag--blue' }) }}
